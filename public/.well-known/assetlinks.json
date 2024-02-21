@@ -1,0 +1,14 @@
+[
+    {
+      "relation": [
+        "delegate_permission/common.handle_all_urls"
+      ],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.dritapp",
+        "sha256_cert_fingerprints": [
+          "E6:35:93:F3:30:FC:AD:6A:1D:7A:22:BB:41:52:D4:D7:A9:38:4F:8C:54:6C:3B:81:E0:8C:F6:04:9E:D6:D5:AB"
+        ]
+      }
+    }
+  ]
