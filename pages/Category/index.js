@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 
 
-import Mstyles from '/Styles/mainstyle.module.css'
+import Mstyles from '../../Styles/mainstyle.module.css'
 import CheckloginContext from '/context/auth/CheckloginContext'
 
 
