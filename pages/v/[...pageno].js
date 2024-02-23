@@ -2,19 +2,19 @@ import { useState, useEffect, useContext } from 'react';
 
 import Avatar from '@mui/material/Avatar';
 
-import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { Rating, RoundedStar } from '@smastrom/react-rating'
 import '@smastrom/react-rating/style.css';
-import { LuMapPin,LuCheckCheck  } from "react-icons/lu";
+import { LuMapPin, LuCheckCheck } from "react-icons/lu";
 import MobileFooter from '/src/components/Parts/Footers/MobileFooter'
 import VGmap from '../../src/components/Parts/VGmap'
-import IconButton from '@mui/material/IconButton';
+
 import { MediaFilesUrl, FeedimgFolder, MediaFilesFolder } from '/Data/config'
 import Mstyles from '/Styles/mainstyle.module.css'
 import CheckloginContext from '/context/auth/CheckloginContext'
 import VAllGalarylist from '../../src/components/Vendors/VAllGalarylist'
 import Nothingfound from '/src/components/Parts/Nothingfound'
 
+import VerifiedBadge from '../../src/components/Vendors/VerifiedBadge'
 import LoginBox from '../../src/components/Parts/LoginBox'
 import Head from 'next/head';
 import FeedbyVendor from '../components/List/FeedbyVendor'
@@ -25,7 +25,7 @@ import MainNavBar from '/src/components/Parts/Navbar/MainNavBar'
 import FollowBtn from '../../src/components/User/FollowBtn';
 import { FaFacebookMessenger } from "react-icons/fa6";
 import { useRouter, useParams } from 'next/router'
-import Tooltip from '@mui/material/Tooltip';
+
 import CircularProgress from '@mui/material/CircularProgress';
 export async function getServerSideProps(context) {
   const username = context.query.pageno[0];
@@ -325,14 +325,9 @@ function Home({ VData }) {
                           <span>{VData.VendorList[0].VD.name}</span>
                         </div>
                         <div className={Mstyles.NameboxB}>
-                          {VData.VendorList[0].VD.VendorData[0].Verified &&
-
-                            <Tooltip title="Accounts with a verified badge have been authenticated and can be FME Verified subscribers or notable persons or brands.">
-                              <IconButton>
-                                <RiVerifiedBadgeFill size={15} className={Mstyles.NameboxBIcon} />
-                              </IconButton>
-                            </Tooltip>
-                          }
+                          <div>
+                            <VerifiedBadge VData={VData.VendorList[0].VD} />
+                          </div>
 
 
                         </div>
@@ -396,15 +391,15 @@ function Home({ VData }) {
                   </div>
                   <div className={Mstyles.VpTagbox}>
                     <div className={Mstyles.VpTagboxA}>
-                      <LuCheckCheck  />
+                      <LuCheckCheck />
                     </div>
                     <div className={Mstyles.VpTagboxB}>
-                     {VData.VendorList[0].MainCat.title} {VData.VendorList[0].SubCat.title}
+                      {VData.VendorList[0].MainCat.title} {VData.VendorList[0].SubCat.title}
                     </div>
                   </div>
                 </div>
-               
-                
+
+
               </header>
             </aside>
 

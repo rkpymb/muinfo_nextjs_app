@@ -1,45 +1,51 @@
 import React, { useState, useEffect, useContext } from 'react';
-
-import { useRouter } from 'next/router'
-import Link from 'next/link';
-
+import { useRouter } from 'next/router';
 import Avatar from '@mui/material/Avatar';
-import CheckloginContext from '/context/auth/CheckloginContext'
-import { FiArrowRightCircle, FiMoreVertical, FiMessageCircle, FiHeart, FiShare2 } from "react-icons/fi";
-import Mstyles from '/Styles/mainstyle.module.css';
-import { MediaFilesUrl, MediaFilesFolder } from '/Data/config'
-import Skeleton from '@mui/material/Skeleton';
 import InfiniteScroll from 'react-infinite-scroll-component';
+
+import Mstyles from '/Styles/mainstyle.module.css';
+import { MediaFilesUrl, MediaFilesFolder } from '/Data/config';
+import CheckloginContext from '/context/auth/CheckloginContext';
+import CircularProgress from '@mui/material/CircularProgress';
+
+import ReportPost from '../../../pages/components/FeedVendor/ReportPost'
+
+import { LuTrash2, LuPencilLine, LuEye, LuChevronRight } from "react-icons/lu";
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+
 import RrqFooterbox from '../../../pages/components/Rfq/RrqFooterbox';
-
-
-import {
-
-    useTheme,
-
-} from '@mui/material';
-
+import { FiArrowRightCircle, FiMoreVertical, FiMessageCircle, FiHeart, FiShare2 } from "react-icons/fi";
 function Feedlist() {
-    const Contextdata = useContext(CheckloginContext)
-  
+    const Contextdata = useContext(CheckloginContext);
+    const router = useRouter();
     const [Retdata, setRetdata] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const router = useRouter()
+    const [anchorEl, setAnchorEl] = React.useState(null);
 
-    const [totalUsers, setTotalUsers] = useState(0);
-    const [size, setSize] = useState(5);
-    const [activePage, setActivePage] = useState(1);
+    const [limit, setlimit] = useState(3);
+
+    const [hasMore, setHasMore] = useState(true);
+    const [page, setPage] = useState(1);
 
 
-    const blurredImageData = 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88enTfwAJYwPNteQx0wAAAABJRU5ErkJggg==';
+
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     const GetData = async () => {
         setIsLoading(true)
 
         const sendUM = {
             JwtToken: Contextdata.VendorJwtToken,
-            size: size,
-            page: activePage
+            page: page,
+            limit: limit
 
         }
         const data = await fetch("/api/Vendor/RFQFeedlist", {
@@ -52,15 +58,20 @@ function Feedlist() {
             return a.json();
         })
             .then((parsed) => {
-                console.log(parsed.ReqData.FeedList)
 
-                setActivePage(activePage + 1);
-                setRetdata([...Retdata, ...parsed.ReqData.FeedList]);
-                setTotalUsers(parsed.ReqData.total)
-                setTimeout(function () {
-                    setIsLoading(false)
-                }, 1000);
+                if (parsed.ReqData.FeedList.length === 0) {
+                    setHasMore(false);
+                    setIsLoading(false);
+                } else {
+                    if (page === 1) {
+                        setRetdata([])
+                    }
 
+                    setRetdata(prevData => [...prevData, ...parsed.ReqData.FeedList]);
+                    setPage(page + 1)
+
+                    setIsLoading(false);
+                }
             })
     }
     useEffect(() => {
@@ -68,87 +79,120 @@ function Feedlist() {
 
     }, [router.query])
 
-    const theme = useTheme();
+    const loadMoreData = () => {
+        if (!isLoading) {
+            setIsLoading(true);
+            setTimeout(function () {
+                GetData();
+            }, 1000);
 
-    return (<>
+        }
+    };
+
+    return (
+        <>
+        <div className={Mstyles.Vtitlebox}>New Enquries</div>
         <InfiniteScroll
             dataLength={Retdata.length}
-            next={GetData}
-            hasMore={Retdata.length < totalUsers}
-            loader={<div> <Skeleton variant="text" sx={{ fontSize: '2rem', width: 100, margin: 10 }} /></div>}
+            next={loadMoreData}
+            hasMore={hasMore}
+            scrollThreshold={0.9}
+            loader={<div className={Mstyles.LoadingBox}><CircularProgress size={25} color="success" className={Mstyles.fadeinAnimation} /></div>}
             endMessage={
-                <p style={{ textAlign: 'center', marginTop: '10px' }}>
-                    <b>Yay! You have seen it all</b>
-                </p>
+                <div style={{ textAlign: 'center', margin: '50px', }} className={Mstyles.fadeinAnimation}>
+                    <b>Yay! You have seen it all 🎉</b>
+                </div>
             }
         >
             {Retdata.map((item, index) => {
-                return <div className={Mstyles.FeedItem} key={index} >
+                return <div className={Mstyles.Rfqitem} key={index} >
 
-                    <div className={Mstyles.FeedItemTop}>
+                    <div className={Mstyles.RfqItemTop}>
                         <div className={Mstyles.FeedItemTopA}>
                             <div className={Mstyles.FeedItemAvatar}>
-                                {isLoading ? <div className={Mstyles.CatGridItemA}>
-                                    <Skeleton variant="circular" width={40} height={40} />
-                                </div> : <Avatar
+                                <Avatar
                                     alt={item.UserData.name}
                                     src={`${MediaFilesUrl}${MediaFilesFolder}/${item.UserData.dp}`}
                                     sx={{ width: 40, height: 40 }}
-                                />}
+                                />
 
                             </div>
                             <div className={Mstyles.NametextboxText}>
                                 <div className={Mstyles.Nametextbox}>
-                                    {isLoading ? <div className={Mstyles.CatGridItemA}>
-                                        <Skeleton variant="text" sx={{ fontSize: '1rem', width: 100 }} />
-                                    </div> : <span>{item.UserData.name}  <small>@{item.UserData.username}</small></span>}
-
-
+                                    <span>{item.UserData.name} <small></small></span>
                                 </div>
                                 <div>
-
-                                    {isLoading ? <div className={Mstyles.CatGridItemA}>
-                                        <Skeleton variant="text" sx={{ fontSize: '1rem', width: 50 }} />
-                                    </div> : <small className={Mstyles.timetext}>{item.formattedDate}</small>}
+                                    <small className={Mstyles.timetext}>{item.formattedDate}</small>
                                 </div>
                             </div>
 
                         </div>
                         <div className={Mstyles.FeedItemTopB}>
-
-                            {isLoading ? <div className={Mstyles.CatGridItemA}>
-                                <Skeleton variant="text" sx={{ fontSize: '2rem', width: 10 }} />
-                            </div> : <div className={Mstyles.FeedItemMorebtn}>
-                                <FiMoreVertical size={20} />
-                            </div>}
+                            <div className={Mstyles.FeedItemMorebtn}>
+                                <FiMoreVertical size={20} onClick={handleClick} />
+                            </div>
 
                         </div>
+                        <Menu
+                                anchorEl={anchorEl}
+                                id="account-menu"
+                                open={open}
+                                onClose={handleClose}
 
+                                PaperProps={{
+                                    elevation: 0,
+                                    sx: {
+                                        overflow: 'visible',
+                                        filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                        mt: 1.5,
+                                        '& .MuiAvatar-root': {
+                                            width: 32,
+                                            height: 32,
+                                            ml: -0.5,
+                                            mr: 1,
+                                        },
+                                        '&::before': {
+                                            content: '""',
+                                            display: 'block',
+                                            position: 'absolute',
+                                            top: 0,
+                                            right: 14,
+                                            width: 10,
+                                            height: 10,
+                                            bgcolor: 'background.paper',
+                                            transform: 'translateY(-50%) rotate(45deg)',
+                                            zIndex: 0,
+                                        },
+                                    },
+                                }}
+                                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                            >
+                                  <ReportPost PostData={item} />
+
+
+
+
+                            </Menu>
                     </div>
+
+                 
                     <div className={Mstyles.FeedItemMedium}>
                         <div>
-                            {isLoading ? <div className={Mstyles.CatGridItemA}>
-                                <Skeleton variant="text" sx={{ fontSize: '1rem', width: 200 }} />
-                            </div> : <div> {item.PostData.PostText}</div>}
+                            <div> {item.PostData.PostText}</div>
 
                         </div>
 
                     </div>
 
-                    {isLoading ? <div className={Mstyles.CatGridItemA}>
-                        <Skeleton variant="text" sx={{ fontSize: '1rem', width: 100 }} />
-                    </div> : <div>  <RrqFooterbox PostData={item} /></div>}
-
-
-
-
+                    <RrqFooterbox PostData={item} />
                 </div>
 
             }
 
             )}
         </InfiniteScroll>
-    </>
+        </>
     );
 }
 

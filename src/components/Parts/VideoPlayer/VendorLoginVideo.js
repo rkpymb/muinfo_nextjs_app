@@ -53,7 +53,7 @@ const Video = () => {
                     <div>
                         <video muted autoPlay key={videoUrlData[currentVideoIndex].url}>
 
-                            <source src={`http://localhost:3001/Openendpoint/VideoStream/${videoUrlData[currentVideoIndex].url}`} type='video/mp4'></source>
+                            <source src={`http://localhost:3005/Openendpoint/VideoStream/${videoUrlData[currentVideoIndex].url}`} type='video/mp4'></source>
                             Your browser does not support the video tag.
                         </video>
                     </div>

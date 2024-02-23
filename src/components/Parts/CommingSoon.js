@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useRouter, useParams } from 'next/router'
 import CheckloginContext from '../../../context/auth/CheckloginContext'
-import Mstyles from '../../../Styles/home.module.css'
+import Mstyles from '../../../Styles/mainstyle.module.css'
 import Lottie from 'react-lottie'
 import Link from 'next/link';
 import {
@@ -38,16 +38,16 @@ const CommingSoon = (props) => {
                 </div>
                 <div>
                     <h1>Comming Soon</h1>
-                    
+
                 </div>
                 <div className={Mstyles.ATbtnsItem}>
                     <Link href='/' style={{ textDecoration: 'none' }}>
                         <Button variant="outlined">Go to Homepage</Button>
                     </Link>
-                    
+
                 </div>
             </div>
-           
+
         </div>
     )
 }

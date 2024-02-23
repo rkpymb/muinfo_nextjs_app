@@ -38,7 +38,7 @@ function Feedlist() {
             limit: limit
 
         }
-        const data = await fetch("/api/Vendor/VFeedlist", {
+        const data = await fetch("/api/Vendor/FeedlistV", {
             method: "POST",
             headers: {
                 'Content-type': 'application/json'
@@ -83,7 +83,7 @@ function Feedlist() {
     };
     
     return (<>
-  
+    
         <InfiniteScroll
             dataLength={Retdata.length}
             next={loadMoreData}

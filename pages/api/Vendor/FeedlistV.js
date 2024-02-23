@@ -7,14 +7,13 @@ export default function handler(req, res) {
         const headers = {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${req.body.JwtToken}`,
-
+          
         };
 
-        axios.post(`${process.env.API_URL}Users/VReviewslist`, {
+        axios.post(`${process.env.API_URL}Vendor/FeedlistV`, {
             token: process.env.MYKEY,
             page: req.body.page,
             limit: req.body.limit,
-            username: req.body.username,
 
         }, { headers }).then((response) => {
             res.status(200).json({ ReqData: response.data });

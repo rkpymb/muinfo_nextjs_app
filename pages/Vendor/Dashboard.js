@@ -12,7 +12,7 @@ import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { FiChevronRight, FiEdit } from 'react-icons/fi';
 import Input from '@mui/material/Input';
-import { LuClapperboard, LuFileImage, LuUserCog2, LuStar, LuListTodo, LuMessageCircle } from "react-icons/lu";
+import { LuClapperboard, LuFileImage, LuUserCog2, LuStar, LuListTodo, LuHeart } from "react-icons/lu";
 
 const ariaLabel = { 'aria-label': 'description' };
 
@@ -22,12 +22,15 @@ import { CiVideoOn, CiImageOn } from "react-icons/ci";
 import IconButton from '@mui/material/IconButton';
 import PostBox from '/src/components/Vendors/PostBox'
 import AddPhotos from '/src/components/Vendors/AddPhotos'
-import VFeedlist from '/src/components/Vendors/VFeedlist'
+import FeedlistV from '/src/components/Vendors/FeedlistV'
 import VGalarylist from '/src/components/Vendors/VGalarylist'
+import VReviewslist from '/src/components/Vendors/VReviewslist'
+import VFollowerslist from '/src/components/Vendors/VFollowerslist'
 import RFQFeedlist from '/src/components/Vendors/RFQFeedlist'
 import Avatar from '@mui/material/Avatar';
 import CheckloginContext from '/context/auth/CheckloginContext'
 import VendorDBNavbar from '/src/components/Parts/Navbar/VendorDBNavbar'
+import ClickCopyText from '/src/components/Parts/ClickCopyText'
 
 
 import Mstyles from '/Styles/mainstyle.module.css'
@@ -35,14 +38,12 @@ import Mstyles from '/Styles/mainstyle.module.css'
 import Head from 'next/head';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Feedlist from '../components/List/Feedlist'
 
-import VideoPlayer from '../components/Feed/VideoPlayer'
 
-import { MediaFilesUrl, MediaFilesFolder } from '/Data/config'
+import { MediaFilesUrl, MediaFilesFolder, DomainURL } from '/Data/config'
 import { useRouter, useParams } from 'next/router'
 
-
+import VerifiedBadge from '/src/components/Vendors/VerifiedBadge'
 
 
 function Overview() {
@@ -63,11 +64,31 @@ function Overview() {
     theme: "light",
   });
 
+
   useEffect(() => {
-    if (Contextdata.VendorLogin == true) {
-      setLoading(false)
+    console.log(Contextdata.VendorData)
+    CheckUSerLogin()
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+
+    if (Contextdata.VendorLogin) {
+      setLoading(false);
+      Contextdata.ChangeMainLoader(false)
+    }
+    const { Tabindex: urlTabindex } = router.query;
+    if (urlTabindex !== undefined) {
+      setTabindex(parseInt(urlTabindex));
     }
   }, [Contextdata.VendorLogin]);
+
+  const CheckUSerLogin = async () => {
+    if (localStorage.getItem('Token')) {
+    } else {
+      router.push('/Vendor/VendorLogin')
+    }
+  }
 
 
   const Switchtab = async (e) => {
@@ -83,21 +104,6 @@ function Overview() {
         <title>Flair My Event : Dashboard</title>
       </Head>
 
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-
-      <ToastContainer />
-
 
       {!Loading &&
 
@@ -107,27 +113,43 @@ function Overview() {
           <div>
             <div className={Mstyles.VendorHeadeBoxbgimg}>
               <div className={Mstyles.VendorHeadeBoxbgimgCover}>
-              <div className={Mstyles.Maindevider}></div>
+                <div style={{ height: '15px' }}></div>
                 <div className={Mstyles.VDTopbox}>
-                  
+
                   <div className={Mstyles.VDTopboxA}>
                     {Loading ?
                       <div>
                         <Skeleton variant="text" sx={{ fontSize: '1rem', width: '80%' }} />
                         <Skeleton variant="text" sx={{ fontSize: '1rem', width: '20%' }} />
                       </div> :
-                      <div className={Mstyles.VDBoxAName}>
-                        <span className={Mstyles.VendorNametext}>Hi 👋  <span className={Mstyles.Gredienttext}>{Contextdata.VendorData.name}</span></span>
+                      <div>
+                        <div className={Mstyles.Namebox}>
+                          <div className={Mstyles.NameboxA}>
+                            <span>{Contextdata.VendorData.name}</span>
+                          </div>
+                          <div className={Mstyles.NameboxB}>
+                            <VerifiedBadge VData={Contextdata.VendorData} />
+
+                          </div>
+                        </div>
+
+
+
+
+
                         <div className={Mstyles.UserNameBox}>
-                          <div className={Mstyles.UserNameBoxText}> <small>@{Contextdata.VendorData.username}</small></div>
-                          <div className={Mstyles.Copybox}><LuCopy /></div>
+                          <div className={Mstyles.UserNameBoxTextItem}>
+                            <small>{DomainURL}v/{Contextdata.VendorData.username}</small>
+                            <ClickCopyText CopyData={`${DomainURL}v/${Contextdata.VendorData.username}`} />
+                          </div>
+
                         </div>
                       </div>
 
                     }
                   </div>
                   <div className={Mstyles.VDTopboxB}>
-                    
+
                     {Loading ?
                       <div>
                         <Skeleton variant="text" sx={{ fontSize: '1rem', width: '80%' }} />
@@ -191,12 +213,12 @@ function Overview() {
                   </div>
 
                 </div>
-                <div className={Mstyles.Maindevider}></div>
+                <div style={{ height: '15px' }}></div>
               </div>
             </div>
 
 
-
+            <div style={{ height: '15px' }}></div>
 
             <div className={Mstyles.Vcontainer}>
               <div className={Mstyles.VPboxContainer}>
@@ -213,7 +235,7 @@ function Overview() {
                           </div>
                         </div>
                         <div className={Mstyles.VPboxAMenuItemB}>
-                          <span>RFQ Feeds</span>
+                          <span>RFQ Enquries</span>
                         </div>
                       </div>
                       <div className={Tabindex == 1 ? Mstyles.VPboxAMenuItemActive : Mstyles.VPboxAMenuItem} onClick={() => Switchtab(1)}>
@@ -225,7 +247,7 @@ function Overview() {
                           </div>
                         </div>
                         <div className={Mstyles.VPboxAMenuItemB}>
-                          <span> My Feed</span>
+                          <span>Feeds</span>
                         </div>
                       </div>
                       <div className={Tabindex == 2 ? Mstyles.VPboxAMenuItemActive : Mstyles.VPboxAMenuItem} onClick={() => Switchtab(2)}>
@@ -241,7 +263,7 @@ function Overview() {
                         </div>
                       </div>
 
-                      <div className={Tabindex == 4 ? Mstyles.VPboxAMenuItemActive : Mstyles.VPboxAMenuItem} onClick={() => Switchtab(4)}>
+                      <div className={Tabindex == 3 ? Mstyles.VPboxAMenuItemActive : Mstyles.VPboxAMenuItem} onClick={() => Switchtab(3)}>
                         <div className={Mstyles.VPboxAMenuItemA}>
 
                           <div className={Mstyles.DbIcon}>
@@ -253,16 +275,16 @@ function Overview() {
                           <span> Reviews</span>
                         </div>
                       </div>
-                      <div className={Tabindex == 5 ? Mstyles.VPboxAMenuItemActive : Mstyles.VPboxAMenuItem} onClick={() => Switchtab(5)}>
+                      <div className={Tabindex == 4 ? Mstyles.VPboxAMenuItemActive : Mstyles.VPboxAMenuItem} onClick={() => Switchtab(4)}>
                         <div className={Mstyles.VPboxAMenuItemA}>
 
                           <div className={Mstyles.DbIcon}>
-                            <LuMessageCircle size={20} />
+                            <LuHeart size={20} />
 
                           </div>
                         </div>
                         <div className={Mstyles.VPboxAMenuItemB}>
-                          <span>Inbox</span>
+                          <span>Followers</span>
                         </div>
                       </div>
                     </div>
@@ -289,7 +311,7 @@ function Overview() {
                       <div style={{ height: '50px' }}></div>
                       <div className={Mstyles.VTabItemVFeedlist}>
 
-                        <VFeedlist />
+                        <FeedlistV />
 
 
                       </div>
@@ -320,7 +342,7 @@ function Overview() {
 
                     <div className={Mstyles.VTabItem}>
                       <div className={Mstyles.VendorAsideboxmain}>
-                        <RFQFeedlist />
+                        <VReviewslist />
 
                       </div>
 
@@ -331,24 +353,13 @@ function Overview() {
 
                     <div className={Mstyles.VTabItem}>
                       <div className={Mstyles.VendorAsideboxmain}>
-                        <RFQFeedlist />
-
+                        <VFollowerslist />
                       </div>
 
 
                     </div>
                   }
-                  {Tabindex == 5 &&
 
-                    <div className={Mstyles.VTabItem}>
-                      <div className={Mstyles.VendorAsideboxmain}>
-                        <RFQFeedlist />
-
-                      </div>
-
-
-                    </div>
-                  }
 
 
 
@@ -409,7 +420,7 @@ function Overview() {
                   </div>
                 </div>
 
-                <div className={Tabindex == 4 ? Mstyles.VPboxAMenuItemActive : Mstyles.VPboxAMenuItem} onClick={() => Switchtab(4)}>
+                <div className={Tabindex == 3 ? Mstyles.VPboxAMenuItemActive : Mstyles.VPboxAMenuItem} onClick={() => Switchtab(3)}>
                   <div className={Mstyles.VPboxAMenuItemA}>
 
                     <div className={Mstyles.DbIcon}>
@@ -421,16 +432,16 @@ function Overview() {
                     <span> Reviews</span>
                   </div>
                 </div>
-                <div className={Tabindex == 5 ? Mstyles.VPboxAMenuItemActive : Mstyles.VPboxAMenuItem} onClick={() => Switchtab(5)}>
+                <div className={Tabindex == 4 ? Mstyles.VPboxAMenuItemActive : Mstyles.VPboxAMenuItem} onClick={() => Switchtab(4)}>
                   <div className={Mstyles.VPboxAMenuItemA}>
 
                     <div className={Mstyles.DbIcon}>
-                      <LuMessageCircle size={20} />
+                      <LuHeart size={20} />
 
                     </div>
                   </div>
                   <div className={Mstyles.VPboxAMenuItemB}>
-                    <span>Inbox</span>
+                    <span>Followers</span>
                   </div>
                 </div>
               </div>

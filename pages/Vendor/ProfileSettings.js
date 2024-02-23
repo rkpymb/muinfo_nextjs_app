@@ -1,116 +1,65 @@
-import React, { useState, useEffect, useContext } from 'react';
-
-
-const ariaLabel = { 'aria-label': 'description' };
-
-
-import EditProfileData from '/src/components/Vendors/EditProfileData'
-
-import CheckloginContext from '/context/auth/CheckloginContext'
-import VendorDBNavbar from '/src/components/Parts/Navbar/VendorDBNavbar'
-import VendorDBNavbarTitle from '/src/components/Parts/Navbar/VendorDBNavbarTitle'
+import { useState, useEffect, useContext } from 'react';
+import {
+  Typography,
+  Box,
+  Card,
+  Container,
+  Button,
+  styled
+} from '@mui/material';
 
 
 import Mstyles from '/Styles/mainstyle.module.css'
+import CheckloginContext from '/context/auth/CheckloginContext'
+import EditProfileData from '/src/components/Vendors/EditProfileData'
 
 import Head from 'next/head';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
+import VendorDBNavbar from '/src/components/Parts/Navbar/VendorDBNavbar'
 
+import NavbarTitle from '/src/components/Parts/Navbar/NavbarTitle'
+
+import { AppDesc, AppName } from '/Data/config'
 import { useRouter, useParams } from 'next/router'
 
-function Overview() {
-  const router = useRouter()
-  const [PTitle, setPTitle] = useState('Profile Settings');
-  const [Loading, setLoading] = useState(true);
-  const [Tabindex, setTabindex] = useState(0);
+function Home() {
   const Contextdata = useContext(CheckloginContext)
-  const blurredImageData = 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88enTfwAJYwPNteQx0wAAAABJRU5ErkJggg==';
-  const notify = (T) => toast(T, {
-    position: "top-center",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "light",
-  });
-
+  const [Loading, setLoading] = useState(true);
+  const [PTitle, setPTitle] = useState('Profile Settings');
   useEffect(() => {
-    if (Contextdata.VendorLogin == true) {
-      setLoading(false)
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+
+    if (Contextdata.VendorLogin) {
+      setLoading(false);
     }
-  }, [Contextdata.VendorLogin]);
-
-
-  const Switchtab = async (e) => {
-    setTabindex(e)
-    window.scrollTo(1, 0)
-
-  }
-
+  }, [Contextdata.UserData]);
   return (
-
-    <>
+    <div>
       <Head>
-        <title>Flair My Event : Dashboard</title>
+        <title>Edit Profile</title>
       </Head>
-
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-
-      <ToastContainer />
-
+      <VendorDBNavbar />
+      <div className={Mstyles.NavDevidevendor}></div>
+      <NavbarTitle Title={PTitle} />
 
       {!Loading &&
-
-
-        <div>
-          <VendorDBNavbar />
-          <div>
-            <div className={Mstyles.TopImgHeaderbox}>
-              <div className={Mstyles.TopImgHeaderboxCover}>
-                <div className={Mstyles.TopImgHeaderboxCoverInner}>
-                  <div className={Mstyles.Vtitlem}>
-                    <span>{PTitle}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <VendorDBNavbarTitle Title={PTitle} />
-
-            <div className={Mstyles.MainVContainer}>
-            <EditProfileData />
-              
-
-            </div>
-
-
-
-          </div>
-
+        <div className={Mstyles.MainVContainer}>
+          <EditProfileData />
 
 
         </div>
-
       }
 
-    </>
 
-  );
+
+
+
+
+    </div>
+  )
 }
 
-export default Overview;
-
+export default Home;

@@ -6,22 +6,20 @@ export default function handler(req, res) {
         // console.log(req.body.JwtToken)
         const headers = {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${req.body.JwtToken}`,
-
+           
         };
 
-        axios.post(`${process.env.API_URL}Users/VReviewslist`, {
+        axios.post(`${process.env.API_URL}Vendor/CheckVerified`, {
             token: process.env.MYKEY,
-            page: req.body.page,
-            limit: req.body.limit,
             username: req.body.username,
-
+            
+          
         }, { headers }).then((response) => {
             res.status(200).json({ ReqData: response.data });
 
         });
 
     } else {
-        res.status(200).json({ ReqS: ReqStatus });
+        res.status(200).json({ ReqData: false });
     }
 }

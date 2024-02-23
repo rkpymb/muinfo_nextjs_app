@@ -6,7 +6,7 @@ export default function handler(req, res) {
         // console.log(req.body.JwtToken)
         const headers = {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${req.body.JwtToken}`,
+          
         };
 
         axios.post(`${process.env.API_URL}Users/Cmtlist`, {

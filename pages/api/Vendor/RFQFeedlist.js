@@ -9,8 +9,9 @@ export default function handler(req, res) {
         };
 
         axios.post(`${process.env.API_URL}Vendor/RFQFeedlist`, { token: process.env.MYKEY,
-            size: req.body.size,
+            limit: req.body.limit,
             page:  req.body.page,
+           
         }, { headers }).then((response) => {
             res.status(200).json({ReqData: response.data });
             

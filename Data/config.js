@@ -1,5 +1,5 @@
 
-// export const MediaFilesUrl = 'http://localhost:3005/';
+// export const MediaFilesUrl = 'https://demo.flairmyevent.com/';
 export const MediaFilesUrl = 'https://demo.flairmyevent.com/';
 export const MediaFilesFolder = 'images'
 export const FeedimgFolder = 'Feedimg'
@@ -11,7 +11,7 @@ export const GoogleMapsAPI = 'AIzaSyCd2G5EyfBZtKccEVM24VNGHRm3r_4cOa0'
 export const API_URL = 'https://demo.flairmyevent.com/';
 export const AppName = 'Flair My Event';
 export const AppDesc = 'Innovative Best Education for a Smarter Tomorrow : Best Courses in india, Exam Ready Online Courses';
-export const DomainURL = 'http://localhost:3000/';
+export const DomainURL = 'https://newapp.flairmyevent.com/';
 export const CryptoJSKEY = 'XYZ';
 
 export const MYKEY = '86afb51e932292b013a62196f4181f6e'

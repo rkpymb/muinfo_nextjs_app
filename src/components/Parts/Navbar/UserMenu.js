@@ -4,7 +4,7 @@ import CheckloginContext from '/context/auth/CheckloginContext'
 import Mstyles from '/Styles/mainstyle.module.css'
 import IconButton from '@mui/material/IconButton';
 import { Router } from 'next/router';
-import { LuHome, LuListOrdered, LuListPlus, LuHeart, LuChevronRight, LuSettings, LuUserCog2, LuShoppingCart, LuSparkles, LuLineChart, LuX, LuLogOut } from "react-icons/lu";
+import { LuHome, LuListOrdered, LuListPlus, LuHeart, LuChevronRight, LuSettings, LuUserCog2, LuClipboardList, LuSparkles, LuLineChart, LuX, LuLogOut } from "react-icons/lu";
 import { MediaFilesUrl, MediaFilesFolder } from '/Data/config'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -129,7 +129,7 @@ const MainNavBar = () => {
                             <div className={Mstyles.VmenuItemA}>
 
                                 <div className={Mstyles.DbIcon}>
-                                    <LuShoppingCart size={20} />
+                                    <LuClipboardList size={20} />
 
                                 </div>
 

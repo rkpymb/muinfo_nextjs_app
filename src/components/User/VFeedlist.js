@@ -10,9 +10,9 @@ import Mstyles from '/Styles/mainstyle.module.css';
 import { MediaFilesUrl, MediaFilesFolder } from '/Data/config'
 import Skeleton from '@mui/material/Skeleton';
 
-import FeedFooterbox from '../../../pages/components/Feed/FeedFooterbox';
-import FeedTopbox from '../../../pages/components/Feed/FeedTopbox';
-import FeedContentBox from '../../../pages/components/Feed/FeedContentBox';
+import FeedFooterbox from '../../../pages/components/FeedUser/FeedFooterbox';
+import FeedTopbox from '../../../pages/components/FeedUser/FeedTopbox';
+import FeedContentBox from '../../../pages/components/FeedUser/FeedContentBox';
 
 import {
 

@@ -41,10 +41,10 @@ const FeedFooterbox = ({ PostData }) => {
 
     const MyLikeData = async () => {
         const sendUM = {
-            JwtToken: Contextdata.UserJwtToken,
+            JwtToken: Contextdata.VendorJwtToken,
             PostData: PostData.PostData
         }
-        const data = await fetch("/api/User/MyLikeData", {
+        const data = await fetch("/api/Vendor/MyLikeData", {
             method: "POST",
             headers: {
                 'Content-type': 'application/json'
@@ -79,10 +79,10 @@ const FeedFooterbox = ({ PostData }) => {
 
     const LikePost = async () => {
         const sendUM = {
-            JwtToken: Contextdata.UserJwtToken,
+            JwtToken: Contextdata.VendorJwtToken,
             PostData: PostData.PostData
         }
-        const data = await fetch("/api/User/LikePost", {
+        const data = await fetch("/api/Vendor/LikePost", {
             method: "POST",
             headers: {
                 'Content-type': 'application/json'
