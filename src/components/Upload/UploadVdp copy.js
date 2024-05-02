@@ -6,7 +6,7 @@ import { useDropzone } from 'react-dropzone';
 import Badge from '@mui/material/Badge';
 import { FiEdit, FiChevronLeft } from "react-icons/fi";
 import CheckloginContext from '/context/auth/CheckloginContext'
-import Mstyles from '/Styles/mainstyle.module.css'
+import Mstyles from '/styles/mainstyle.module.css'
 import { MediaFilesUrl, MediaFilesFolder } from '/Data/config'
 
 import {

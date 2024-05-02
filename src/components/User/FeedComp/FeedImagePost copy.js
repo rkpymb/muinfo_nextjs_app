@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Image from 'next/image';
 import { MediaFilesUrl, MediaFilesFolder, FeedimgFolder } from '/Data/config';
-import Mstyles from '/Styles/mainstyle.module.css';
+import Mstyles from '/styles/mainstyle.module.css';
 import { useRouter } from 'next/router';
 
 const FeedImgPost = ({ PostData }) => {
@@ -14,7 +14,7 @@ const FeedImgPost = ({ PostData }) => {
     }, [router.query]);
 
     return (
-        <div>
+        <div className={Mstyles.Mimgfeed}>
             <div className={Mstyles.FeedMediaImgbox}>
                 <Image
                     src={`${MediaFilesUrl}${FeedimgFolder}/${Imgurl}`}
@@ -22,15 +22,12 @@ const FeedImgPost = ({ PostData }) => {
                     placeholder="blur"
                     blurDataURL={blurredImageData}
                     layout='responsive'
-                    quality={60}
+                    quality={100}
                     loading="lazy"
                     width={0}
                     height={0}
-                    style={{ objectFit: "cover" }}
+                   
                 />
-
-
-
             </div>
 
         </div>

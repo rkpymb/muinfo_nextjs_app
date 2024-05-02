@@ -4,7 +4,7 @@ import CheckloginContext from '/context/auth/CheckloginContext'
 import { useRouter, useParams } from 'next/router'
 
 
-import Mstyles from '/Styles/mainstyle.module.css'
+import Mstyles from '/styles/mainstyle.module.css'
 
 import { FaRegHeart,FaHeart } from "react-icons/fa6";
 import CircularProgress from '@mui/material/CircularProgress';

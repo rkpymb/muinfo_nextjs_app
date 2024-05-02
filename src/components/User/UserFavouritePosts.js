@@ -10,7 +10,7 @@ import FeedContentBox from '/src/components/user/FeedComp/FeedContentBox';
 
 
 import { useRouter, useParams } from 'next/router'
-const FeedlistMain = ({ bycat, PostData }) => {
+const FeedlistMain = () => {
     const router = useRouter()
     const [FeedList, setFeedList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -26,14 +26,12 @@ const FeedlistMain = ({ bycat, PostData }) => {
 
             page: page,
             limit: limit,
-            PostID: PostID,
-            bycat: bycat,
-
+           
 
         };
 
         try {
-            const data = await fetch("/api/user/feed_list", {
+            const data = await fetch("/api/user/user_favourite_posts", {
                 method: "POST",
                 headers: {
                     'Content-type': 'application/json'
@@ -54,7 +52,7 @@ const FeedlistMain = ({ bycat, PostData }) => {
 
                 } else {
 
-                    if (page === 1 && !PostData) {
+                    if (page === 1) {
                         setFeedList([])
                     }
 
@@ -92,20 +90,8 @@ const FeedlistMain = ({ bycat, PostData }) => {
 
 
     useEffect(() => {
-     
-        if (PostData) {
-            setPostID(PostData[0].PostData.PostID)
-            
-            setFeedList(PostData)
-            setIsLoading(false);
-            setPage(1)
-
-        } else {
-            setPage(1)
-            GetData();
-        }
-
-
+        setPage(1)
+        GetData();
 
     }, [router.query])
 

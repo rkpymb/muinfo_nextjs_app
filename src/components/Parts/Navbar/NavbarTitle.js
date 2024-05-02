@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Image from 'next/image'
 import CheckloginContext from '/context/auth/CheckloginContext'
-import Mstyles from '/Styles/mainstyle.module.css'
+import Mstyles from '/styles/mainstyle.module.css'
 import { AiOutlineLogin } from 'react-icons/ai';
 import { VscAccount, VscVerified } from "react-icons/vsc";
 import { IoIosCall } from "react-icons/io";

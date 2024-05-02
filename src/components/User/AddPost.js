@@ -29,7 +29,7 @@ import Avatar from '@mui/material/Avatar';
 import CheckloginContext from '/context/auth/CheckloginContext'
 
 
-import Mstyles from '/Styles/mainstyle.module.css'
+import Mstyles from '/styles/mainstyle.module.css'
 
 import { MediaFilesUrl, MediaFilesFolder } from '/Data/config'
 import { useRouter, useParams } from 'next/router'
@@ -333,7 +333,7 @@ const PostBox = () => {
                     aria-labelledby="scroll-dialog-title"
                     aria-describedby="scroll-dialog-description"
                 >
-                    <DialogTitle id="scroll-dialog-title">Select post Category</DialogTitle>
+                    <DialogTitle id="scroll-dialog-title">Select post Interest</DialogTitle>
                     <DialogContent dividers={scroll === 'paper'}>
                         <div>
 
@@ -343,17 +343,15 @@ const PostBox = () => {
                                     return <div className={Mstyles.HomeCatGridItem} key={index} onClick={() => CatClick(item)}  >
                                         <div className={Mstyles.HomeCatGridItemImageBox}>
                                             <div className={Mstyles.HomeCatGridItemImage}>
-
                                                 <Image
                                                     src={`${MediaFilesUrl}${MediaFilesFolder}/${item.image}`}
                                                     alt=""
-                                                    height={30}
-                                                    width={30}
-                                                    
+                                                    height={'100%'}
+                                                    width={'100%'}
                                                     fill
                                                     blurDataURL={blurredImageData}
                                                     placeholder='blur'
-                                                    style={{ objectFit: "cover" }}
+                                                   
                                                 />
                                             </div>
                                         </div>

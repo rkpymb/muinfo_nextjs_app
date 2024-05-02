@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 
 import CheckloginContext from '/context/auth/CheckloginContext'
-import Mstyles from '/Styles/mainstyle.module.css'
+import Mstyles from '/styles/mainstyle.module.css'
 import Skeleton from '@mui/material/Skeleton';
 import { useRouter, useParams } from 'next/router'
 import { BsChatSquareDots } from "react-icons/bs";
@@ -179,18 +179,14 @@ const PostBoxUser = ({ PostData }) => {
         <div>
 
 
-            <div className={Mstyles.FeedBtnitem} >
-                <div className={Mstyles.FeedBtnitemA}>
+            <div className={Mstyles.FeedBtnitemA}>
 
 
-                    <IconButton aria-label="cart" onClick={handleClickOpen('paper')}>
-                        <StyledBadge color="secondary">
-                            <BsChatSquareDots size={20}/>
-                        </StyledBadge>
-                    </IconButton>
-                </div>
-                
-
+                <IconButton aria-label="cart" onClick={handleClickOpen('paper')}>
+                    <StyledBadge color="secondary">
+                        <BsChatSquareDots size={20} />
+                    </StyledBadge>
+                </IconButton>
             </div>
 
 

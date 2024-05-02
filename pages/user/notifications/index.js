@@ -1,14 +1,12 @@
 import { useState, useEffect, useContext } from 'react';
-import Mstyles from '/Styles/customstyle.module.css'
+import Mstyles from '/styles/customstyle.module.css'
 import CheckloginContext from '/context/auth/CheckloginContext'
-import Head from 'next/head';
-import EditProfileData from '/src/components/User/EditProfileData'
 
 import MainNavBar from '/src/components/Parts/Navbar/MainNavBar'
 import { AppDesc, AppName } from '/Data/config'
 import { useRouter, useParams } from 'next/router'
 
-import Categories from '/src/components/User/Categories'
+import NotificationsList from '/src/components/user/NotificationsList'
 
 function Home() {
     const router = useRouter();
@@ -37,7 +35,7 @@ function Home() {
                 <div className={Mstyles.Container}>
                     <div className={Mstyles.SecDevider}></div>
                     <div className={Mstyles.ContainerContent}>
-                        <Categories Type={1}/>
+                        <NotificationsList Type={1}/>
                     </div>
 
                 </div>

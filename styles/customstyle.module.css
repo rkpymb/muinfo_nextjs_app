@@ -3,6 +3,9 @@
   display: flex;
 
 }
+.loginboxAimg{
+  width: 400px;
+}
 
 .FeedSectionA {
   height: 100vh;
@@ -10,11 +13,29 @@
   position: sticky;
   top: 10%;
   background-color: transparent;
-
-
   padding: 5px;
-
   overflow: auto;
+}
+/* width */
+.FeedSectionA::-webkit-scrollbar {
+  width: 4px;
+ 
+}
+
+/* Track */
+.FeedSectionA::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+.FeedSectionA::-webkit-scrollbar-thumb {
+  background: var(--inputarea-color)
+}
+
+/* Handle on hover */
+.FeedSectionA::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-color); 
+  
 }
 
 .FeedSectionB {
@@ -170,7 +191,8 @@
   width: 50%;
   padding: 30px;
 
-
+  box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
+  border-radius: 10px;
 }
 
 .Lheader {

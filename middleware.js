@@ -14,7 +14,7 @@ export async function middleware(request) {
       const apiResponse = await fetch(apiEndpoint, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${jwt_token.value}`,
+          'Authorization': `Bearer ${jwt_token}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(requestBody),

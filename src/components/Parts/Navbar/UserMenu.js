@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Image from 'next/image'
 import CheckloginContext from '/context/auth/CheckloginContext'
-import Mstyles from '/Styles/mainstyle.module.css'
+import Mstyles from '/styles/mainstyle.module.css'
 import IconButton from '@mui/material/IconButton';
 import { Router } from 'next/router';
-import { LuHome, LuArrowRight, LuBellDot, LuLayoutGrid, LuTrendingUp, LuStar, LuChevronRight, LuSettings, LuUserCog2, LuClipboardList, LuSparkles, LuLineChart, LuX, LuLogOut } from "react-icons/lu";
+import { LuHome, LuArrowRight, LuBellDot, LuLayoutList, LuTrendingUp, LuStar, LuChevronRight, LuSettings, LuUserCog2, LuClipboardList, LuSparkles, LuLineChart, LuX, LuLogOut } from "react-icons/lu";
 import { MediaFilesUrl, MediaFilesFolder } from '/Data/config'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -24,13 +24,13 @@ const MainNavBar = () => {
     const HandleOpenMenu = async () => {
 
 
-        if(Contextdata.UserLogin){
+        if (Contextdata.UserLogin) {
             setOpenMenu(true)
-        }else{
+        } else {
             router.push('/account/user_login')
         }
-       
-     
+
+
     }
     const HandleCloseMenu = async () => {
         setOpenMenu(false)
@@ -124,7 +124,7 @@ const MainNavBar = () => {
 
                             </div>
                         </div>
-                        <div className={Mstyles.UmenuItemMain} onClick={() => router.push('/notifications')}>
+                        <div className={Mstyles.UmenuItemMain} onClick={() => router.push('/user/notifications')}>
                             <div className={Mstyles.VmenuItem}>
                                 <div className={Mstyles.VmenuItemA}>
 
@@ -144,18 +144,18 @@ const MainNavBar = () => {
 
                             </div>
                         </div>
-                        <div className={Mstyles.UmenuItemMain} onClick={() => router.push('/feeds/category')}>
+                        <div className={Mstyles.UmenuItemMain} onClick={() => router.push('/feeds/interests')}>
                             <div className={Mstyles.VmenuItem}>
                                 <div className={Mstyles.VmenuItemA}>
 
                                     <div className={Mstyles.DbIcon}>
-                                        <LuLayoutGrid size={20} />
+                                        <LuLayoutList size={20} />
 
                                     </div>
 
                                 </div>
                                 <div className={Mstyles.VmenuItemB}>
-                                    Categories
+                                    Interests
                                 </div>
 
                             </div>
@@ -164,7 +164,7 @@ const MainNavBar = () => {
 
                             </div>
                         </div>
-                        <div className={Mstyles.UmenuItemMain} onClick={() => router.push('/feeds')}>
+                        <div className={Mstyles.UmenuItemMain} onClick={() => router.push('/user/favourites')}>
                             <div className={Mstyles.VmenuItem}>
                                 <div className={Mstyles.VmenuItemA}>
 
@@ -244,7 +244,7 @@ const MainNavBar = () => {
                     </div>
                 </SwipeableDrawer>
             </div>
-           
+
         </div>
     );
 }

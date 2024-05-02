@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { LuTrendingUp } from "react-icons/lu";
 import { FiArrowRightCircle } from "react-icons/fi";
-import Mstyles from '/Styles/mainstyle.module.css';
+import Mstyles from '/styles/mainstyle.module.css';
 import { MediaFilesUrl, MediaFilesFolder } from '/Data/config'
 import Skeleton from '@mui/material/Skeleton';
 import {
@@ -141,15 +141,15 @@ function Categories({Type}) {
                         <div>
                             <div className={Type == 1? Mstyles.HomeCatGridSmall : Mstyles.HomeCatGrid}>
                                 {Retdata.map((item, index) => {
-                                    return <div className={Mstyles.HomeCatGridItem} key={index} onClick={() => router.push(`/feeds/category/${item.slug}`)} >
+                                    return <div className={Mstyles.HomeCatGridItem} key={index} onClick={() => router.push(`/feeds/interests/${item.slug}`)} >
                                         <div className={Mstyles.HomeCatGridItemImageBox}>
                                             <div className={Mstyles.HomeCatGridItemImage}>
                                                 <Image
                                                     src={`${MediaFilesUrl}${MediaFilesFolder}${item.image}`}
                                                     alt=""
                                                     fill
-                                                    height={10}
-                                                    width={10}
+                                                    height={'100%'}
+                                                    width={'100%'}
                                                     blurDataURL={blurredImageData}
                                                     placeholder='blur'
                                                     style={{ objectFit: "cover" }}

@@ -1,17 +1,14 @@
-import { MediaFilesUrl, MediaFilesFolder } from '/Data/config'
-import { FiShare2, FiXCircle } from "react-icons/fi";
+
 import React, { useState, useEffect, useContext } from 'react';
 
 import IconButton from '@mui/material/IconButton';
 import { LuFlag, LuShare2, LuStar, LuEye } from "react-icons/lu";
 import LoadingButton from '@mui/lab/LoadingButton';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import Mstyles from '/Styles/mainstyle.module.css';
+
+import Mstyles from '/styles/mainstyle.module.css';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import { BsShare } from "react-icons/bs";
+
 
 import Badge from '@mui/material/Badge';
 
@@ -129,7 +126,7 @@ const Sharebtn = ({ ContentUrl }) => {
                         <div className={Mstyles.ShareBoxHeaderB}>
                             <IconButton aria-label="cart" onClick={handleCloseEdit}>
                                 <StyledBadge color="secondary" >
-                                    <FiXCircle />
+                                    <LuShare2 />
                                 </StyledBadge>
                             </IconButton>
                         </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Typography, Box, Card, Container, Button, styled, Switch } from '@mui/material';
 import { ThemeContext } from '../../../theme/ThemeProvider';
-import Mstyles from '/Styles/mainstyle.module.css'
+import Mstyles from '/styles/mainstyle.module.css'
 
 import { MdOutlineDarkMode,MdOutlineWbSunny } from "react-icons/md";
 import CheckloginContext from '/context/auth/CheckloginContext';

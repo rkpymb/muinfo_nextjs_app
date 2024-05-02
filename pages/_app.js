@@ -18,7 +18,7 @@ import {
   styled
 } from '@mui/material'; 
 
-import '../Styles/globals.css'
+import '../styles/globals.css'
 
 import { useEffect } from 'react';
 function TokyoApp({ Component, pageProps }) {

@@ -1,5 +1,5 @@
 import React from 'react'
-import Mstyles from '/Styles/customstyle.module.css'
+import Mstyles from '/styles/customstyle.module.css'
 const HomeAsideAddLaptop = () => {
     return (
         <div className={Mstyles.Addbox}>

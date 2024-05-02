@@ -2,8 +2,6 @@ import CheckloginContext from './CheckloginContext'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
-
-import CryptoJS from "crypto-js";
 const CheckloginStates = (props) => {
   const router = useRouter()
   const [UserData, setUserData] = useState({});

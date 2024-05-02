@@ -7,9 +7,9 @@ import MainNavBar from '/src/components/Parts/Navbar/MainNavBar'
 import { AppDesc, AppName } from '/Data/config'
 import { useRouter, useParams } from 'next/router'
 import AddPost from '/src/components/user/AddPost'
-import Feedlist from '../../src/components/user/FeedList'
+import UserFavouritePosts from '/src/components/user/UserFavouritePosts'
 import Categories from '/src/components/user/Categories'
-import HomeAsideAddLaptop from '/src/components/user/Addbox/HomeAsideAddLaptop'
+import HomeAsideAddLaptop from '/src/components/Advt/HomeAsideAddLaptop'
 
 function Home() {
   const router = useRouter();
@@ -34,7 +34,8 @@ function Home() {
     <div>
       <MainNavBar />
 
-      <div className={Mstyles.Fullbg}>
+      {Contextdata.UserLogin ?
+        <div className={Mstyles.Fullbg}>
           <div className={Mstyles.Container}>
 
 
@@ -48,23 +49,27 @@ function Home() {
 
               </div>
               <div className={Mstyles.FeedSectionB}>
-                <div className={Mstyles.AddPostHome}>
-                  <AddPost />
 
-                </div>
-                <Feedlist />
+                <UserFavouritePosts />
               </div>
               <div className={Mstyles.FeedSectionC}>
                 <HomeAsideAddLaptop />
-
                 <div className={Mstyles.SecDevider}></div>
                 <HomeAsideAddLaptop />
+
               </div>
             </div>
 
 
           </div>
+        </div> :
+        <div>
+          login
         </div>
+
+
+      }
+
 
 
       <div className={Mstyles.SecDevider}></div>

@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Image from 'next/image'
 import CheckloginContext from '/context/auth/CheckloginContext'
-import Mstyles from '/Styles/mainstyle.module.css'
+import Mstyles from '/styles/mainstyle.module.css'
 import IconButton from '@mui/material/IconButton';
 import { Router } from 'next/router';
 import { LuHome, LuArrowRight, LuBellDot, LuLayoutGrid, LuTrendingUp, LuStar, LuChevronRight, LuSettings, LuUserCog2, LuClipboardList, LuSparkles, LuLineChart, LuX, LuLogOut } from "react-icons/lu";
 import { MediaFilesUrl, MediaFilesFolder } from '/Data/config'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import LoadingButton from '@mui/lab/LoadingButton';
-import NotificationsList from '/src/components/User/NotificationsList'
+import NotificationsList from '/src/components/user/NotificationsList'
 import ThemeSwitch from './ThemeSwitch'
 import Skeleton from '@mui/material/Skeleton';
 import Avatar from '@mui/material/Avatar';

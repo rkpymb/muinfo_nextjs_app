@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import InputAdornment from '@mui/material/InputAdornment';
 import CheckloginContext from '/context/auth/CheckloginContext'
-import Mstyles from '/Styles/customstyle.module.css'
+import Mstyles from '/styles/customstyle.module.css'
 
 import Head from 'next/head';
 import Lottie from 'react-lottie'
@@ -181,7 +181,7 @@ function Overview() {
                                 loading="lazy"
                                 width={0}
                                 height={0}
-                                style={{ objectFit: "cover", borderRadius: "15px" }}
+                                style={{ objectFit: "center", borderRadius: "15px" }}
                             />
 
 

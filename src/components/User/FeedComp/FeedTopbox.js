@@ -14,7 +14,7 @@ import ReportPost from './ReportPost'
 import Avatar from '@mui/material/Avatar';
 
 import { FiArrowRightCircle, FiMoreVertical, FiMessageCircle, FiHeart, FiShare2 } from "react-icons/fi";
-import Mstyles from '/Styles/mainstyle.module.css';
+import Mstyles from '/styles/mainstyle.module.css';
 
 
 import { MediaFilesUrl, MediaFilesFolder, DomainURL } from '/Data/config'
@@ -81,7 +81,7 @@ const FeedTopbox = ({ PostData }) => {
 
                                 </div>
                                 <div>
-                                <small className={Mstyles.Cattagboxtext}>{PostData.CatData.title}</small> 🔸 <small className={Mstyles.timetext}>{PostData.formattedDate}  </small>
+                                <small className={Mstyles.Cattagboxtext} onClick={() => router.push(`/feeds/interests/${PostData.PostData.CatData.category}`)}>{PostData.CatData.title}</small> 🔸 <small className={Mstyles.timetext}>{PostData.formattedDate}  </small>
                                 </div>
                             </div>
 

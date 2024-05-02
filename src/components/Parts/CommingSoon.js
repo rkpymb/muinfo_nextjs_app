@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useRouter, useParams } from 'next/router'
 import CheckloginContext from '../../../context/auth/CheckloginContext'
-import Mstyles from '../../../Styles/mainstyle.module.css'
+import Mstyles from '../../../styles/mainstyle.module.css'
 import Lottie from 'react-lottie'
 import Link from 'next/link';
 import {

@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 
 import CheckloginContext from '/context/auth/CheckloginContext'
-import Mstyles from '/Styles/mainstyle.module.css'
+import Mstyles from '/styles/mainstyle.module.css'
 import Skeleton from '@mui/material/Skeleton';
 import { useRouter, useParams } from 'next/router'
 import { LuFlag, LuShare2, LuStar, LuEye } from "react-icons/lu";

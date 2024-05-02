@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import Mstyles from '/Styles/advt.module.css'
+import Mstyles from '/styles/advt.module.css'
 import Image from 'next/image';
 import { useRouter, useParams } from 'next/router'
 import { LuInfo } from "react-icons/lu";

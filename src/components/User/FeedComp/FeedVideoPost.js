@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { MediaFilesUrl, MediaFilesFolder, FeedimgFolder, FeedVideosBaseUrl } from '/Data/config';
-import Mstyles from '/Styles/mainstyle.module.css';
+import Mstyles from '/styles/mainstyle.module.css';
 
 import { FiPlay, FiPause, FiVolume1, FiVolumeX, FiMaximize } from "react-icons/fi";
 import IconButton from '@mui/material/IconButton';

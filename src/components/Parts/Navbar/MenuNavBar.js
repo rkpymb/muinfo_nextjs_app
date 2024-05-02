@@ -1,19 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
-import Image from 'next/image'
+
 import CheckloginContext from '../../../../context/auth/CheckloginContext'
-import Mstyles from '../../../../Styles/mainstyle.module.css'
-import { AiOutlineLogin } from 'react-icons/ai';
+import Mstyles from '../../../../styles/mainstyle.module.css'
+
 import { LuFlower, LuGalleryHorizontalEnd, LuLayoutList, LuSearch, LuMessagesSquare, LuMailCheck } from "react-icons/lu";
-import { FiLogIn } from "react-icons/fi";
-import Avatar from '@mui/material/Avatar';
-import { MediaFilesUrl, MediaFilesFolder, } from '/Data/config'
-import Skeleton from '@mui/material/Skeleton';
-import { IoIosCall } from "react-icons/io";
+
 import { useRouter, useParams } from 'next/router'
-import Link from 'next/link';
-import { ShortAbout, AppName, SocialHandles, Contactinfo, DomainURL } from '../../../../Data/config'
-import { Router } from 'next/router';
-import LocationboxMain from '../LocationboxMain'
+
 const MainNavBar = () => {
     const router = useRouter()
     const Contextdata = useContext(CheckloginContext)

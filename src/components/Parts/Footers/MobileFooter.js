@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import CheckloginContext from '/context/auth/CheckloginContext';
-import Mstyles from '/Styles/mainstyle.module.css';
+import Mstyles from '/styles/mainstyle.module.css';
 import { LuHeart, LuSearch, LuLayoutList, LuUsers, LuMessageCircle, LuClapperboard } from "react-icons/lu";
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';

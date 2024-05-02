@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Mstyles from '/Styles/mainstyle.module.css';
+import Mstyles from '/styles/mainstyle.module.css';
 const RatingStars = ({ StarData }) => {
     const [Stars, setStars] = useState(null);
 

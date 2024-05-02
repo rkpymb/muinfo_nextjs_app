@@ -7,7 +7,7 @@ import Badge from '@mui/material/Badge';
 import CheckloginContext from '/context/auth/CheckloginContext'
 
 import { MediaFilesUrl, MediaFilesFolder, FeedimgFolder } from '/Data/config'
-import Mstyles from '/Styles/mainstyle.module.css'
+import Mstyles from '/styles/mainstyle.module.css'
 
 import IconButton from '@mui/material/IconButton';
 import { FiImage, FiTrash } from "react-icons/fi";

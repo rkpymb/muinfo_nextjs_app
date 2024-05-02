@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import Mstyles from '/Styles/customstyle.module.css'
+import Mstyles from '/styles/customstyle.module.css'
 import CheckloginContext from '/context/auth/CheckloginContext'
 
 
@@ -7,9 +7,9 @@ import MainNavBar from '/src/components/Parts/Navbar/MainNavBar'
 
 import { useRouter, useParams } from 'next/router'
 
-import Feedlist from '/src/components/User/Feedlist'
-import Categories from '/src/components/User/Categories'
-import HomeAsideAddLaptop from '/src/components/User/Addbox/HomeAsideAddLaptop'
+import Feedlist from '../../src/components/user/FeedList'
+import Categories from '/src/components/user/Categories'
+import HomeAsideAddLaptop from '/src/components/user/Addbox/HomeAsideAddLaptop'
 
 export async function getServerSideProps(context) {
   const PostID = context.query.pageno[0];

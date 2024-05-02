@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import Mstyles from '/Styles/mainstyle.module.css'
+import Mstyles from '/styles/mainstyle.module.css'
 import CheckloginContext from '/context/auth/CheckloginContext'
 import { useRouter, useParams } from 'next/router'
 export default function SimpleBackdrop() {

@@ -6,7 +6,7 @@ import Dialog from '@mui/material/Dialog';
 
 
 import { LuXCircle, LuSearch, LuChevronRight, LuArrowLeft, LuMinus, } from "react-icons/lu";
-import Mstyles from '/Styles/mainstyle.module.css'
+import Mstyles from '/styles/mainstyle.module.css'
 
 import { MediaFilesUrl, MediaFilesFolder, FeedimgFolder, DomainURL } from '/Data/config';
 import IconButton from '@mui/material/IconButton';

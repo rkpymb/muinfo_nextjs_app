@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 
-import Mstyles from '/Styles/mainstyle.module.css'
+import Mstyles from '/styles/mainstyle.module.css'
 
 import { useRouter, useParams } from 'next/router'
 import UploadUserDp from '../Upload/UploadUserDp'

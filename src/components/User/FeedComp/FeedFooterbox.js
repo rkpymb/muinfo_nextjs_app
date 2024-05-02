@@ -2,11 +2,11 @@ import React, { useState, useEffect, useContext } from 'react';
 import CheckloginContext from '/context/auth/CheckloginContext'
 import { useRouter } from 'next/router'
 
-import Mstyles from '/Styles/mainstyle.module.css';
-import { MediaFilesUrl, MediaFilesFolder, DomainURL } from '/Data/config'
+import Mstyles from '/styles/mainstyle.module.css';
+import { MediaFilesUrl, FeedimgFolder, DomainURL } from '/Data/config';
 import IconButton from '@mui/material/IconButton';
-import PostCmt from './PostCmt'
-import Sharebtn from '../ShareBox/Sharebtn'
+import PostCmt from './PostCmt';
+import Sharebtn from '../ShareBox/Sharebtn';
 import Badge from '@mui/material/Badge';
 
 import {
@@ -14,7 +14,9 @@ import {
     styled
 } from '@mui/material';
 
-import { BsHandThumbsUp, BsFillHandThumbsUpFill, BsStarFill, BsStar } from "react-icons/bs";
+
+
+import { BsHandThumbsUp, BsFillHandThumbsUpFill, BsStarFill, BsStar, BsArrowsFullscreen } from "react-icons/bs";
 
 const FeedFooterbox = ({ PostData }) => {
     const router = useRouter();
@@ -59,15 +61,15 @@ const FeedFooterbox = ({ PostData }) => {
         })
             .then((parsed) => {
 
-                if (parsed.ReqData && parsed.ReqData.MyLikeData) {
+                if (parsed.ReqData ) {
                     setAllLikes(parsed.ReqData.AllLikes)
-
-                    if (parsed.ReqData.MyLikeData.length > 0) {
+                  
+                    if (parsed.ReqData.MyLikeData) {
                         setLiked(true)
                     } else {
                         setLiked(false)
                     }
-                    if (parsed.ReqData.FavPost > 0) {
+                    if (parsed.ReqData.FavPost) {
                         setFavPost(true)
                     } else {
                         setFavPost(false)
@@ -129,7 +131,7 @@ const FeedFooterbox = ({ PostData }) => {
 
                 PostData: PostData.PostData
             }
-            const data = await fetch("/api/user/like_post", {
+            const data = await fetch("/api/user/save_post", {
                 method: "POST",
                 headers: {
                     'Content-type': 'application/json'
@@ -139,12 +141,12 @@ const FeedFooterbox = ({ PostData }) => {
                 return a.json();
             })
                 .then((parsed) => {
-                    if (parsed.ReqData.Liked) {
-                        Contextdata.ChangeAlertData('Post Liked 😍', 'success')
+                    if (parsed.ReqData.Saved) {
+                        Contextdata.ChangeAlertData(parsed.ReqData.Saved, 'success')
                         MyLikeData()
                     }
-                    if (parsed.ReqData.UnLiked) {
-                        Contextdata.ChangeAlertData('Post Unliked 😌', 'warning')
+                    if (parsed.ReqData.UnSaved) {
+                        Contextdata.ChangeAlertData(parsed.ReqData.UnSaved, 'warning')
                         MyLikeData()
                     }
                     AnimateData()
@@ -178,6 +180,19 @@ const FeedFooterbox = ({ PostData }) => {
         },
     }));
 
+
+    const Viewimg = async () => {
+
+       
+        const TragetUrl = PostData.PostData.PostList[0].postData
+        
+        if (TragetUrl) {
+            window.open(`${MediaFilesUrl}${FeedimgFolder}/${TragetUrl}`, "_blank");
+        }
+
+    };
+
+
     return (
         <div>
             {ShowData &&
@@ -188,33 +203,38 @@ const FeedFooterbox = ({ PostData }) => {
 
                             <div className={Mstyles.FeedBtnitemA}>
                                 {Liked ?
-                                    <IconButton aria-label="cart" onClick={() => LikePost()}>
-                                        <StyledBadge badgeContent={AllLikes} color="secondary">
+                                    <IconButton aria-label="cart" onClick={() => LikePost()} >
+                                        <StyledBadge badgeContent={AllLikes} color="secondary" >
                                             <BsFillHandThumbsUpFill size={20} />
                                         </StyledBadge>
                                     </IconButton>
                                     :
 
                                     <IconButton aria-label="cart" onClick={() => LikePost()}>
-                                        <StyledBadge badgeContent={AllLikes} color="secondary">
+                                        <StyledBadge badgeContent={AllLikes} color="secondary" >
                                             <BsHandThumbsUp size={20} />
                                         </StyledBadge>
                                     </IconButton>
                                 }
                             </div>
-                         
+
 
                         </div>
 
-                        <PostCmt PostData={PostData.PostData} />
+                       
 
                         <div className={Mstyles.FeedBtnitem} >
 
+                        <PostCmt PostData={PostData.PostData} />
+
+                        </div>
+                        <div className={Mstyles.FeedBtnitem} >
+
                             <div className={Mstyles.FeedBtnitemA}>
-                                {Liked ?
+                                {FavPost ?
 
 
-                                    <IconButton aria-label="cart" onClick={() => LikePost()}>
+                                    <IconButton aria-label="cart" onClick={() => AddTofav()}>
                                         <StyledBadge color="secondary">
                                             <BsStarFill size={20} />
                                         </StyledBadge>
@@ -222,7 +242,7 @@ const FeedFooterbox = ({ PostData }) => {
                                     :
 
                                     <IconButton aria-label="cart">
-                                        <StyledBadge color="secondary" onClick={() => LikePost()}>
+                                        <StyledBadge color="secondary" onClick={() => AddTofav()}>
                                             <BsStar size={20} />
                                         </StyledBadge>
                                     </IconButton>
@@ -232,21 +252,30 @@ const FeedFooterbox = ({ PostData }) => {
 
                         </div>
 
+                        {PostData.PostData.PostList[0].PostType == 'image' &&
+                           <div className={Mstyles.FeedBtnitem} onClick={Viewimg} >
+
+                            <div className={Mstyles.FeedBtnitemA}>
+                                <IconButton aria-label="cart" >
+                                    <StyledBadge color="secondary">
+                                        <BsArrowsFullscreen size={20} />
+                                    </StyledBadge>
+                                </IconButton>
+                            </div>
+
+
+                        </div>
+
+                        }
+                        
+
                     </div>
 
                     <div className={Mstyles.FeedItemBottomB}>
                         <Sharebtn ContentUrl={`${DomainURL}p/${PostData.PostData.PostID}`} />
                     </div>
 
-                    {/* 
-                    <div className={Mstyles.Likete}>
-                                <div className={`${animate ? Mstyles.AnimateData : Mstyles.AnimateDataTwo}`}>
-                                  
-                                  {AllLikes}
-                                </div>
-
-                                
-                            </div> */}
+                   
                 </div>
             }
         </div>

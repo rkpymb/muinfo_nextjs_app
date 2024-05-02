@@ -3,7 +3,9 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['img.youtube.com', 'localhost','api.driteducation.com','demo.flairmyevent.com'],
+    domains: ['img.youtube.com', 'localhost','api.magadhuniversityinfo.com',],
+    allowFutureImage: true
+    
     
   },
   webpack: (config) => {

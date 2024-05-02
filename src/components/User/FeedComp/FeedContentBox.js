@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import Avatar from '@mui/material/Avatar';
 
 import { FiArrowRightCircle, FiMoreVertical, FiMessageCircle, FiHeart, FiShare2 } from "react-icons/fi";
-import Mstyles from '/Styles/mainstyle.module.css';
+import Mstyles from '/styles/mainstyle.module.css';
 import { MediaFilesUrl, MediaFilesFolder } from '/Data/config'
 import FeedVideoPost from './FeedVideoPost';
 import FeedImagePost from './FeedImagePost';

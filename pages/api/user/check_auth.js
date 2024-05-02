@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export default function handler(req, res) {
     if (req.method === 'POST') {
         const apiData = getApiDataFromCookie(req);
