@@ -114,7 +114,7 @@ function Overview() {
     return (
         <>
             <Head>
-                <title>Sign up</title>
+                <title>Login</title>
             </Head>
             <div className={Mstyles.loginboxmain}>
                 <div className={Mstyles.loginbox}>
@@ -165,7 +165,7 @@ function Overview() {
 
 
                                     <div className={Mstyles.LoginBox_input}>
-                                        <TextField fullWidth label="Create Password" type={`${PasswordShowtype}`} value={password}
+                                        <TextField fullWidth label="Enter Password" type={`${PasswordShowtype}`} value={password}
                                             onInput={e => setPassword(e.target.value)}
                                             InputProps={{
 

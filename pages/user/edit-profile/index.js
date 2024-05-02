@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import Mstyles from '/styles/customstyle.module.css'
 import CheckloginContext from '/context/auth/CheckloginContext'
 import Head from 'next/head';
-import EditProfileData from '/src/components/user/EditProfileData'
+import EditProfileData from '../../components/user/EditProfileData'
 
 import MainNavBar from '/src/components/Parts/Navbar/MainNavBar'
 import { AppDesc, AppName } from '/Data/config'

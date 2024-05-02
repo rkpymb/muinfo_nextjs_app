@@ -4,9 +4,9 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import CircularProgress from '@mui/material/CircularProgress';
 
 
-import FeedFooterbox from '/src/components/user/FeedComp/FeedFooterbox';
-import FeedTopbox from '/src/components/user/FeedComp/FeedTopbox';
-import FeedContentBox from '/src/components/user/FeedComp/FeedContentBox';
+import FeedFooterbox from './FeedComp/FeedFooterbox';
+import FeedTopbox from './FeedComp/FeedTopbox';
+import FeedContentBox from './FeedComp/FeedContentBox';
 
 
 import { useRouter, useParams } from 'next/router'

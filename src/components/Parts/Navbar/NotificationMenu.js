@@ -8,7 +8,7 @@ import { LuHome, LuArrowRight, LuBellDot, LuLayoutGrid, LuTrendingUp, LuStar, Lu
 import { MediaFilesUrl, MediaFilesFolder } from '/Data/config'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import LoadingButton from '@mui/lab/LoadingButton';
-import NotificationsList from '/src/components/user/NotificationsList'
+import NotificationsList from '../../../../pages/components/user/NotificationsList'
 import ThemeSwitch from './ThemeSwitch'
 import Skeleton from '@mui/material/Skeleton';
 import Avatar from '@mui/material/Avatar';

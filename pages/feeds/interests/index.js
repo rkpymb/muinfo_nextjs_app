@@ -2,13 +2,13 @@ import { useState, useEffect, useContext } from 'react';
 import Mstyles from '/styles/customstyle.module.css'
 import CheckloginContext from '/context/auth/CheckloginContext'
 import Head from 'next/head';
-import EditProfileData from '/src/components/user/EditProfileData'
+
 
 import MainNavBar from '/src/components/Parts/Navbar/MainNavBar'
 import { AppDesc, AppName } from '/Data/config'
 import { useRouter, useParams } from 'next/router'
 
-import Categories from '/src/components/user/Categories'
+import Categories from '../../components/user/Categories'
 
 function Home() {
     const router = useRouter();

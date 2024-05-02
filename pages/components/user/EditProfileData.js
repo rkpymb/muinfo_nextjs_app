@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext, useRef } from 'react';
 import Mstyles from '/styles/mainstyle.module.css'
 
 import { useRouter, useParams } from 'next/router'
-import UploadUserDp from '../Upload/UploadUserDp'
+import UploadUserDp from '../../../src/components/Upload/UploadUserDp'
 
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';

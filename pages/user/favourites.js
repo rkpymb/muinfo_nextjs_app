@@ -6,9 +6,9 @@ import Head from 'next/head';
 import MainNavBar from '/src/components/Parts/Navbar/MainNavBar'
 import { AppDesc, AppName } from '/Data/config'
 import { useRouter, useParams } from 'next/router'
-import AddPost from '/src/components/user/AddPost'
-import UserFavouritePosts from '/src/components/user/UserFavouritePosts'
-import Categories from '/src/components/user/Categories'
+
+import UserFavouritePosts from '../components/user/UserFavouritePosts'
+import Categories from '../components/user/Categories'
 import HomeAsideAddLaptop from '/src/components/Advt/HomeAsideAddLaptop'
 
 function Home() {

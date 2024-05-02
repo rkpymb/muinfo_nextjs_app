@@ -3,14 +3,13 @@ import Mstyles from '/styles/customstyle.module.css'
 import CheckloginContext from '/context/auth/CheckloginContext'
 import Head from 'next/head';
 
-import MainNavBar from '/src/components/Parts/Navbar/MainNavBar'
+import MainNavBar from '../src/components/Parts/Navbar/MainNavBar'
 import { AppDesc, AppName } from '/Data/config'
 import { useRouter, useParams } from 'next/router'
-import AddPost from '/src/components/user/AddPost'
-import Feedlist from '../src/components/user/FeedList'
-import Categories from '/src/components/user/Categories'
-import HomeAsideAddLaptop from '/src/components/Advt/HomeAsideAddLaptop'
-import UserSidemenu from '/src/components/Parts/UserSidemenu'
+import AddPost from './components/user/AddPost'
+import Feedlist from './components/user/FeedList'
+import Categories from './components/user/Categories'
+import HomeAsideAddLaptop from './components/user/Addbox/HomeAsideAddLaptop'
 
 function Home() {
   const router = useRouter();
@@ -35,8 +34,7 @@ function Home() {
     <div>
       <MainNavBar />
 
-      {Contextdata.UserLogin ?
-        <div className={Mstyles.Fullbg}>
+      <div className={Mstyles.Fullbg}>
           <div className={Mstyles.Container}>
 
 
@@ -46,10 +44,7 @@ function Home() {
               <div className={Mstyles.FeedSectionA}>
 
                 <Categories />
-               
-               
-                <UserSidemenu />
-               
+
 
               </div>
               <div className={Mstyles.FeedSectionB}>
@@ -61,22 +56,15 @@ function Home() {
               </div>
               <div className={Mstyles.FeedSectionC}>
                 <HomeAsideAddLaptop />
+
                 <div className={Mstyles.SecDevider}></div>
                 <HomeAsideAddLaptop />
-
               </div>
             </div>
 
 
           </div>
-        </div> :
-        <div>
-          login
         </div>
-
-
-      }
-
 
 
       <div className={Mstyles.SecDevider}></div>

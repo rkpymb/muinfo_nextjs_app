@@ -3,8 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['img.youtube.com', 'localhost','api.magadhuniversityinfo.com',],
-    allowFutureImage: true
+    domains: ['img.youtube.com', 'localhost','api.magadhuniversityinfo.com',]
     
     
   },

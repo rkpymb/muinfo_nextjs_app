@@ -3,10 +3,6 @@ import Mstyles from '/styles/mainstyle.module.css'
 import InfiniteScroll from 'react-infinite-scroll-component';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import { LuHome, LuSearch, LuBellDot, LuLayoutGrid, LuTrendingUp, LuStar, LuChevronRight, LuSettings, LuUserCog2, LuClipboardList, LuSparkles, LuLineChart, LuX, LuLogOut } from "react-icons/lu";
-import FeedFooterbox from '/src/components/user/FeedComp/FeedFooterbox';
-import FeedTopbox from '/src/components/user/FeedComp/FeedTopbox';
-import FeedContentBox from '/src/components/user/FeedComp/FeedContentBox';
 import { MediaFilesUrl, MediaFilesFolder } from '/Data/config'
 import Image from 'next/image';
 

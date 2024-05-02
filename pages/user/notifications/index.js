@@ -6,7 +6,7 @@ import MainNavBar from '/src/components/Parts/Navbar/MainNavBar'
 import { AppDesc, AppName } from '/Data/config'
 import { useRouter, useParams } from 'next/router'
 
-import NotificationsList from '/src/components/user/NotificationsList'
+import NotificationsList from '../../components/user/NotificationsList'
 
 function Home() {
     const router = useRouter();
