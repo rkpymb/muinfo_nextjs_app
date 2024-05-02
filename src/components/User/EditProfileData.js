@@ -54,18 +54,19 @@ export default function ScrollDialog() {
         if (Contextdata.UserLogin) {
             Contextdata.ChangeMainLoader(false)
             setLoading(false)
-            
+
         }
     }, [Contextdata.UserData]);
 
 
     const UpdateProfile = async (e) => {
         let UploadFilename = document.querySelector('#UploadFilename').value
+        console.log(UploadFilename)
         e.preventDefault();
         if (FullName !== '' && FullDesc !== '' && WhatsApp !== '' && Pincode !== '' && City !== '' && FullAddress !== '' && CurrentState !== '') {
             setBtnloading(true)
             const sendUM = {
-                JwtToken: Contextdata.UserJwtToken,
+              
                 name: FullName,
                 dp: UploadFilename,
                 WhatsApp: WhatsApp,
@@ -76,7 +77,7 @@ export default function ScrollDialog() {
                 Shortbio: FullDesc,
 
             }
-            const data = await fetch("/api/User/UpdateProfileData", {
+            const data = await fetch("/api/user/update_profile", {
                 method: "POST",
                 headers: {
                     'Content-type': 'application/json'
@@ -111,21 +112,21 @@ export default function ScrollDialog() {
 
 
     useEffect(() => {
-        console.log(Contextdata.UserData.UserData)
+        console.log(Contextdata.UserData)
         setFullName(Contextdata.UserData.name)
         setUserDp(Contextdata.UserData.dp)
 
-        setWhatsApp(Contextdata.UserData.UserData[0].WhatsApp);
-        setContactMobile(Contextdata.UserData.UserData[0].Mobile);
+        setWhatsApp(Contextdata.UserData.ProfileData.WhatsApp);
+        setContactMobile(Contextdata.UserData.ProfileData.Mobile);
 
-        setFullAddress(Contextdata.UserData.UserData[0].FullAddress);
-        setCity(Contextdata.UserData.UserData[0].City);
-        setPincode(Contextdata.UserData.UserData[0].Pincode);
+        setFullAddress(Contextdata.UserData.ProfileData.FullAddress);
+        setCity(Contextdata.UserData.ProfileData.City);
+        setPincode(Contextdata.UserData.ProfileData.Pincode);
 
-        setCurrentState(Contextdata.UserData.UserData[0].State);
+        setCurrentState(Contextdata.UserData.ProfileData.State);
 
 
-        setFullDesc(Contextdata.UserData.UserData[0].Shortbio);
+        setFullDesc(Contextdata.UserData.ProfileData.Shortbio);
 
 
 
@@ -143,176 +144,164 @@ export default function ScrollDialog() {
 
     return (
         <div>
+           {!Loading &&
+           
+           <div>
 
-            {Loading ? <div>Loading...</div> :
+           <div className={Mstyles.EditPBox}>
+               <div className={Mstyles.EditPBoxProfile}>
+                   <UploadUserDp />
+               </div>
+               <div className={Mstyles.EditPBoxA}>
 
-                <div>
+                   <h4>Profile Details</h4>
+                   <form onSubmit={UpdateProfile} >
+                       <div className={Mstyles.inputlogin}>
+                           <TextField
+                               required
+                               label="Full Name"
+                               fullWidth
+                               value={FullName}
 
-                    <div className={Mstyles.VDFlexboxtwo}>
-                        <div className={Mstyles.Upladdpboxv}>
-                            <UploadUserDp />
-                        </div>
-                        <div className={Mstyles.VDFlexboxtwoA}>
+                               onInput={e => setFullName(e.target.value)}
 
-                            <h4>Profile Details</h4>
-                            <form onSubmit={UpdateProfile} >
-                                <div className={Mstyles.inputlogin}>
-                                    <TextField
-                                        required
-                                        label="Full Name"
-                                        fullWidth
-                                        value={FullName}
+                           />
+                       </div>
 
-                                        onInput={e => setFullName(e.target.value)}
+                     
+                       <input type="hidden" id="UploadFilename" value={UserDp} />
+                   </form>
+               </div>
+               <div className={Mstyles.EditPBoxB}>
+                   <h4>Address and Contact Details</h4>
 
-                                    />
-                                </div>
+                   <div className={Mstyles.inputlogin}>
+                       <TextField
+                           required
+                           label="WhatsApp Number"
+                           fullWidth
+                           value={WhatsApp}
 
-                                <div className={Mstyles.inputlogin}>
-                                    <div>
-                                        <ReactQuill
-                                            theme="snow" // You can change the theme as per your preference
-                                            value={FullDesc}
-                                            onChange={handleEditorChange}
-                                            style={{ height: '230px' }}
-                                        />
-                                    </div>
+                           onInput={e => setWhatsApp(e.target.value)}
 
-                                </div>
-                                <input type="hidden" id="UploadFilename" value={UserDp} />
-                            </form>
-                        </div>
-                        <div className={Mstyles.VDFlexboxtwoB}>
-                            <h4>Address and Contact Details</h4>
+                       />
+                   </div>
 
-                            <div className={Mstyles.inputlogin}>
-                                <TextField
-                                    required
-                                    label="WhatsApp Number"
-                                    fullWidth
-                                    value={WhatsApp}
+                   <div className={Mstyles.inputlogin}>
+                       <TextField
+                           required
+                           label="Pincode"
+                           fullWidth
+                           value={Pincode}
 
-                                    onInput={e => setWhatsApp(e.target.value)}
+                           onInput={e => setPincode(e.target.value)}
 
-                                />
-                            </div>
+                       />
+                   </div>
+                   <div className={Mstyles.inputlogin}>
+                       <TextField
+                           required
+                           label="Current City"
+                           fullWidth
+                           value={City}
+                           onInput={e => setCity(e.target.value)}
 
-                            <div className={Mstyles.inputlogin}>
-                                <TextField
-                                    required
-                                    label="Pincode"
-                                    fullWidth
-                                    value={Pincode}
+                       />
+                   </div>
+                   <div className={Mstyles.inputlogin}>
+                       <TextField
+                           required
+                           label="Full Address"
+                           fullWidth
+                           value={FullAddress}
+                           onInput={e => setFullAddress(e.target.value)}
 
-                                    onInput={e => setPincode(e.target.value)}
+                       />
+                   </div>
+                   <div className={Mstyles.inputlogin}>
+                       <FormControl fullWidth>
+                           <InputLabel id="demo-simple-select-label">State</InputLabel>
+                           <Select
+                               labelId="demo-simple-select-label"
+                               id="demo-simple-select"
+                               value={CurrentState}
+                               label="State"
+                               onChange={handleChangeVState}
+                           >
 
-                                />
-                            </div>
-                            <div className={Mstyles.inputlogin}>
-                                <TextField
-                                    required
-                                    label="Current City"
-                                    fullWidth
-                                    value={City}
-                                    onInput={e => setCity(e.target.value)}
+                               <MenuItem value="Andhra Pradesh">Andhra Pradesh</MenuItem>
+                               <MenuItem value="Andaman and Nicobar Islands">
+                                   Andaman and Nicobar Islands
+                               </MenuItem>
+                               <MenuItem value="Arunachal Pradesh">Arunachal Pradesh</MenuItem>
+                               <MenuItem value="Assam">Assam</MenuItem>
+                               <MenuItem value="Bihar">Bihar</MenuItem>
+                               <MenuItem value="Chandigarh">Chandigarh</MenuItem>
+                               <MenuItem value="Chhattisgarh">Chhattisgarh</MenuItem>
+                               <MenuItem value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</MenuItem>
+                               <MenuItem value="Daman and Diu">Daman and Diu</MenuItem>
+                               <MenuItem value="Delhi">Delhi</MenuItem>
+                               <MenuItem value="Lakshadweep">Lakshadweep</MenuItem>
+                               <MenuItem value="Puducherry">Puducherry</MenuItem>
+                               <MenuItem value="Goa">Goa</MenuItem>
+                               <MenuItem value="Gujarat">Gujarat</MenuItem>
+                               <MenuItem value="Haryana">Haryana</MenuItem>
+                               <MenuItem value="Himachal Pradesh">Himachal Pradesh</MenuItem>
+                               <MenuItem value="Jammu and Kashmir">Jammu and Kashmir</MenuItem>
+                               <MenuItem value="Jharkhand">Jharkhand</MenuItem>
+                               <MenuItem value="Karnataka">Karnataka</MenuItem>
+                               <MenuItem value="Kerala">Kerala</MenuItem>
+                               <MenuItem value="Madhya Pradesh">Madhya Pradesh</MenuItem>
+                               <MenuItem value="Maharashtra">Maharashtra</MenuItem>
+                               <MenuItem value="Manipur">Manipur</MenuItem>
+                               <MenuItem value="Meghalaya">Meghalaya</MenuItem>
+                               <MenuItem value="Mizoram">Mizoram</MenuItem>
+                               <MenuItem value="Nagaland">Nagaland</MenuItem>
+                               <MenuItem value="Odisha">Odisha</MenuItem>
+                               <MenuItem value="Punjab">Punjab</MenuItem>
+                               <MenuItem value="Rajasthan">Rajasthan</MenuItem>
+                               <MenuItem value="Sikkim">Sikkim</MenuItem>
+                               <MenuItem value="Tamil Nadu">Tamil Nadu</MenuItem>
+                               <MenuItem value="Telangana">Telangana</MenuItem>
+                               <MenuItem value="Tripura">Tripura</MenuItem>
+                               <MenuItem value="Uttar Pradesh">Uttar Pradesh</MenuItem>
+                               <MenuItem value="Uttarakhand">Uttarakhand</MenuItem>
+                               <MenuItem value="West Bengal">West Bengal</MenuItem>
 
-                                />
-                            </div>
-                            <div className={Mstyles.inputlogin}>
-                                <TextField
-                                    required
-                                    label="Full Address"
-                                    fullWidth
-                                    value={FullAddress}
-                                    onInput={e => setFullAddress(e.target.value)}
-
-                                />
-                            </div>
-                            <div className={Mstyles.inputlogin}>
-                                <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-label">State</InputLabel>
-                                    <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
-                                        value={CurrentState}
-                                        label="State"
-                                        onChange={handleChangeVState}
-                                    >
-
-                                        <MenuItem value="Andhra Pradesh">Andhra Pradesh</MenuItem>
-                                        <MenuItem value="Andaman and Nicobar Islands">
-                                            Andaman and Nicobar Islands
-                                        </MenuItem>
-                                        <MenuItem value="Arunachal Pradesh">Arunachal Pradesh</MenuItem>
-                                        <MenuItem value="Assam">Assam</MenuItem>
-                                        <MenuItem value="Bihar">Bihar</MenuItem>
-                                        <MenuItem value="Chandigarh">Chandigarh</MenuItem>
-                                        <MenuItem value="Chhattisgarh">Chhattisgarh</MenuItem>
-                                        <MenuItem value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</MenuItem>
-                                        <MenuItem value="Daman and Diu">Daman and Diu</MenuItem>
-                                        <MenuItem value="Delhi">Delhi</MenuItem>
-                                        <MenuItem value="Lakshadweep">Lakshadweep</MenuItem>
-                                        <MenuItem value="Puducherry">Puducherry</MenuItem>
-                                        <MenuItem value="Goa">Goa</MenuItem>
-                                        <MenuItem value="Gujarat">Gujarat</MenuItem>
-                                        <MenuItem value="Haryana">Haryana</MenuItem>
-                                        <MenuItem value="Himachal Pradesh">Himachal Pradesh</MenuItem>
-                                        <MenuItem value="Jammu and Kashmir">Jammu and Kashmir</MenuItem>
-                                        <MenuItem value="Jharkhand">Jharkhand</MenuItem>
-                                        <MenuItem value="Karnataka">Karnataka</MenuItem>
-                                        <MenuItem value="Kerala">Kerala</MenuItem>
-                                        <MenuItem value="Madhya Pradesh">Madhya Pradesh</MenuItem>
-                                        <MenuItem value="Maharashtra">Maharashtra</MenuItem>
-                                        <MenuItem value="Manipur">Manipur</MenuItem>
-                                        <MenuItem value="Meghalaya">Meghalaya</MenuItem>
-                                        <MenuItem value="Mizoram">Mizoram</MenuItem>
-                                        <MenuItem value="Nagaland">Nagaland</MenuItem>
-                                        <MenuItem value="Odisha">Odisha</MenuItem>
-                                        <MenuItem value="Punjab">Punjab</MenuItem>
-                                        <MenuItem value="Rajasthan">Rajasthan</MenuItem>
-                                        <MenuItem value="Sikkim">Sikkim</MenuItem>
-                                        <MenuItem value="Tamil Nadu">Tamil Nadu</MenuItem>
-                                        <MenuItem value="Telangana">Telangana</MenuItem>
-                                        <MenuItem value="Tripura">Tripura</MenuItem>
-                                        <MenuItem value="Uttar Pradesh">Uttar Pradesh</MenuItem>
-                                        <MenuItem value="Uttarakhand">Uttarakhand</MenuItem>
-                                        <MenuItem value="West Bengal">West Bengal</MenuItem>
-
-                                    </Select>
-                                </FormControl>
-                            </div>
+                           </Select>
+                       </FormControl>
+                   </div>
 
 
 
-                        </div>
+               </div>
+               <div className={Mstyles.EditPBoxC}>
 
-                    </div>
+                   <LoadingButton
+                       fullWidth
 
-                    <div className={Mstyles.Footerbtnbox}>
+                       onClick={UpdateProfile}
+                       endIcon={<LuChevronRight />}
+                       loading={Btnloading}
+                       loadingPosition="end"
+                       variant="contained"
+                   >
+                       <span>Update Profile</span>
+                   </LoadingButton>
 
-                        <LoadingButton
-                            fullWidth
+               </div>
 
-                            onClick={UpdateProfile}
-                            endIcon={<LuChevronRight />}
-                            loading={Btnloading}
-                            loadingPosition="end"
-                            variant="contained"
-                        >
-                            <span>Update Profile</span>
-                        </LoadingButton>
 
-                    </div>
+           </div>
 
 
 
 
 
 
-                </div>
 
-            }
-
+       </div>
+           }
 
 
         </div>

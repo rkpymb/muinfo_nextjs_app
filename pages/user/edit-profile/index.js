@@ -1,69 +1,64 @@
 import { useState, useEffect, useContext } from 'react';
-import {
-    Typography,
-    Box,
-    Card,
-    Container,
-    Button,
-    styled
-} from '@mui/material';
-
-
-import Mstyles from '/Styles/mainstyle.module.css'
+import Mstyles from '/Styles/customstyle.module.css'
 import CheckloginContext from '/context/auth/CheckloginContext'
+import Head from 'next/head';
 import EditProfileData from '/src/components/User/EditProfileData'
 
-import Head from 'next/head';
-
 import MainNavBar from '/src/components/Parts/Navbar/MainNavBar'
-
-import CatlistGrid from '../../components/List/CatlistGrid'
-
-
-import Footer from '/src/components/Parts/Footer'
-import MobileFooter from '/src/components/Parts/Footers/MobileFooter'
-
-import MainMenubox from '/src/components/Parts/MainMenubox'
-import NavbarTitle from '/src/components/Parts/Navbar/NavbarTitle'
-
 import { AppDesc, AppName } from '/Data/config'
 import { useRouter, useParams } from 'next/router'
+import AddPost from '/src/components/User/AddPost'
+import Feedlist from '/src/components/User/Feedlist'
+import Categories from '/src/components/User/Categories'
+import HomeAsideAddLaptop from '/src/components/User/Addbox/HomeAsideAddLaptop'
 
 function Home() {
+    const router = useRouter();
     const Contextdata = useContext(CheckloginContext)
     const [Loading, setLoading] = useState(true);
-    const [PTitle, setPTitle] = useState('Profile Settings');
+
     useEffect(() => {
+
         window.scrollTo({
             top: 0,
             behavior: "smooth",
         });
 
+
         if (Contextdata.UserLogin) {
-            setLoading(false);
+            setLoading(false)
+            Contextdata.ChangeMainLoader(false)
         }
+
     }, [Contextdata.UserData]);
+
+
+
+
     return (
         <div>
-
             <MainNavBar />
-            <div className={Mstyles.NavDevidevendor}></div>
-            <NavbarTitle Title={PTitle} />
-
             {!Loading &&
-                <div className={Mstyles.MainVContainer}>
-                    <EditProfileData />
+                <div className={Mstyles.Fullbg}>
+                    <div className={Mstyles.Container}>
+                        <div className={Mstyles.SecDevider}></div>
+                        <div className={Mstyles.SmallContainer}>
+                            <EditProfileData />
+                        </div>
 
-
+                    </div>
                 </div>
+
             }
 
 
 
-
-
+            <div className={Mstyles.SecDevider}></div>
 
         </div>
+
+
+
     )
 }
 

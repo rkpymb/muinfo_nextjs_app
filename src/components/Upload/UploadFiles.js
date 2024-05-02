@@ -83,7 +83,7 @@ const UploadFiles = () => {
     React.useEffect(() => {
         setProgress(0);
         setSelectFile(false)
-        setFileUpldedFinal('/img/imageupload.png')
+        setFileUpldedFinal('/img/up-loading_red.png')
 
     }, [router.query]);
 
@@ -91,20 +91,20 @@ const UploadFiles = () => {
     const onDrop = async (acceptedFiles) => {
         const fileFormat = acceptedFiles[0].type;
 
-
-        if (fileFormat.startsWith('image/') || fileFormat.startsWith('video/')) {
+        if (fileFormat.startsWith('image/')  || fileFormat.startsWith('video/')   || fileFormat === 'application/pdf') {
             setFileTypeNow(fileFormat)
             setSelectFile(true)
             setUploadProgress(0)
             const formData = new FormData();
             formData.append('file', acceptedFiles[0]);
             try {
-                const url = MediaFilesUrl + 'Vendor/UploadFile'
+                console.log(Contextdata.UserJwtToken)
+                const url = MediaFilesUrl + 'user/UploadFile'
                 const response = await axios.post(url, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
-                        'folderName': 'VendorFeeds',
-                        Authorization: `Bearer ${Contextdata.VendorJwtToken}`,
+                        'folderName': 'feedpost',
+                        Authorization: `Bearer ${Contextdata.UserJwtToken}`,
 
                     },
                     onUploadProgress: (progressEvent) => {
@@ -116,8 +116,8 @@ const UploadFiles = () => {
                 if (response.data.success == true) {
 
                     setUploadedFile(response.data.filename);
-                    document.getElementById("Feedfilename").value = response.data.filename;
-                    const Fimg = MediaFilesUrl + FeedimgFolder + '/' + response.data.filename
+                    document.getElementById("ConentMedia").value = response.data.filename;
+                    const Fimg = MediaFilesUrl + MediaFilesFolder + response.data.filename
                     setFileUpldedFinal(Fimg)
 
 
@@ -128,6 +128,10 @@ const UploadFiles = () => {
                     }
                     if (fileFormat.startsWith('video/')) {
                         setFileTypeNow('video')
+
+                    }
+                    if (fileFormat.startsWith('pdf/')) {
+                        setFileTypeNow('pdf')
 
                     }
 
@@ -163,9 +167,9 @@ const UploadFiles = () => {
                             aria-label="toggle password visibility"
                             style={{ width: 40, height: 40 }}
                         >
-                            <img src='/img/imageupload.png' width={'100%'} />
+                            <img src='/img/up-loading_red.png' width={'100%'} />
                         </IconButton>
-                        <span className={Mstyles.ChoosefileText}>Photo/Video</span>
+                        <span className={Mstyles.ChoosefileText}>attach photo, video or pdf</span>
 
                     </div>
 

@@ -14,6 +14,9 @@
     ;
 }
 
+.ql-toolbar.ql-snow{
+    border: none;
+}
 .acentColor{
     color: var(--accent-color);
 }

@@ -90,7 +90,7 @@ const UploadFiles = () => {
     React.useEffect(() => {
         setProgress(0);
         setSelectFile(false)
-        setFileUpldedFinal('/img/imageupload.png')
+        setFileUpldedFinal('/img/upload.png')
 
     }, [router.query]);
 
@@ -106,11 +106,11 @@ const UploadFiles = () => {
             const formData = new FormData();
             formData.append('file', acceptedFiles[0]);
             try {
-                const url = MediaFilesUrl + 'Users/UploadFile'
+                const url = MediaFilesUrl + 'user/UploadFile'
                 const response = await axios.post(url, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
-                        'folderName': 'images',
+                        'folderName': 'feedpost',
                         Authorization: `Bearer ${Contextdata.UserJwtToken}`,
 
                     },
@@ -170,7 +170,7 @@ const UploadFiles = () => {
 
                             <div {...getRootProps()} style={dropzoneStyles}>
                                 <input {...getInputProps()} />
-                                <SmallAvatar alt={Contextdata.UserData.name} src="/img/uploadicon.png" />
+                                <SmallAvatar alt={Contextdata.UserData.name} src="/img/up-loading.png" />
                             </div>
 
                         }

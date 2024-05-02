@@ -41,8 +41,8 @@ function TokyoApp({ Component, pageProps }) {
 
     <CheckloginStates >
 
-      <Head>
-        <script src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyCd2G5EyfBZtKccEVM24VNGHRm3r_4cOa0&libraries=places`}></script>
+      <Head>z
+       
         <link rel="icon" href="/fevicon.png" />
 
       </Head>

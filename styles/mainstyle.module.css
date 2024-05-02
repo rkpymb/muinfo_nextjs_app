@@ -5,11 +5,205 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
 
 
-.Vtitlebox{
+.NotiGrid {
+
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+}
+
+
+.NotiItem {
+  box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+
+}
+.NotitextDate span{
+  font-size: 10px;
+  font-weight: 600;
+  color: #23d5ab;
+
+}
+.Notitext span{
+  font-size: 14px;
+  font-weight: 600;
+
+}
+.NotiItemTop {
+  display: flex;
+  padding: 10px;
+
+}
+
+.Notiimg {
+
+  width: 150px;
+
+}
+
+.NotiItemTopB {
+  margin-left: 10px;
+}
+
+.Notitext {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.Padfboxiframe {
+  width: 100%;
+}
+
+.EditPBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.EditPBoxA {
+  width: 100%;
+  padding: 20px;
+}
+
+.EditPBoxB {
+  width: 100%;
+  padding: 0px 20px 20px 20px;
+
+}
+
+.EditPBoxC {
+  width: 100%;
+  padding: 0px 20px 20px 20px;
+
+}
+
+.FooterbtnboxBtn {
+
+  padding: 20px;
+
+  background-color: red;
+}
+
+
+.Padfboxiframe iframe {
+  height: 500px;
+  width: 100%;
+  border: none;
+  outline: none;
+}
+
+.HomeCatbox {
+  box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
+  padding: 20px;
+  margin: 5px;
+
+}
+
+.HomeCatGrid {
+
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+}
+
+.HomeCatGridSmall {
+
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+}
+
+
+.HomeCatGridItem {
+
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+}
+
+.HomeCatGridItem:hover {
+  font-weight: 600;
+}
+
+.HomeCatGridItemImageBox {
+
+  object-fit: cover;
+  transition: 0.3s;
+  position: relative;
+  overflow: hidden;
+
+  border: 0.5px solid var(--border-color);
+  border-radius: 14px;
+  height: 60px;
+  width: 60px;
+  padding: 10px;
+  background-color: #f7ffce77;
+
+
+
+
+}
+
+.HomeCatGridItemImage {
+  transition: 0.3s;
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+
+}
+
+.HomeCatGridItemImage:hover {
+  transform: scale(1.1);
+
+}
+
+.HomeCatGridItemContent {
+  margin-top: 5px;
+
+}
+
+.HomeCatGridItemContent span {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.TTitle {
+
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.TTitleA {
+  margin-top: 5px;
+}
+
+.TTitleB {
+  margin-left: 10px;
+}
+
+.TTitleB span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+
+.Vtitlebox {
   font-weight: 600;
   margin: 10px;
   color: var(--accent-color);
 }
+
 /* .Scrollbox {
   height: 400px;
   overflow: auto;
@@ -110,10 +304,7 @@
 
   border-radius: 10px;
   border: 2px solid var(--accent-color);
-  background: linear-gradient(-45deg, #e9e5e315, #e73c7e14, #23a5d51a, #23d5ab43);
 
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 
   /* Define the initial state of the animation */
   opacity: 0;
@@ -1125,12 +1316,6 @@
   margin-top: 20px;
 }
 
-.HomeCatGrid {
-
-  display: grid;
-  gap: 0.8rem;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-}
 
 
 .Fullbg {
@@ -1206,60 +1391,6 @@
 
 .HomeFlexBoxStickyC::-webkit-scrollbar-thumb {
   display: none;
-}
-
-.HomeCatGridItem {
-
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-
-}
-
-.HomeCatGridItem:hover {
-  font-weight: 600;
-}
-
-.HomeCatGridItemImageBox {
-
-  object-fit: cover;
-  transition: 0.3s;
-  position: relative;
-  overflow: hidden;
-  border: 0.5px solid var(--border-color);
-
-  border-radius: 14px;
-  height: 60px;
-  width: 60px;
-  padding: 10px;
-
-
-
-
-}
-
-.HomeCatGridItemImage {
-  transition: 0.3s;
-  position: relative;
-  overflow: hidden;
-  height: 100%;
-  width: 100%;
-
-}
-
-.HomeCatGridItemImage:hover {
-  transform: scale(1.1);
-
-}
-
-.HomeCatGridItemContent {
-  margin-top: 5px;
-
-  font-size: 14px;
-
-
 }
 
 
@@ -1431,55 +1562,91 @@
 
 }
 
+.SearchItemA {
+  width: 100%;
+}
 
-
-.Vendorgrid {
+.SearchGrid {
 
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
 
 
 }
 
-.VendorGrid {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+.Dateboxsearch {
+  margin-top: 20px;
+}
 
+.Dateboxsearch span {
+  font-size: 12px;
+  font-weight: 500;
 
 }
+
+.SearchItem {
+  box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: space-between;
+  cursor: pointer;
+}
+
+.SearchContent {
+  width: 100%;
+}
+
 
 .SearchlistBox {
   margin: auto;
   width: 80%;
 }
 
+.Notimenu {
 
 
-.LBoverlay {
-  position: relative;
-  cursor: pointer;
-  width: 100%;
-  height: 100%;
+  width: 400px;
+  overflow: auto;
+
 }
 
-.LBoverlayContent {
-  border-radius: 20px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.Notimenu::-webkit-scrollbar {
+  display: none;
+}
 
-  /* Overlay ka background color or opacity */
+.Notimenu::-webkit-scrollbar-thumb {
+  display: none;
+}
+
+
+
+.NotiHeader {
   display: flex;
-
-  justify-content: center;
   align-items: center;
-  overflow: hidden;
+  justify-content: space-between;
+  padding: 10px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
+  margin-bottom: 20px;
+}
 
-  /* Text color on overlay */
+.NotiLbox {
+  height: 100vh;
+  overflow: auto;
+}
+
+
+.NotiHeaderA {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.DeviderBorder {
+  min-height: 2px;
+  width: 100%;
+
+
 }
 
 .LocationItem {
@@ -1675,22 +1842,7 @@
 
 }
 
-.VDFlexboxtwoA {
-  width: 50%;
-  padding: 20px;
-}
 
-.VDFlexboxtwoB {
-  padding: 20px;
-  width: 50%;
-}
-
-.Footerbtnbox {
-  width: 20%;
-  margin: auto;
-  padding: 20px;
-
-}
 
 .MainVContainer {
   width: 90%;
@@ -2335,7 +2487,7 @@
 }
 
 .PostAddonItemBox {
-  margin-top: 10px;
+
   display: flex;
   align-items: center;
 
@@ -2846,6 +2998,10 @@
   border: 1px solid var(--border-color);
   border-radius: 10px;
   margin-top: 10px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
 }
 
@@ -2874,10 +3030,10 @@
 .FeedMediaImgbox {
   cursor: pointer;
   width: 100%;
-
   overflow: hidden;
   object-fit: contain;
   position: relative;
+
 
 }
 
@@ -2899,7 +3055,7 @@
 }
 
 .FVPlayerOverlay {
-  border-radius: 20px;
+  border-radius: 0px;
   position: absolute;
   top: 0;
   left: 0;
@@ -2958,15 +3114,11 @@
 
 .FeedItemMedium {
   margin-top: 10px;
-
-
 }
 
 .FeedItemMediumTextbox {
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  width: 100%;
+  padding: 0px 20px 10px 20px;
 
 }
 
@@ -2996,7 +3148,7 @@
 
 }
 
-.FeedItemBottom {
+.FeedItemBottomMain {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -3005,11 +3157,19 @@
   padding-right: 20px;
   padding-bottom: 10px;
 }
+.FeedItemBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 50%;
+  
+}
 
 .FeedBtnitem {
   display: flex;
   align-items: center;
   cursor: pointer;
+ 
 
 
 }
@@ -3087,7 +3247,11 @@
 }
 
 .FeedBtnitemB {
-  margin-left: 10px;
+  margin-left: 5px;
+ 
+}
+.Likete {
+font-weight: 600;
 }
 
 .FeedListbox {
@@ -3128,34 +3292,55 @@
 
 }
 
+
 .VendorDbContainerBox {
   margin: auto;
   width: 80%;
 }
 
 .PostBoxVendor {
+  box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
 
-  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
-
-  border-radius: 30px;
-
-
+  border-radius: 10px;
   overflow: hidden;
+
+
+  margin-bottom: 20px;
 }
 
 
-.PostBoxMain {
-
-  padding: 30px;
+.PostBoxMainA {
+  padding: 20px 20px 20px 20px;
 
 }
 
+.Cattagboxtext {
+  font-weight: 600;
+  color: var(--accent-color);
+  font-size: 14px;
+}
 
-.VideoBox {
-  margin: auto;
-  width: 50%;
-  margin-top: 100px;
-  margin-bottom: 100px;
+.PostFooterboxA {
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+
+.PostBoxMainB {
+  padding: 0px;
+}
+
+.CatboxPost {
+  padding: 10px 20px 0px 20px;
+}
+
+.PostBoxMainC {
+  padding: 0px 20px 20px 20px;
+}
+
+.PostFooterbox {
+  width: 100%;
+  overflow: hidden;
+
 }
 
 .PostTextBox {
@@ -3164,7 +3349,9 @@
   font-weight: #ddd7d7;
   text-transform: lowercase;
   cursor: text;
+
   padding: 10px;
+
 }
 
 .Choosefileflex {
@@ -3177,17 +3364,17 @@
   font-weight: 700;
 }
 
-.PostFooterbox {
-  width: 100%;
-  overflow: hidden;
-
+.editorStyle {
+  min-height: 200px;
 }
+
+
 
 .FileUploadingbox {
   width: 100%;
-  padding: 20px;
-  max-height: 300px;
-  overflow: auto;
+
+  max-height: 500px;
+  overflow: hidden;
 }
 
 .FileUploadingbox::-webkit-scrollbar {
@@ -3323,7 +3510,7 @@
   background-image: url("/img/background_vector_template_design_5.jpg");
   background-repeat: repeat;
   background-size: 100%;
- 
+
 
 }
 
@@ -3341,7 +3528,7 @@
 .VendorHeadeBoxbgimgCover {
   width: 100%;
   height: 100%;
- 
+
 }
 
 
@@ -4547,12 +4734,7 @@
 
   }
 
-  .Footerbtnbox {
-    width: 100%;
-    margin: auto;
-    padding: 20px;
 
-  }
 
   .Postupdatefotter {
 
@@ -4855,12 +5037,6 @@
     margin: auto;
   }
 
-  .HomeCatGrid {
-
-    display: grid;
-    gap: 0.8rem;
-    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-  }
 
 
 
@@ -5143,4 +5319,85 @@
     padding: 5px;
 
   }
+
+  .PostTextBox {
+
+    color: #bb9f9f;
+    font-weight: #ddd7d7;
+    text-transform: lowercase;
+    cursor: text;
+
+    padding: 0px;
+
+  }
+
+
+  .HomeCatGrid {
+
+    display: flex;
+    gap: 0rem;
+    overflow: auto;
+
+  }
+
+  .HomeCatGrid::-webkit-scrollbar {
+    display: none;
+  }
+
+
+  .HomeCatGridSmall {
+
+    display: grid;
+    gap: 0.8rem;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  }
+
+
+  .HomeCatGridItem {
+
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 10px;
+    min-width: fit-content;
+
+  }
+
+  .SearchGrid {
+
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+
+
+  }
+
+
+  .HomeCatbox {
+    box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
+    padding: 10px;
+    margin: 0px;
+
+  }
+
+  .NotiItemTop {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  
+  }
+  
+  .Notiimg {
+  
+    width: 100%;
+  
+  }
+  
+  .NotiItemTopB {
+    margin-left: 10px;
+  }
+
+
 }

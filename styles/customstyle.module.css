@@ -1,0 +1,527 @@
+
+.FeedSection {
+  display: flex;
+
+}
+
+.FeedSectionA {
+  height: 100vh;
+  width: 30%;
+  position: sticky;
+  top: 10%;
+  background-color: transparent;
+
+
+  padding: 5px;
+
+  overflow: auto;
+}
+
+.FeedSectionB {
+
+  width: 50%;
+  margin-left: 50px;
+  margin-right: 50px;
+
+}
+
+
+.FeedSectionC {
+  height: 100vh;
+  width: 20%;
+  position: sticky;
+  top: 10%;
+  background-color: transparent;
+
+  padding: 5px;
+
+  overflow: auto;
+
+}
+
+
+.Container {
+  margin: 0 auto;
+  width: 90%;
+
+}
+.ContainerContent {
+  margin: 0 auto;
+  width: 70%;
+ 
+}
+.SmallContainer {
+  margin: 0 auto;
+  width: 40%;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
+}
+
+.SecDevider {
+  height: 20px;
+}
+
+.Section {
+  animation: fadeIn 1s ease-in-out forwards;
+  padding: 5px;
+}
+
+.navbarMain {
+  position: sticky;
+  width: 100%;
+  top: 0;
+  background-color: transparent;
+  z-index: 999;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
+
+  background-color: white;
+
+}
+
+.HomeAsideAddLaptopItem {
+
+  width: 100%;
+
+}
+
+.HomeAsideAddLaptop {
+
+  width: 100%;
+
+}
+
+.HomeAsideAddLaptop img {
+  width: 100%;
+
+}
+
+.AddboxText {
+  font-size: 10px;
+  margin-top: 2px;
+  
+}
+
+.LoginLogo {
+  width: 100px;
+  cursor: pointer;
+}
+
+.NavLogo {
+  width: 150px;
+  cursor: pointer;
+}
+
+/* .NavLogo img {
+  filter: invert(100%) brightness(200%);
+} */
+
+.NavBarbox {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto;
+  width: 90%;
+}
+
+
+.NavLeftBox{
+  display: flex;
+  align-items: center;
+}
+
+
+
+.Fullbg {
+  min-height: 100vh;
+
+
+}
+
+.LoginBox_input {
+  margin-top: 20px;
+}
+
+.Loginbtnbox {
+  margin-top: 20px;
+}
+
+.loginboxmain {
+  margin: auto;
+  width: 70%;
+  min-height: 100vh;
+}
+
+
+.loginbox {
+  width: 100%;
+  display: flex;
+  margin-top: 50px;
+}
+
+.loginboxA {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.loginboxB {
+  width: 50%;
+  padding: 30px;
+
+
+}
+
+.Lheader {
+  display: flex;
+  flex-direction: column;
+}
+
+.Lheader span {
+  font-size: 20px;
+  font-weight: 600;
+
+}
+
+.Lheader small {
+  font-size: 14px;
+  font-weight: 500;
+
+}
+
+.Authbox {
+  animation: fadeIn 1s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+.ForgotpassText {
+  margin-top: 50px;
+  text-align: center;
+
+}
+
+.Otpmobiletext {
+  font-weight: 500;
+  color: red;
+  cursor: pointer;
+}
+
+.ForgotpassText span {
+  font-weight: 500;
+  color: red;
+  cursor: pointer;
+}
+
+.SignTextBox {
+  margin-top: 50px;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid rgb(237, 228, 228);
+
+}
+
+.SignTextBox span {
+  font-weight: 500;
+  color: blue;
+  cursor: pointer;
+}
+
+.IconMenu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.IconMenuItem {
+ 
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+
+.MainMenu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.MainMenuItem {
+  padding: 10px 10px 10px 10px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.MainMenuItem span {
+  font-size: 14px;
+  font-weight: 500;
+
+}
+
+
+.PostBoxVendor {
+
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
+
+  border-radius: 30px;
+
+
+  overflow: hidden;
+}
+
+
+.PostBoxMain {
+
+  padding: 30px;
+
+}
+
+
+.PostTextBox {
+
+  color: #bb9f9f;
+  font-weight: #ddd7d7;
+  text-transform: lowercase;
+  cursor: text;
+  padding: 10px;
+}
+
+.Choosefileflex {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.PostChooseItemIcon {
+  font-weight: 700;
+}
+
+.PostFooterbox {
+  width: 100%;
+  overflow: hidden;
+
+}
+
+.FileUploadingbox {
+  width: 100%;
+  padding: 20px;
+  max-height: 300px;
+  overflow: auto;
+}
+
+.FileUploadingbox::-webkit-scrollbar {
+  width: 5px;
+}
+
+.FileUploadingbox::-webkit-scrollbar-thumb {
+  background-color: #dee5d9;
+  border-radius: 10px;
+}
+
+.FileUploadingbox::-webkit-scrollbar-track {
+  background-color: #eee;
+}
+
+
+.FileItem img {
+  border-radius: 20px;
+  width: 100%;
+}
+
+.FileItem video {
+  border-radius: 20px;
+  width: 100%;
+}
+
+.UploadedBox {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+}
+
+.FileItem {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  width: 300px;
+
+}
+
+
+.FileItemOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  /* Adjust the background color and opacity as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Adjust the text color as needed */
+}
+
+
+.UploadteUploadDetalisBox {
+
+  font-size: 10px;
+}
+
+.UploadingboxText {
+  margin-top: 5px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.UploadingboxTextDone {
+  margin-top: 5px;
+  text-transform: uppercase;
+  font-weight: 600;
+
+}
+
+
+.PostUserbox {
+  display: flex;
+  align-items: center;
+}
+
+.PostUserboxB {
+  margin-left: 10px;
+}
+
+.Createptitle {
+  font-weight: 600;
+  font-size: 20px;
+
+}
+
+.CreatepUsername {
+  font-weight: 600;
+  font-size: 20px;
+
+}
+
+.CreatepUsername {
+  font-weight: 600;
+  font-size: 14px;
+  color: #bb9f9f;
+
+}
+
+
+/* mobile css */
+/* mobile css */
+/* mobile css */
+/* mobile css */
+/* mobile css */
+/* mobile css */
+/* mobile css */
+@media only screen and (max-width: 1100px) {
+  .MainMenu {
+    display: none;
+  }
+
+  .loginboxmain {
+    width: 100%;
+
+  }
+
+  .loginbox {
+    flex-direction: column;
+  }
+
+  .loginboxA {
+    width: 100%;
+    display: none;
+  }
+
+  .loginboxB {
+    width: 100%;
+  }
+
+  .Container {
+    margin: 0 auto;
+    width: 100%;
+
+  }
+
+  .SecDevider {
+    height: 20px;
+  }
+
+  .Section {
+    padding: 5px;
+  }
+
+  .FeedSection {
+    display: flex;
+    flex-direction: column;
+
+  }
+  .AddPostHome{
+    padding: 5px;
+  }
+
+  .FeedSectionA {
+    height: fit-content;
+    width: 100%;
+    position: relative;
+    top: 0;
+ 
+    padding: 0px;
+    overflow: auto;
+    
+  }
+
+  .FeedSectionB {
+
+    width: 100%;
+    margin-left: 0px;
+    margin-right: 0px;
+
+  }
+
+
+  .FeedSectionC {
+   display: none;
+
+  }
+  .SmallContainer {
+    margin: 0 auto;
+    width: 100%;
+  
+  }
+  
+  .ContainerContent {
+    margin: 0 auto;
+    width: 100%;
+   
+  }
+  .NavBarbox {
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: auto;
+    width: 100%;
+  }
+  
+
+}
