@@ -9,7 +9,7 @@ import { useRouter, useParams } from 'next/router'
 
 import Feedlist from '../../components/user/FeedList'
 import Categories from '../../components/user/Categories'
-import HomeAsideAddLaptop from '../../components/user/Addbox/HomeAsideAddLaptop'
+import HomeAsideAddLaptop from '../../components/Advt/HomeAsideAddLaptop'
 
 export async function getServerSideProps(context) {
     const slug = context.query.pageno[0];

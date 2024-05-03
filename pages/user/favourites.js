@@ -9,8 +9,7 @@ import { useRouter, useParams } from 'next/router'
 
 import UserFavouritePosts from '../components/user/UserFavouritePosts'
 import Categories from '../components/user/Categories'
-import HomeAsideAddLaptop from '/src/components/Advt/HomeAsideAddLaptop'
-
+import HomeAsideAddLaptop from '../components/Advt/HomeAsideAddLaptop'
 function Home() {
   const router = useRouter();
   const Contextdata = useContext(CheckloginContext)
