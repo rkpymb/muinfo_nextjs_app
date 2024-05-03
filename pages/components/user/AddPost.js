@@ -46,7 +46,7 @@ const PostBox = () => {
     const [Loading, setLoading] = useState(true);
     const [LoadingSubmitPost, setLoadingSubmitPost] = useState(false);
     const [DesabledButon, setDesabledButon] = useState(true);
-    const [PostText, setPostText] = useState('');
+    const [PostText, setPostText] = useState();
     const [EditorContent, setEditorContent] = useState('');
     const [tags, setTags] = useState('xyz');
     const [Category, setCategory] = useState(null);
@@ -244,8 +244,8 @@ const PostBox = () => {
                                     <ReactQuill
                                         theme="snow" // You can change the theme as per your preference
                                         value={PostText}
+                                        placeholder='write your post here ...'
                                         onChange={handleEditorChange}
-
                                     />
 
                                 </div>

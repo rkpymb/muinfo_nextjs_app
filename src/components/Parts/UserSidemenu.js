@@ -85,7 +85,7 @@ const AdboxA = ({ TabindexNow }) => {
                         </span>
                     </div>
                     <div className={Mstyles.TextmenItemB}>
-                        <span>Terms & Co...</span>
+                        <span>Terms & Conditions</span>
                     </div>
 
                 </div>

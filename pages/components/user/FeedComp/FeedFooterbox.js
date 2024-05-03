@@ -61,9 +61,9 @@ const FeedFooterbox = ({ PostData }) => {
         })
             .then((parsed) => {
 
-                if (parsed.ReqData ) {
+                if (parsed.ReqData) {
                     setAllLikes(parsed.ReqData.AllLikes)
-                  
+
                     if (parsed.ReqData.MyLikeData) {
                         setLiked(true)
                     } else {
@@ -181,17 +181,6 @@ const FeedFooterbox = ({ PostData }) => {
     }));
 
 
-    const Viewimg = async () => {
-
-       
-        const TragetUrl = PostData.PostData.PostList[0].postData
-        
-        if (TragetUrl) {
-            window.open(`${MediaFilesUrl}${FeedimgFolder}/${TragetUrl}`, "_blank");
-        }
-
-    };
-
 
     return (
         <div>
@@ -221,11 +210,11 @@ const FeedFooterbox = ({ PostData }) => {
 
                         </div>
 
-                       
+
 
                         <div className={Mstyles.FeedBtnitem} >
 
-                        <PostCmt PostData={PostData.PostData} />
+                            <PostCmt PostData={PostData.PostData} />
 
                         </div>
                         <div className={Mstyles.FeedBtnitem} >
@@ -252,22 +241,7 @@ const FeedFooterbox = ({ PostData }) => {
 
                         </div>
 
-                        {PostData.PostData.PostList[0].PostType == 'image' &&
-                           <div className={Mstyles.FeedBtnitem} onClick={Viewimg} >
-
-                            <div className={Mstyles.FeedBtnitemA}>
-                                <IconButton aria-label="cart" >
-                                    <StyledBadge color="secondary">
-                                        <BsArrowsFullscreen size={20} />
-                                    </StyledBadge>
-                                </IconButton>
-                            </div>
-
-
-                        </div>
-
-                        }
-                        
+                       
 
                     </div>
 
@@ -275,7 +249,7 @@ const FeedFooterbox = ({ PostData }) => {
                         <Sharebtn ContentUrl={`${DomainURL}p/${PostData.PostData.PostID}`} />
                     </div>
 
-                   
+
                 </div>
             }
         </div>

@@ -13,9 +13,19 @@ const FeedImgPost = ({ PostData }) => {
         setImgurl(PostData.PostList[0].postData);
     }, [router.query]);
 
+    
+    const Viewimg = async () => {
+        const TragetUrl = Imgurl
+        if (TragetUrl) {
+            window.open(`${MediaFilesUrl}${FeedimgFolder}/${TragetUrl}`, "_blank");
+        }
+
+    };
+
+
     return (
         <div className={Mstyles.Mimgfeed}>
-            <div className={Mstyles.FeedMediaImgbox}>
+            <div className={Mstyles.FeedMediaImgbox} onClick={Viewimg}>
                 <img
                     src={`${MediaFilesUrl}${FeedimgFolder}/${Imgurl}`}
                     alt="image"

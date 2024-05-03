@@ -5,12 +5,14 @@ import React, { useState, useEffect, useContext } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import CheckloginContext from '/context/auth/CheckloginContext'
 
 import { LuEye, LuPencilLine, LuTrash2 } from "react-icons/lu";
 import { useRouter } from 'next/router'
 
 const PostAdminMenu = ({ PostData }) => {
     const router = useRouter()
+    const Contextdata = useContext(CheckloginContext)
 
     const DeletePost = async (e) => {
         let text = "Do you really want to delete This Post ?";
@@ -51,18 +53,26 @@ const PostAdminMenu = ({ PostData }) => {
 
     return (
         <div>
-            <MenuItem onClick={() => router.push(`/p/edit/${PostData.PostID}`)}>
-                <ListItemIcon>
-                    <LuPencilLine />
-                </ListItemIcon>
-                Edit Post
-            </MenuItem>
-            <MenuItem onClick={() => DeletePost(PostData)}>
-                <ListItemIcon>
-                    <LuTrash2 />
-                </ListItemIcon>
-                Delete Post
-            </MenuItem>
+
+            {Contextdata.UserData && Contextdata.UserData.Role === 1 &&
+
+                <div>
+                    <MenuItem onClick={() => router.push(`/p/edit/${PostData.PostID}`)}>
+                        <ListItemIcon>
+                            <LuPencilLine />
+                        </ListItemIcon>
+                        Edit Post
+                    </MenuItem>
+                    <MenuItem onClick={() => DeletePost(PostData)}>
+                        <ListItemIcon>
+                            <LuTrash2 />
+                        </ListItemIcon>
+                        Delete Post
+                    </MenuItem>
+                </div>
+
+            }
+
 
         </div>
     )

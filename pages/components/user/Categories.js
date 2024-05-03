@@ -15,7 +15,7 @@ import {
 
 } from '@mui/material';
 
-function Categories({Type}) {
+function Categories({ Type }) {
 
     const Dummydta = [
         {
@@ -111,16 +111,21 @@ function Categories({Type}) {
 
     return (<>
         <div className={Mstyles.HomeCatbox}>
-            <div className={Mstyles.TTitle}>
-                <div className={Mstyles.TTitleA}>
-                    <LuTrendingUp  size={20} />
 
+            <div className={Mstyles.OnlyDesktop}>
+
+                <div className={Mstyles.TTitle}>
+                    <div className={Mstyles.TTitleA}>
+                        <LuTrendingUp size={20} />
+                    </div>
+                    <div className={Mstyles.TTitleB}>
+                        <span>Read by Interests</span>
+                    </div>
                 </div>
-                <div className={Mstyles.TTitleB}>
-                    <span>Read by Interests</span>
-                </div>
+                <div style={{ height: '10px' }}></div>
             </div>
-            <div style={{ height: '10px' }}></div>
+
+
             {isLoading ? <div className={Mstyles.HomeCatGrid}>
 
                 {Dummydta.map((item, index) => {
@@ -139,7 +144,7 @@ function Categories({Type}) {
                     {Retdata.length > 0 &&
 
                         <div>
-                            <div className={Type == 1? Mstyles.HomeCatGridSmall : Mstyles.HomeCatGrid}>
+                            <div className={Type == 1 ? Mstyles.HomeCatGridSmall : Mstyles.HomeCatGrid}>
                                 {Retdata.map((item, index) => {
                                     return <div className={Mstyles.HomeCatGridItem} key={index} onClick={() => router.push(`/feeds/interests/${item.slug}`)} >
                                         <div className={Mstyles.HomeCatGridItemImageBox}>

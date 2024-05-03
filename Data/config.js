@@ -13,7 +13,7 @@ export const SvgLogo = 'https://api.magadhuniversityinfo.com/images/mu_logo.svg'
 export const API_URL = 'https://api.magadhuniversityinfo.com/';
 export const AppName = 'Magadh University Info';
 export const AppDesc = '';
-export const DomainURL = 'http://localhost:3000/';
+export const DomainURL = 'https://magadhuniversityinfo.com/';
 export const CryptoJSKEY = 'XYZ';
 
 export const MYKEY = '86afb51e932292b013a62196f4181f6e'

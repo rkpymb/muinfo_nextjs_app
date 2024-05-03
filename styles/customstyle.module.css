@@ -1,7 +1,19 @@
+.OnlyDesktop {
+  display: block;
+}
+
+.OnlyMobile {
+  display: none;
+}
 .FeedSection {
   display: flex;
 
 }
+
+.AddPostHome {
+  padding: 5px;
+}
+
 
 .loginboxAimg {
   width: 400px;
@@ -535,10 +547,7 @@
 
   }
 
-  .AddPostHome {
-    padding: 5px;
-  }
-
+ 
   .FeedSectionA {
     height: fit-content;
     width: 100%;
@@ -604,6 +613,14 @@
   justify-content: center;
 
   
+}
+
+.OnlyDesktop {
+  display: none;
+}
+
+.OnlyMobile {
+  display: block;
 }
 
 }
