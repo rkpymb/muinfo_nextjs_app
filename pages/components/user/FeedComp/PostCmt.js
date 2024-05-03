@@ -16,6 +16,9 @@ import Avatar from '@mui/material/Avatar';
 
 import IconButton from '@mui/material/IconButton';
 
+import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
+
+
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -193,6 +196,7 @@ const PostBoxUser = ({ PostData }) => {
             <React.Fragment>
 
                 <Dialog
+                 fullScreen={isMobile ? true : false}
                     open={OpenModal}
                     onClose={handleClose}
                     scroll={scroll}

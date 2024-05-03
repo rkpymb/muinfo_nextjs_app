@@ -7,9 +7,10 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 
 import CheckloginContext from '/context/auth/CheckloginContext'
-import { LuEye } from "react-icons/lu";
+import { LuEye,LuPencilLine,LuTrash2 } from "react-icons/lu";
 
 import ReportPost from './ReportPost'
+import PostAdminMenu from './PostAdminMenu'
 
 import Avatar from '@mui/material/Avatar';
 
@@ -132,10 +133,12 @@ const FeedTopbox = ({ PostData }) => {
                             </ListItemIcon>
                             View Post
                         </MenuItem>
-
+                        
                         
 
+                        <PostAdminMenu PostData={PostData.PostData} />
                         <ReportPost PostData={PostData} />
+                       
 
                     </Menu>
                 </div>

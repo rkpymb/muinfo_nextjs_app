@@ -1,5 +1,5 @@
 
-// export const MediaFilesUrl = 'https://api.magadhuniversityinfo.com/';
+
 export const MediaFilesUrl = 'https://api.magadhuniversityinfo.com/';
 export const MediaFilesFolder = 'content/'
 export const FeedimgFolder = 'content'

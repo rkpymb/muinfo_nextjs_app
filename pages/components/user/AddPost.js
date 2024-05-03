@@ -7,23 +7,21 @@ import {
     Button,
     styled
 } from '@mui/material';
-import TextField from '@mui/material/TextField';
+
 import LoadingButton from '@mui/lab/LoadingButton';
 import { FiChevronRight, FiEdit } from 'react-icons/fi';
-import Input from '@mui/material/Input';
+
 
 const ariaLabel = { 'aria-label': 'description' };
 
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
+
 import DialogTitle from '@mui/material/DialogTitle';
 
 import Image from 'next/image';
 
-import { CiVideoOn, CiImageOn } from "react-icons/ci";
-import IconButton from '@mui/material/IconButton';
 
 import Avatar from '@mui/material/Avatar';
 import CheckloginContext from '/context/auth/CheckloginContext'
@@ -36,6 +34,7 @@ import { useRouter, useParams } from 'next/router'
 
 
 import UploadFiles from '../../../src/components/Upload/UploadFiles'
+import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 
 
 const ReactQuill = typeof window === 'object' ? require('react-quill') : () => false;
@@ -54,8 +53,8 @@ const PostBox = () => {
     const [CategoryText, setCategoryText] = useState('Select Post Category');
     const [Catlist, setCatlist] = useState([]);
 
-    const [OpenCatBox, setOpenCatBox] = React.useState(false);
-    const [scroll, setScroll] = React.useState('paper');
+    const [OpenCatBox, setOpenCatBox] = useState(false);
+    const [scroll, setScroll] = useState('paper');
 
     const [Catimg, setCatimg] = useState('categories.png');
     const Contextdata = useContext(CheckloginContext)
@@ -305,7 +304,7 @@ const PostBox = () => {
                                             endIcon={<FiChevronRight />}
                                             loading={LoadingSubmitPost}
                                             loadingPosition="end"
-                                            variant="contained"
+                                            variant="outlined"
 
                                         >
                                             <span>Publish Post</span>
@@ -331,6 +330,7 @@ const PostBox = () => {
                     <React.Fragment>
 
                         <Dialog
+                        fullScreen={isMobile ? true : false}
                             open={OpenCatBox}
                             onClose={handleClose}
                             scroll={scroll}

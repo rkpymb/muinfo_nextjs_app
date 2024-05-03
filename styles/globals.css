@@ -13,7 +13,9 @@
     --Sec-TextColor: #7DCEA0;
     ;
 }
-
+.css-1t4vnk2-MuiDialogContent-root{
+    padding: 10px;
+}
 .ql-toolbar.ql-snow{
     border: none;
 }

@@ -9,7 +9,7 @@ import { useRouter, useParams } from 'next/router'
 import AddPost from './components/user/AddPost'
 import Feedlist from './components/user/FeedList'
 import Categories from './components/user/Categories'
-import HomeAsideAddLaptop from './components/user/Addbox/HomeAsideAddLaptop'
+import HomeAsideAddLaptop from './components/Advt/HomeAsideAddLaptop'
 
 function Home() {
   const router = useRouter();
