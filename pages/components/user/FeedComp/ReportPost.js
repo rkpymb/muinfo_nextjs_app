@@ -23,7 +23,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 
-
+import Image from 'next/image';
 import Fade from '@mui/material/Fade';
 import Slide from '@mui/material/Slide';
 import Grow from '@mui/material/Grow';

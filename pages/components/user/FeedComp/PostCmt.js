@@ -15,7 +15,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import Avatar from '@mui/material/Avatar';
 
 import IconButton from '@mui/material/IconButton';
-
+import Image from 'next/image';
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 
 
@@ -183,20 +183,29 @@ const PostBoxUser = ({ PostData }) => {
 
 
             <div className={Mstyles.FeedBtnitemA}>
-
-
                 <IconButton aria-label="cart" onClick={handleClickOpen('paper')}>
-                    <StyledBadge color="secondary">
-                        <BsChatSquareDots size={20} />
+                    <StyledBadge color="secondary" >
+                        <Image
+                            alt="i"
+                            src='/svg/comment.svg'
+
+                            height={30}
+                            width={30}
+                            blurDataURL={blurredImageData}
+                            placeholder='blur'
+                            style={{ objectFit: "cover" }}
+                        />
                     </StyledBadge>
                 </IconButton>
+
+
             </div>
 
 
             <React.Fragment>
 
                 <Dialog
-                 fullScreen={isMobile ? true : false}
+                    fullScreen={isMobile ? true : false}
                     open={OpenModal}
                     onClose={handleClose}
                     scroll={scroll}
