@@ -16,7 +16,7 @@ import {
   Container,
   Button,
   styled
-} from '@mui/material'; 
+} from '@mui/material';
 
 import '../styles/globals.css'
 
@@ -40,19 +40,31 @@ function TokyoApp({ Component, pageProps }) {
   return (
 
     <CheckloginStates >
-
-      <Head>z
-       
-        <link rel="icon" href="/fevicon.png" />
-
+      <Head>
+        <title>Magadh University Info</title>
+        <link rel="icon" href="/Logo/fevi.png" />
       </Head>
+
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-Z0HYVSTLCL"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-Z0HYVSTLCL');
+        `}
+      </Script>
 
       <ThemeProvider >
         <CssBaseline />
         <MainAlert />
         <BackdropLoader />
         <OverviewWrapper>
-        <Component {...pageProps} />
+          <Component {...pageProps} />
         </OverviewWrapper>
       </ThemeProvider>
     </CheckloginStates >

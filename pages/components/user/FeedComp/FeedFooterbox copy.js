@@ -8,7 +8,6 @@ import IconButton from '@mui/material/IconButton';
 import PostCmt from './PostCmt';
 import Sharebtn from '../ShareBox/Sharebtn';
 import Badge from '@mui/material/Badge';
-import Image from 'next/image';
 
 import {
 
@@ -30,7 +29,7 @@ const FeedFooterbox = ({ PostData }) => {
     const [AllLikes, setAllLikes] = useState(0);
     const [FavPost, setFavPost] = useState(false);
 
-    const blurredImageData = 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88enTfwAJYwPNteQx0wAAAABJRU5ErkJggg==';
+
 
     useEffect(() => {
         setAllLikes(PostData.PostLikes)
@@ -195,32 +194,14 @@ const FeedFooterbox = ({ PostData }) => {
                                 {Liked ?
                                     <IconButton aria-label="cart" onClick={() => LikePost()} >
                                         <StyledBadge badgeContent={AllLikes} color="secondary" >
-                                        <Image
-                                                    src='/svg/like_fill.svg'
-                                                    alt="i"
-                                                   
-                                                    height={30}
-                                                    width={30}
-                                                    blurDataURL={blurredImageData}
-                                                    placeholder='blur'
-                                                    style={{ objectFit: "cover" }}
-                                                />
+                                            <BsFillHandThumbsUpFill size={20} />
                                         </StyledBadge>
                                     </IconButton>
                                     :
 
                                     <IconButton aria-label="cart" onClick={() => LikePost()}>
                                         <StyledBadge badgeContent={AllLikes} color="secondary" >
-                                        <Image
-                                                    alt="i"
-                                                    src='/svg/like.svg'
-                                                   
-                                                    height={30}
-                                                    width={30}
-                                                    blurDataURL={blurredImageData}
-                                                    placeholder='blur'
-                                                    style={{ objectFit: "cover" }}
-                                                />
+                                            <BsHandThumbsUp size={20} />
                                         </StyledBadge>
                                     </IconButton>
                                 }
