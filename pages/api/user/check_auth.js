@@ -24,7 +24,7 @@ const getApiDataFromCookie = (req) => {
         const cookies = cookieHeader.split(';');
         for (let cookie of cookies) {
             const [cookieName, cookieValue] = cookie.split('=');
-            if (cookieName.trim() === 'api_data') {
+            if (cookieName.trim() === 'user_data') {
                 // Decode and parse the cookie value (as JSON)
                 return JSON.parse(decodeURIComponent(cookieValue));
             }

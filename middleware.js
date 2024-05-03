@@ -28,7 +28,7 @@ export async function middleware(request) {
           return NextResponse.redirect(new URL('/account/user_login', request.url));
         } else {
           const response = NextResponse.next();
-          response.cookies.set('api_data', JSON.stringify(data), {
+          response.cookies.set('user_data', JSON.stringify(data), {
             httpOnly: true,
             secure: request.url.startsWith('https'),
             sameSite: 'lax',

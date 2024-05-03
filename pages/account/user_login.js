@@ -82,7 +82,9 @@ function Overview() {
 
                         if (parsedFinal.ReqData.LoginStatus == true) {
                             const newToken = parsedFinal.ReqData.token
+                            const  UserData = JSON.stringify(parsedFinal.ReqData.UserData) 
                             document.cookie = `jwt_token=${newToken}; expires=${new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000).toUTCString()}; path=/`;
+                            document.cookie = `user_data=${UserData}; expires=${new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000).toUTCString()}; path=/`;
                             Contextdata.ChangeAlertData(`${parsedFinal.ReqData.msg}`, 'success');
                             router.push('/feeds')
 
