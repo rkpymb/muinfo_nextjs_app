@@ -34,7 +34,7 @@ const HomeAsideAddLaptop = ({ bycat, PostData }) => {
             const parsed = await data.json();
 
             if (parsed.ReqData) {
-                console.log(parsed.ReqData.DataList)
+              
                 if (parsed.ReqData && parsed.ReqData.DataList) {
                     setAddData(parsed.ReqData.DataList)
 
@@ -52,7 +52,6 @@ const HomeAsideAddLaptop = ({ bycat, PostData }) => {
     };
     const ClickAd = async (AdClickData) => {
 
-        console.log(AdClickData)
         const TragetUrl = AdClickData.AdvtList.Adurl
         if (TragetUrl) {
             window.open(`${TragetUrl}?ref=${AdClickData.AdID}`, "_blank");

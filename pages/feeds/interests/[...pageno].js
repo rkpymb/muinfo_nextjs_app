@@ -20,7 +20,7 @@ export async function getServerSideProps(context) {
     };
     const response = await fetch(`${process.env.API_URL}user/category_data`, requestOptions);
     const MData = await response.json();
-    console.log(MData)
+
 
 
     return {
@@ -36,7 +36,7 @@ function Home({ MData }) {
     const [Loading, setLoading] = useState(true);
 
     useEffect(() => {
-        console.log(MData.CatData.slug)
+       
         window.scrollTo({
             top: 0,
             behavior: "smooth",

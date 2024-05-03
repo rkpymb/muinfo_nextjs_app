@@ -7,6 +7,7 @@ export const AdvtContentfolder = 'advt'
 export const FeedVideosBaseUrl = `${MediaFilesUrl}user/FeedvideosStream/`
 export const AppVersionCode = '2.0'
 export const GoogleMapsAPI = 'AIzaSyCd2G5EyfBZtKccEVM24VNGHRm3r_4cOa0'
+export const SvgLogo = 'https://api.magadhuniversityinfo.com/images/mu_logo.svg'
 
 // export const API_URL = 'https://api.magadhuniversityinfo.com/';
 export const API_URL = 'https://api.magadhuniversityinfo.com/';

@@ -1,9 +1,9 @@
-
 .FeedSection {
   display: flex;
 
 }
-.loginboxAimg{
+
+.loginboxAimg {
   width: 400px;
 }
 
@@ -16,17 +16,18 @@
   padding: 5px;
   overflow: auto;
 }
+
 /* width */
 .FeedSectionA::-webkit-scrollbar {
   width: 4px;
- 
+
 }
 
 /* Track */
 .FeedSectionA::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #f1f1f1;
 }
- 
+
 /* Handle */
 .FeedSectionA::-webkit-scrollbar-thumb {
   background: var(--inputarea-color)
@@ -34,8 +35,8 @@
 
 /* Handle on hover */
 .FeedSectionA::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-color); 
-  
+  background: var(--accent-color);
+
 }
 
 .FeedSectionB {
@@ -66,11 +67,13 @@
   width: 90%;
 
 }
+
 .ContainerContent {
   margin: 0 auto;
   width: 70%;
- 
+
 }
+
 .SmallContainer {
   margin: 0 auto;
   width: 40%;
@@ -118,11 +121,11 @@
 .AddboxText {
   font-size: 10px;
   margin-top: 2px;
-  
+
 }
 
 .LoginLogo {
-  width: 100px;
+  width: 150px;
   cursor: pointer;
 }
 
@@ -145,7 +148,7 @@
 }
 
 
-.NavLeftBox{
+.NavLeftBox {
   display: flex;
   align-items: center;
 }
@@ -166,7 +169,23 @@
   margin-top: 20px;
 }
 
+.iconbg {
+  background-image: url(/icon/ecoicons.png);
+
+  background-repeat: repeat;
+
+}
+
+.iconbgBox {
+  background-color: rgba(255, 255, 255, 0.877);
+
+  display: flex;
+    align-items: center;
+
+}
+
 .loginboxmain {
+
   margin: auto;
   width: 70%;
   min-height: 100vh;
@@ -190,6 +209,7 @@
 .loginboxB {
   width: 50%;
   padding: 30px;
+  background-color: rgb(255, 255, 255);
 
   box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
   border-radius: 10px;
@@ -267,7 +287,7 @@
 }
 
 .IconMenuItem {
- 
+
   cursor: pointer;
   margin-left: 10px;
 }
@@ -467,6 +487,7 @@
 
   .loginbox {
     flex-direction: column;
+    margin-top: 0;
   }
 
   .loginboxA {
@@ -497,7 +518,8 @@
     flex-direction: column;
 
   }
-  .AddPostHome{
+
+  .AddPostHome {
     padding: 5px;
   }
 
@@ -506,10 +528,10 @@
     width: 100%;
     position: relative;
     top: 0;
- 
+
     padding: 0px;
     overflow: auto;
-    
+
   }
 
   .FeedSectionB {
@@ -522,20 +544,22 @@
 
 
   .FeedSectionC {
-   display: none;
+    display: none;
 
   }
+
   .SmallContainer {
     margin: 0 auto;
     width: 100%;
-  
+
   }
-  
+
   .ContainerContent {
     margin: 0 auto;
     width: 100%;
-   
+
   }
+
   .NavBarbox {
     padding: 5px;
     display: flex;
@@ -544,6 +568,6 @@
     margin: auto;
     width: 100%;
   }
-  
+
 
 }

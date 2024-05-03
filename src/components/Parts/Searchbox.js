@@ -43,8 +43,7 @@ const Demo = ({ SType }) => {
 
     if (Contextdata.LocationDone) {
       setLocationtext(Contextdata.LocationData.address)
-      console.log(Contextdata.LocationData)
-
+    
     } else {
 
     }
@@ -91,7 +90,7 @@ const Demo = ({ SType }) => {
       return a.json();
     })
       .then((parsed) => {
-        console.log(parsed.ReqData.ListData)
+      
         setResults(parsed.ReqData.ListData)
         setLoading(false)
       })

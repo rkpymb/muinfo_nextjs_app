@@ -25,7 +25,7 @@ const MainNavBar = ({ Title }) => {
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY > 45) {
-                console.log(window.scrollY)
+           
                 setScrolling(true);
             } else {
                 setScrolling(false);

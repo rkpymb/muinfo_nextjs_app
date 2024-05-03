@@ -22,17 +22,14 @@ import { MediaFilesUrl, MediaFilesFolder, DomainURL } from '/Data/config'
 const FeedTopbox = ({ PostData }) => {
 
     const router = useRouter()
-    const [PostText, setPostText] = useState('');
-    const [PostStatus, setPostStatus] = useState(1);
+   
     const Contextdata = useContext(CheckloginContext)
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [Btnloading, setBtnloading] = useState(false);
+    
     const [ShowData, setShowData] = useState(false);
-    const [MData, setMData] = useState();
+ 
     const [OpenEdit, setOpenEdit] = React.useState(false);
-    const [scroll, setScroll] = React.useState('paper');
-    const [StatusText, setStatusText] = React.useState('');
-
+    
 
     const descriptionElementRef = React.useRef(null);
     React.useEffect(() => {

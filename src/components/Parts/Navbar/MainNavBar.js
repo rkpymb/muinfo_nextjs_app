@@ -11,6 +11,7 @@ import UserMenu from './UserMenu'
 import MainMenu from './MainMenu'
 import IconMenu from './IconMenu'
 
+import {SvgLogo} from '/Data/config'
 
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 
@@ -27,7 +28,7 @@ const MainNavBar = () => {
                 <div className={Mstyles.NavBarbox}>
                     <div className={Mstyles.NavBarboxA}>
                         <div className={Mstyles.NavLogo} onClick={() => router.push('/')}>
-                            <img src='/logo/mu_logo.png' width='100%' />
+                            <img src={SvgLogo} width='100%' />
                         </div>
                     </div>
                     <div className={Mstyles.NavBarboxB}>

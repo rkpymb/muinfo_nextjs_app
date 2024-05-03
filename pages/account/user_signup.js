@@ -15,7 +15,7 @@ import { FiChevronRight, FiEdit } from 'react-icons/fi';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import Image from 'next/image';
-
+import { SvgLogo } from '/Data/config'
 import * as animationData from '/Data/Lottie/loginone.json'
 
 import { useRouter, useParams } from 'next/router'
@@ -138,7 +138,7 @@ function Overview() {
                             Contextdata.ChangeAlertData(`${parsedFinal.ReqData.msg}`, 'success');
                             router.push('/feeds')
 
-                          
+
                         } else {
                             setLoadingSignupbtn(false);
 
@@ -166,186 +166,190 @@ function Overview() {
             <Head>
                 <title>Sign up</title>
             </Head>
-            <div className={Mstyles.loginboxmain}>
-                <div className={Mstyles.loginbox}>
-                    <div className={Mstyles.loginboxA}>
+            <div className={Mstyles.iconbg}>
+                <div className={Mstyles.iconbgBox}>
+                    <div className={Mstyles.loginboxmain}>
+                        <div className={Mstyles.loginbox}>
+                            <div className={Mstyles.loginboxB}>
+                                {mobilebox && (
 
-                        <div className={Mstyles.loginboxAimg}>
-                            <Image
-                                src={`/img/signup_girl.jpg`}
-                                alt="image"
-                                placeholder="blur"
-                                blurDataURL={blurredImageData}
-                                layout='responsive'
-                                quality={60}
-                                loading="lazy"
-                                width={0}
-                                height={0}
-                                style={{ objectFit: "center", borderRadius: "15px" }}
-                            />
+                                    <div className={Mstyles.Authbox}>
+                                        <div className={Mstyles.LoginLogo}>
+                                            <img src={SvgLogo} width={'100%'} alt='logo' />
+                                        </div>
+                                        <div style={{ height: '10px' }}> </div>
+                                        <div className={Mstyles.Lheader}>
+                                            <span>Create Account </span>
+                                            <div style={{ height: '10px' }}> </div>
+                                            <small>Let's Join MU Info Community !</small>
+                                        </div>
+                                        <div style={{ height: '20px' }}> </div>
+
+                                        <form onSubmit={CreateAccount}>
+                                            <div className={Mstyles.LoginBox_input}>
+                                                <TextField
+                                                    required
+                                                    label="Full Name"
+                                                    fullWidth
+                                                    value={name}
+                                                    onInput={e => setName(e.target.value)}
+
+                                                />
+                                            </div>
+                                            <div className={Mstyles.LoginBox_input}>
+                                                <TextField
+                                                    required
+                                                    label="Enter Mobile Number"
+                                                    fullWidth
+                                                    value={mobile}
+                                                    onInput={e => setMobile(e.target.value)}
+                                                    type="number"
+                                                />
+                                            </div>
+                                            <div className={Mstyles.LoginBox_input}>
+                                                <TextField
+                                                    required
+                                                    label="Email Address"
+                                                    fullWidth
+                                                    value={email}
+                                                    onInput={e => setEmail(e.target.value)}
+
+                                                />
+                                            </div>
+                                            <div className={Mstyles.LoginBox_input}>
+                                                <TextField
+
+                                                    label="Referral Code (optional)"
+                                                    fullWidth
+                                                    value={referralCode}
+                                                    onInput={e => setReferralCode(e.target.value)}
+
+                                                />
+                                            </div>
+
+                                            <div className={Mstyles.LoginBox_input}>
+                                                <TextField fullWidth label="Create Password" type={`${PasswordShowtype}`} value={password}
+                                                    onInput={e => setPassword(e.target.value)}
+                                                    InputProps={{
+
+                                                        endAdornment: (
+                                                            <InputAdornment position="end">
+                                                                <IconButton
+                                                                    aria-label="toggle password visibility"
+                                                                    onClick={handleClickShowPassword}
+
+                                                                >
+                                                                    {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
+                                                                </IconButton>
+                                                            </InputAdornment>
+                                                        )
+                                                    }}
+
+                                                />
+                                            </div>
+                                        </form>
+                                        <div className={Mstyles.Loginbtnbox}>
+                                            <LoadingButton
+                                                fullWidth
+                                                onClick={CreateAccount}
+                                                endIcon={<FiChevronRight />}
+                                                loading={LoadingSignupbtn}
+                                                loadingPosition="end"
+                                                variant='contained'
+                                            >
+                                                <span>Create Account</span>
+                                            </LoadingButton>
+
+
+                                        </div>
+
+                                        <div className={Mstyles.SignTextBox} onClick={() => router.push('/account/user_login')}>
+                                            <span>Have an account? Log in</span>
+                                        </div>
+
+
+                                    </div>
+                                )}
+                                {OtpBox && (
+
+                                    <div className={Mstyles.Authbox}>
+                                         <div className={Mstyles.LoginLogo}>
+                                            <img src={SvgLogo} width={'100%'} alt='logo' />
+                                        </div>
+                                        <div style={{ height: '10px' }}> </div>
+                                        <div className={Mstyles.Lheader}>
+                                            <span>Enter OTP </span>
+                                            <div style={{ height: '10px' }}> </div>
+                                            <small>OTP Succesfully sent on <small className={Mstyles.Otpmobiletext}>+91 {mobile}</small></small>
+                                        </div>
+                                        <div style={{ height: '20px' }}> </div>
+
+                                        <form onSubmit={VerifyOTP}>
+
+                                            <div className={Mstyles.LoginBox_input}>
+                                                <TextField
+                                                    required
+                                                    label="6 Digit OTP"
+                                                    fullWidth
+                                                    value={otp}
+                                                    onInput={e => setOtp(e.target.value)}
+                                                    type="number"
+                                                />
+                                            </div>
+
+                                        </form>
+                                        <div className={Mstyles.Loginbtnbox}>
+                                            <LoadingButton
+                                                fullWidth
+                                                onClick={VerifyOTP}
+                                                endIcon={<FiChevronRight />}
+                                                loading={LoadingSignupbtn}
+                                                loadingPosition="end"
+                                                variant='contained'
+                                            >
+                                                <span>Verify OTP</span>
+                                            </LoadingButton>
+
+
+                                        </div>
+
+
+
+                                    </div>
+                                )}
+
+                            </div>
+                            <div className={Mstyles.loginboxA}>
+
+                                <div className={Mstyles.loginboxAimg}>
+                                    <Image
+                                        src={`/img/signup_girl.jpg`}
+                                        alt="image"
+                                        placeholder="blur"
+                                        blurDataURL={blurredImageData}
+                                        layout='responsive'
+                                        quality={60}
+                                        loading="lazy"
+                                        width={0}
+                                        height={0}
+                                        style={{ objectFit: "center", borderRadius: "15px" }}
+                                    />
+
+
+
+                                </div>
+                            </div>
+
 
 
 
                         </div>
-                    </div>
-                    <div className={Mstyles.loginboxB}>
-                        {mobilebox && (
-
-                            <div className={Mstyles.Authbox}>
-                                <div className={Mstyles.LoginLogo}>
-                                    <img src='/logo/muinfologo.png' width={'100%'} alt='logo' />
-                                </div>
-                                <div style={{ height: '10px' }}> </div>
-                                <div className={Mstyles.Lheader}>
-                                    <span>Create Account </span>
-                                    <div style={{ height: '10px' }}> </div>
-                                    <small>Let's join MU Info Community !</small>
-                                </div>
-                                <div style={{ height: '20px' }}> </div>
-
-                                <form onSubmit={CreateAccount}>
-                                    <div className={Mstyles.LoginBox_input}>
-                                        <TextField
-                                            required
-                                            label="Full Name"
-                                            fullWidth
-                                            value={name}
-                                            onInput={e => setName(e.target.value)}
-
-                                        />
-                                    </div>
-                                    <div className={Mstyles.LoginBox_input}>
-                                        <TextField
-                                            required
-                                            label="Enter Mobile Number"
-                                            fullWidth
-                                            value={mobile}
-                                            onInput={e => setMobile(e.target.value)}
-                                            type="number"
-                                        />
-                                    </div>
-                                    <div className={Mstyles.LoginBox_input}>
-                                        <TextField
-                                            required
-                                            label="Email Address"
-                                            fullWidth
-                                            value={email}
-                                            onInput={e => setEmail(e.target.value)}
-
-                                        />
-                                    </div>
-                                    <div className={Mstyles.LoginBox_input}>
-                                        <TextField
-
-                                            label="Referral Code (optional)"
-                                            fullWidth
-                                            value={referralCode}
-                                            onInput={e => setReferralCode(e.target.value)}
-
-                                        />
-                                    </div>
-
-                                    <div className={Mstyles.LoginBox_input}>
-                                        <TextField fullWidth label="Create Password" type={`${PasswordShowtype}`} value={password}
-                                            onInput={e => setPassword(e.target.value)}
-                                            InputProps={{
-
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <IconButton
-                                                            aria-label="toggle password visibility"
-                                                            onClick={handleClickShowPassword}
-
-                                                        >
-                                                            {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                )
-                                            }}
-
-                                        />
-                                    </div>
-                                </form>
-                                <div className={Mstyles.Loginbtnbox}>
-                                    <LoadingButton
-                                        fullWidth
-                                        onClick={CreateAccount}
-                                        endIcon={<FiChevronRight />}
-                                        loading={LoadingSignupbtn}
-                                        loadingPosition="end"
-                                        variant='contained'
-                                    >
-                                        <span>Create Account</span>
-                                    </LoadingButton>
-
-
-                                </div>
-
-                                <div className={Mstyles.SignTextBox} onClick={() => router.push('/account/user_login')}>
-                                    <span>Have an account? Log in</span>
-                                </div>
-
-
-                            </div>
-                        )}
-                        {OtpBox && (
-
-                            <div className={Mstyles.Authbox}>
-                                <div className={Mstyles.LoginLogo}>
-                                    <img src='/logo/muinfologo.png' width={'100%'} alt='logo' />
-                                </div>
-                                <div style={{ height: '10px' }}> </div>
-                                <div className={Mstyles.Lheader}>
-                                    <span>Enter OTP </span>
-                                    <div style={{ height: '10px' }}> </div>
-                                    <small>OTP Succesfully sent on <small className={Mstyles.Otpmobiletext}>+91 {mobile}</small></small>
-                                </div>
-                                <div style={{ height: '20px' }}> </div>
-
-                                <form onSubmit={VerifyOTP}>
-
-                                    <div className={Mstyles.LoginBox_input}>
-                                        <TextField
-                                            required
-                                            label="6 Digit OTP"
-                                            fullWidth
-                                            value={otp}
-                                            onInput={e => setOtp(e.target.value)}
-                                            type="number"
-                                        />
-                                    </div>
-
-                                </form>
-                                <div className={Mstyles.Loginbtnbox}>
-                                    <LoadingButton
-                                        fullWidth
-                                        onClick={VerifyOTP}
-                                        endIcon={<FiChevronRight />}
-                                        loading={LoadingSignupbtn}
-                                        loadingPosition="end"
-                                        variant='contained'
-                                    >
-                                        <span>Verify OTP</span>
-                                    </LoadingButton>
-
-
-                                </div>
-
-
-
-                            </div>
-                        )}
 
                     </div>
-
-
 
                 </div>
 
             </div>
-
-
-
 
 
         </>
