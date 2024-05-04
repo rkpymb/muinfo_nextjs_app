@@ -95,6 +95,11 @@ const FeedFooterbox = ({ PostData }) => {
     const LikePost = async () => {
 
         if (Contextdata.UserLogin) {
+            if (Liked) {
+                setLiked(false)
+            } else {
+                setLiked(true)
+            }
             const sendUM = {
 
                 PostData: PostData.PostData
@@ -128,6 +133,12 @@ const FeedFooterbox = ({ PostData }) => {
     const AddTofav = async () => {
 
         if (Contextdata.UserLogin) {
+
+            if (FavPost) {
+                setFavPost(false)
+            } else {
+                setFavPost(true)
+            }
             const sendUM = {
 
                 PostData: PostData.PostData
@@ -185,6 +196,11 @@ const FeedFooterbox = ({ PostData }) => {
 
     return (
         <div>
+            <div className={Mstyles.PostCounter}>
+                <div className={Mstyles.PostCounterItem}>
+                    <span>{AllLikes} Likes</span>
+                </div>
+            </div>
             {ShowData &&
 
                 <div className={Mstyles.FeedItemBottomMain}>
@@ -193,36 +209,32 @@ const FeedFooterbox = ({ PostData }) => {
 
                             <div className={Mstyles.FeedBtnitemA}>
                                 {Liked ?
-                                    <IconButton aria-label="cart" onClick={() => LikePost()} >
-                                        <StyledBadge  color="secondary" >
-                                            <Image
-                                                src='/svg/like_fill.svg'
-                                                alt="i"
+                                    <div onClick={() => LikePost()} >
+                                        <Image
+                                            src='/svg/like_fill.svg'
+                                            alt="i"
 
-                                                height={30}
-                                                width={30}
-                                                blurDataURL={blurredImageData}
-                                                placeholder='blur'
-                                                style={{ objectFit: "cover" }}
-                                            />
-                                        </StyledBadge>
-                                    </IconButton>
+                                            height={30}
+                                            width={30}
+                                            blurDataURL={blurredImageData}
+                                            placeholder='blur'
+                                            style={{ objectFit: "cover" }}
+                                        />
+                                    </div>
                                     :
 
-                                    <IconButton aria-label="cart" onClick={() => LikePost()}>
-                                        <StyledBadge  color="secondary" >
-                                            <Image
-                                                alt="i"
-                                                src='/svg/like.svg'
+                                    <div onClick={() => LikePost()} >
+                                        <Image
+                                            src='/svg/like.svg'
+                                            alt="i"
 
-                                                height={30}
-                                                width={30}
-                                                blurDataURL={blurredImageData}
-                                                placeholder='blur'
-                                                style={{ objectFit: "cover" }}
-                                            />
-                                        </StyledBadge>
-                                    </IconButton>
+                                            height={30}
+                                            width={30}
+                                            blurDataURL={blurredImageData}
+                                            placeholder='blur'
+                                            style={{ objectFit: "cover" }}
+                                        />
+                                    </div>
                                 }
                             </div>
 
@@ -242,24 +254,21 @@ const FeedFooterbox = ({ PostData }) => {
                                 {FavPost ?
 
 
-                                    <IconButton aria-label="cart" onClick={() => AddTofav()} >
-                                        <StyledBadge color="secondary" >
-                                            <Image
-                                                src='/svg/saved.svg'
-                                                alt="i"
+                                    <div onClick={() => AddTofav()} >
+                                        <Image
+                                            src='/svg/saved.svg'
+                                            alt="i"
 
-                                                height={30}
-                                                width={30}
-                                                blurDataURL={blurredImageData}
-                                                placeholder='blur'
-                                                style={{ objectFit: "cover" }}
-                                            />
-                                        </StyledBadge>
-                                    </IconButton>
+                                            height={30}
+                                            width={30}
+                                            blurDataURL={blurredImageData}
+                                            placeholder='blur'
+                                            style={{ objectFit: "cover" }}
+                                        />
+                                    </div>
                                     :
 
-                                    <IconButton aria-label="cart" onClick={() => AddTofav()} >
-                                    <StyledBadge color="secondary" >
+                                    <div onClick={() => AddTofav()} >
                                         <Image
                                             src='/svg/save.svg'
                                             alt="i"
@@ -270,8 +279,7 @@ const FeedFooterbox = ({ PostData }) => {
                                             placeholder='blur'
                                             style={{ objectFit: "cover" }}
                                         />
-                                    </StyledBadge>
-                                </IconButton>
+                                    </div>
                                 }
                             </div>
 

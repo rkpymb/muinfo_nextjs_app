@@ -4,6 +4,40 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
 
+.PostCounter {
+  padding: 10px;
+}
+
+.PostCounterItem span {
+  font-weight: 600;
+}
+
+.HCatGrid {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+
+.HomeCatItem {
+  cursor: pointer;
+  background-color: #ffffff;
+  padding: 5px 10px 5px 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
+  margin: 2px;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: fit-content;
+}
+
+.HomeCatItem span {
+  font-weight: 600;
+  font-size: 14px;
+}
+
 
 .NotiGrid {
 
@@ -99,15 +133,19 @@
   outline: none;
 }
 
+
 .HomeCatbox {
-  margin: 0px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
+
+
 }
+
 
 .HomeCatGrid {
 
   display: grid;
   gap: 0.8rem;
-  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 }
 
 .HomeCatGridSmall {
@@ -125,6 +163,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+
 
 }
 
@@ -175,13 +214,18 @@
   font-weight: 500;
 }
 
+.CatDiv {
+
+  padding: 10px
+}
+
 .TTitle {
 
   display: flex;
   align-items: center;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 10px;
-  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-left: 10px;
+  padding-top: 10px;
 }
 
 .TTitleA {
@@ -1185,7 +1229,7 @@
   padding: 10px 15px 10px 15px;
   min-width: 100px;
   box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
-color: rgb(0, 0, 0);
+  color: rgb(0, 0, 0);
   cursor: pointer;
   margin-top: 10px;
 }
@@ -2999,13 +3043,13 @@ color: rgb(0, 0, 0);
   margin: 0 auto;
   display: grid;
   gap: 0.8rem;
-  grid-template-columns: repeat( minmax(99%, 1fr));
+  grid-template-columns: repeat(minmax(99%, 1fr));
 }
 
 .FeedItem {
   box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
   margin: 5px;
- 
+
   border-radius: 10px;
 
   min-height: 150px;
@@ -3179,7 +3223,7 @@ color: rgb(0, 0, 0);
   display: flex;
   align-items: center;
   justify-content: space-between;
- 
+
   padding-left: 5px;
   padding-right: 5px;
   padding-bottom: 5px;
@@ -3204,6 +3248,7 @@ color: rgb(0, 0, 0);
 .FeedBtnitem:not(:first-child) {
   margin-left: 10px;
 }
+
 .Postupdatefotter {
   display: flex;
   align-items: center;
@@ -3379,7 +3424,7 @@ color: rgb(0, 0, 0);
 
   color: #bb9f9f;
   font-weight: #ddd7d7;
-  text-transform: lowercase;
+
   cursor: text;
 
   padding: 10px;
@@ -5125,10 +5170,10 @@ color: rgb(0, 0, 0);
   }
 
   .FeedItem {
-   
+
     margin: 0px;
-   
-  
+
+
   }
 
   .FooterMobileBox {
@@ -5363,7 +5408,7 @@ color: rgb(0, 0, 0);
 
     color: #bb9f9f;
     font-weight: #ddd7d7;
-    text-transform: lowercase;
+
     cursor: text;
 
     padding: 0px;
@@ -5371,7 +5416,7 @@ color: rgb(0, 0, 0);
   }
 
 
-  .HomeCatGrid {
+  .HCatGrid {
 
     display: flex;
     gap: 0rem;
@@ -5379,7 +5424,7 @@ color: rgb(0, 0, 0);
 
   }
 
-  .HomeCatGrid::-webkit-scrollbar {
+  .HCatGrid::-webkit-scrollbar {
     display: none;
   }
 
@@ -5414,13 +5459,6 @@ color: rgb(0, 0, 0);
   }
 
 
-  .HomeCatbox {
-    box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
-    padding: 10px;
-    margin: 0px;
-
-  }
-
   .NotiItemTop {
     display: flex;
     flex-direction: column;
@@ -5437,11 +5475,26 @@ color: rgb(0, 0, 0);
   .NotiItemTopB {
     margin-left: 10px;
   }
+
   .Padfboxiframe iframe {
     height: 200px;
     width: 100%;
     border: none;
     outline: none;
+  }
+
+  .CatDiv {
+    padding: 0px
+  }
+
+  .TTitle {
+
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+    margin-left: 5px;
+    padding-top: 0px;
+    margin-top: 10px;
   }
 
 

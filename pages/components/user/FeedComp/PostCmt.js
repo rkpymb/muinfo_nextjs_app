@@ -183,20 +183,18 @@ const PostBoxUser = ({ PostData }) => {
 
 
             <div className={Mstyles.FeedBtnitemA}>
-                <IconButton aria-label="cart" onClick={handleClickOpen('paper')}>
-                    <StyledBadge color="secondary" >
-                        <Image
-                            alt="i"
-                            src='/svg/comment.svg'
+                <div onClick={handleClickOpen('paper')}>
+                    <Image
+                        alt="i"
+                        src='/svg/comment.svg'
 
-                            height={30}
-                            width={30}
-                            blurDataURL={blurredImageData}
-                            placeholder='blur'
-                            style={{ objectFit: "cover" }}
-                        />
-                    </StyledBadge>
-                </IconButton>
+                        height={30}
+                        width={30}
+                        blurDataURL={blurredImageData}
+                        placeholder='blur'
+                        style={{ objectFit: "cover" }}
+                    />
+                </div>
 
 
             </div>
