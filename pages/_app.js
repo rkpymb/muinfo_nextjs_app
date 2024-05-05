@@ -42,7 +42,7 @@ function TokyoApp({ Component, pageProps }) {
     <CheckloginStates >
       <Head>
         <title>Magadh University Info</title>
-        <link rel="icon" href="/Logo/fevi.png" />
+        <link rel="icon" href="/logo/fevi.svg" />
       </Head>
 
       <Script

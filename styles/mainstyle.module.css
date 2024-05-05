@@ -4,6 +4,48 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
 
+.DpDiloagContainer {
+  margin: 0 auto;
+  width: 50%;
+}
+
+.dropzoneStyles {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  background-color: #e5eaed;
+  color: rgb(54, 53, 51);
+  padding: 10px 20px 10px 20px;
+  width: fit-content;
+  border-radius: 20px;
+  cursor: pointer;
+
+}
+
+.dropzoneStylesA {
+  display: flex;
+
+}
+
+.dropzoneStylesB {
+  margin-left: 10px;
+  font-weight: 600;
+
+}
+
+.DpMbox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.DpDiloagHeader {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+
 .PostCounter {
   padding: 10px;
 }
@@ -23,8 +65,9 @@
   background-color: #ffffff;
   padding: 5px 10px 5px 10px;
   border-radius: 5px;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
-  margin: 2px;
+
+  margin-left: 5px;
+  margin-right: 2px;
   cursor: pointer;
   text-align: center;
   display: flex;
@@ -134,11 +177,6 @@
 }
 
 
-.HomeCatbox {
-  box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
-
-
-}
 
 
 .HomeCatGrid {
@@ -5484,8 +5522,10 @@
   }
 
   .CatDiv {
-    padding: 0px
+    padding: 0px;
+    margin-bottom: 10px;
   }
+
 
   .TTitle {
 
@@ -5493,9 +5533,18 @@
     align-items: center;
     margin-left: 5px;
     margin-left: 5px;
-    padding-top: 0px;
-    margin-top: 10px;
+    padding-top: 5px;
   }
 
+  .DpDiloagContainer {
+    margin: 0 auto;
+    width: 100%;
+
+  }
+
+  .DpMbox {
+
+    padding: 10px;
+  }
 
 }

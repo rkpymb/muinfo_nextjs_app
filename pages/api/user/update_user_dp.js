@@ -12,20 +12,11 @@ export default function handler(req, res) {
                 Authorization: `Bearer ${token}`,
             };
             
-            axios.post(`${process.env.API_URL}user/update_profile`, { 
+            axios.post(`${process.env.API_URL}user/update_user_dp`, { 
                 token: process.env.MYKEY,
-                name: req.body.name,
-             
-                WhatsApp: req.body.WhatsApp,
-                Pincode: req.body.Pincode,
-                State: req.body.State,
-                FullAddress: req.body.FullAddress,
-                City: req.body.City,
-                Shortbio: req.body.Shortbio,
-                DateOfBirth: req.body.DateOfBirth,
-                CollageName:req.body.CollageName,
-                Courses:req.body.Courses,
-                Session: req.body.Session,
+               
+                dp: req.body.dp,
+               
               
             }, { headers }).then((response) => {
            

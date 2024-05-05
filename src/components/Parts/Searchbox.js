@@ -39,25 +39,8 @@ const Demo = ({ SType }) => {
     }
   };
 
-  useEffect(() => {
+ 
 
-    if (Contextdata.LocationDone) {
-      setLocationtext(Contextdata.LocationData.address)
-    
-    } else {
-
-    }
-  }, [Contextdata.LocationData]);
-
-  useEffect(() => {
-    if (Contextdata.Searchbox == true) {
-      setOpenEdit(true)
-
-    } else {
-      setOpenEdit(false)
-    }
-
-  }, [Contextdata.Searchbox]);
 
 
 
@@ -107,7 +90,7 @@ const Demo = ({ SType }) => {
             aria-label="toggle password visibility"
             style={{ width: 40, height: 40, }}
           >
-            <LuSearch size={20} />
+            <LuSearch size={25} />
           </IconButton>
         </div>
       }

@@ -8,7 +8,6 @@ import MainNavBar from '/src/components/Parts/Navbar/MainNavBar'
 import { AppDesc, AppName } from '/Data/config'
 import { useRouter, useParams } from 'next/router'
 
-
 function Home() {
     const router = useRouter();
     const Contextdata = useContext(CheckloginContext)
@@ -39,7 +38,11 @@ function Home() {
                 <div className={Mstyles.Fullbg}>
                     <div className={Mstyles.Container}>
                         <div className={Mstyles.SecDevider}></div>
+                        
                         <div className={Mstyles.SmallContainer}>
+                        <div className={Mstyles.SecDevider}></div>
+
+                        <div className={Mstyles.SecDevider}></div>
                             <EditProfileData />
                         </div>
 

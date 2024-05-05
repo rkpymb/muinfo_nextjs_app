@@ -5,6 +5,7 @@
 .OnlyMobile {
   display: none;
 }
+
 .FeedSection {
   display: flex;
 
@@ -73,17 +74,18 @@
 
 }
 
-.btnbbox{
- 
-    width: 50%;
-   
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
- 
-    
+.btnbbox {
+
+  width: 50%;
+
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
 }
+
 .Container {
   margin: 0 auto;
   width: 90%;
@@ -102,6 +104,7 @@
   width: 60%;
   box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
 }
+
 .SmallContainer {
   margin: 0 auto;
   width: 40%;
@@ -208,7 +211,7 @@
   background-color: rgba(255, 255, 255, 0.877);
 
   display: flex;
-    align-items: center;
+  align-items: center;
 
 }
 
@@ -362,7 +365,7 @@
 
   color: #bb9f9f;
   font-weight: #ddd7d7;
- 
+
   cursor: text;
   padding: 10px;
 }
@@ -547,7 +550,7 @@
 
   }
 
- 
+
   .FeedSectionA {
     height: fit-content;
     width: 100%;
@@ -556,6 +559,8 @@
 
     padding: 0px;
     overflow: auto;
+    padding-bottom: 10px;
+    background-color: rgb(249, 246, 246);
 
   }
 
@@ -584,7 +589,7 @@
     width: 100%;
 
   }
-  
+
 
   .ContainerContent {
     margin: 0 auto;
@@ -592,8 +597,11 @@
 
   }
 
+
+
+  
   .NavBarbox {
-    padding: 5px;
+    padding: 7px 15px 7px 15px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -601,26 +609,26 @@
     width: 100%;
   }
 
-  
-.btnbbox{
- 
-  width: 100%;
-  padding: 10px;
- 
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
-  
-}
+  .btnbbox {
 
-.OnlyDesktop {
-  display: none;
-}
+    width: 100%;
+    padding: 10px;
 
-.OnlyMobile {
-  display: block;
-}
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+  }
+
+  .OnlyDesktop {
+    display: none;
+  }
+
+  .OnlyMobile {
+    display: block;
+  }
 
 }

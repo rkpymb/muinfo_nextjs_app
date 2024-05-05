@@ -8,7 +8,7 @@ import { LuHome, LuArrowRight, LuBellDot, LuLayoutList, LuTrendingUp, LuStar, Lu
 import { MediaFilesUrl, MediaFilesFolder } from '/Data/config'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import LoadingButton from '@mui/lab/LoadingButton';
-
+import Drawer from '@mui/material/Drawer';
 import ThemeSwitch from './ThemeSwitch'
 import Skeleton from '@mui/material/Skeleton';
 import Avatar from '@mui/material/Avatar';
@@ -62,9 +62,9 @@ const MainNavBar = () => {
                     onClick={HandleOpenMenu}
                     alt={Contextdata.UserData.name}
                     src={`${MediaFilesUrl}${MediaFilesFolder}/${Contextdata.UserData.dp}`}
-                    sx={{ width: 30, height: 30 }}
+                    sx={{ width: 35, height: 35 }}
                 />
-                <SwipeableDrawer
+                <Drawer
                     anchor={'right'}
                     open={OpenMenu}
                     onClose={HandleCloseMenu}
@@ -242,7 +242,7 @@ const MainNavBar = () => {
                             </div>
                         </div>
                     </div>
-                </SwipeableDrawer>
+                </Drawer>
             </div>
 
         </div>
