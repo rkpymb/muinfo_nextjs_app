@@ -44,29 +44,7 @@ const AdboxA = ({ TabindexNow }) => {
 
                 </div>
 
-
-                <div className={Mstyles.TextmenItem} onClick={() => router.push(`/contact_us`)}>
-                    <div className={Mstyles.TextmenItemA}>
-                        <span>
-                            <LuPhoneCall />
-                        </span>
-                    </div>
-                    <div className={Mstyles.TextmenItemB}>
-                        <span>Contact us</span>
-                    </div>
-
-                </div>
-                <div className={Mstyles.TextmenItem} onClick={() => router.push(`/about_us`)}>
-                    <div className={Mstyles.TextmenItemA}>
-                        <span>
-                            <LuAlertCircle />
-                        </span>
-                    </div>
-                    <div className={Mstyles.TextmenItemB}>
-                        <span>About us</span>
-                    </div>
-
-                </div>
+               
                 <div className={Mstyles.TextmenItem} onClick={() => router.push(`/privacy_policy`)}>
                     <div className={Mstyles.TextmenItemA}>
                         <span>
@@ -78,8 +56,8 @@ const AdboxA = ({ TabindexNow }) => {
                     </div>
 
                 </div>
-                <div className={Mstyles.TextmenItem}>
-                    <div className={Mstyles.TextmenItemA} onClick={() => router.push(`/terms_and_conditions`)}>
+                <div className={Mstyles.TextmenItem} onClick={() => router.push(`/terms_and_conditions`)}>
+                    <div className={Mstyles.TextmenItemA} >
                         <span>
                             <LuFileText />
                         </span>

@@ -211,12 +211,7 @@ const MainNavBar = () => {
                             <div className={Mstyles.VmSmallItem} onClick={() => router.push('/advertise')}>
                                 <span>• Advertise with us</span>
                             </div>
-                            <div className={Mstyles.VmSmallItem} onClick={() => router.push('/about_us')}>
-                                <span>• About us</span>
-                            </div>
-                            <div className={Mstyles.VmSmallItem} onClick={() => router.push('/contact_us')}>
-                                <span>• Contact us</span>
-                            </div>
+                          
                             <div className={Mstyles.VmSmallItem} onClick={() => router.push('/terms_and_conditions')}>
                                 <span>• Terms and Conditions</span>
                             </div>

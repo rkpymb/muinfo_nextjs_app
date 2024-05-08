@@ -86,6 +86,26 @@
 
 }
 
+.PageSection {
+  margin: 0 auto;
+  width: 70%;
+  padding: 20px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
+border-radius: 10px;
+}
+
+.PageSection h1 {
+  font-size: 20px;
+}
+
+.PageSection h2 {
+  font-size: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+
 .Container {
   margin: 0 auto;
   width: 90%;
@@ -536,6 +556,13 @@
 
   }
 
+  .PageSection {
+    margin: 0 auto;
+    width: 100%;
+    padding: 10px;
+
+  }
+
   .SecDevider {
     height: 20px;
   }
@@ -599,7 +626,7 @@
 
 
 
-  
+
   .NavBarbox {
     padding: 7px 15px 7px 15px;
     display: flex;

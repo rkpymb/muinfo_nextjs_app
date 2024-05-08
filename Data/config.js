@@ -24,7 +24,7 @@ export const SocialHandles = {
     Instagram: 'https://www.instagram.com/#',
     Linkedin: 'https://www.linkedin.com/#',
     Youtube: 'https://www.linkedin.com/#',
-    Playstore: 'https://play.google.com/store/apps/details?id=com.#app',
+    Playstore: 'https://play.google.com/store/apps/details?id=com.magadhuniversityinfo',
 
 };
 export const ShortAbout = '';
