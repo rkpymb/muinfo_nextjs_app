@@ -22,6 +22,7 @@ import {
     TextField,
     useTheme,
 } from '@mui/material';
+import { SellTwoTone } from '@mui/icons-material';
 const UploadFiles = () => {
     const router = useRouter()
 
@@ -89,10 +90,22 @@ const UploadFiles = () => {
 
 
     const onDrop = async (acceptedFiles) => {
-        const fileFormat = acceptedFiles[0].type;
+        let fileFormat = acceptedFiles[0].type;
+        if (fileFormat.startsWith('image/')) {
+            setFileTypeNow('image')
 
-        if (fileFormat.startsWith('image/')  || fileFormat.startsWith('video/')   || fileFormat === 'application/pdf') {
-            setFileTypeNow(fileFormat)
+        }
+        if (fileFormat.startsWith('video/')) {
+            setFileTypeNow('video')
+            alert('Video')
+        }
+        if (fileFormat.startsWith('application/pdf')) {
+            setFileTypeNow('pdf')
+            alert('pdf')
+
+        }
+        if (fileFormat.startsWith('image/') || fileFormat.startsWith('video/') || fileFormat === 'application/pdf') {
+
             setSelectFile(true)
             setUploadProgress(0)
             const formData = new FormData();
@@ -119,21 +132,9 @@ const UploadFiles = () => {
                     document.getElementById("ConentMedia").value = response.data.filename;
                     const Fimg = MediaFilesUrl + MediaFilesFolder + response.data.filename
                     setFileUpldedFinal(Fimg)
+                    SellTwoTone(fileFormat)
 
 
-                    if (fileFormat.startsWith('image/')) {
-                        setFileTypeNow('image')
-
-
-                    }
-                    if (fileFormat.startsWith('video/')) {
-                        setFileTypeNow('video')
-
-                    }
-                    if (fileFormat.startsWith('pdf/')) {
-                        setFileTypeNow('pdf')
-
-                    }
 
                 } else {
 
@@ -177,7 +178,7 @@ const UploadFiles = () => {
                 <div className={Mstyles.UploadteUploadDetalisBox}>
                     {uploadProgress > 0 &&
                         <div className={Mstyles.Uploadingbox}>
-
+                           
                             {!uploadedFile ?
                                 <div>
                                     <LinearProgress variant="buffer" value={uploadProgress} valueBuffer={uploadProgress} />
@@ -186,7 +187,8 @@ const UploadFiles = () => {
                                 <div>
 
                                     <div className={Mstyles.UploadedBox}>
-                                        {FileTypeNow == 'video' ?
+
+                                        {FileTypeNow == 'video' &&
                                             <div>
                                                 <div className={Mstyles.FileItem}>
                                                     <video muted>
@@ -205,11 +207,14 @@ const UploadFiles = () => {
                                                     </div>
                                                 </div>
 
-                                            </div> :
-                                            <div>
+                                            </div>
 
+
+                                        }
+                                        {FileTypeNow == 'image' &&
+                                            <div>
                                                 <div className={Mstyles.FileItem}>
-                                                    <img src={FileUpldedFinal} />
+                                                    <img src={FileUpldedFinal} width='100%' />
                                                     <div className={Mstyles.FileItemOverlay}>
 
                                                         <IconButton
@@ -223,6 +228,27 @@ const UploadFiles = () => {
                                                 </div>
 
                                             </div>
+
+
+                                        }
+                                        {FileTypeNow == 'pdf' &&
+                                            <div>
+                                                <div className={Mstyles.FileItem}>
+                                                    <img src={'/img/pdf.png'}  width='50px' />
+                                                    <div className={Mstyles.FileItemOverlay}>
+
+                                                        <IconButton
+                                                            onClick={ResetUpload}
+                                                            aria-label="toggle password visibility"
+                                                            style={{ color: 'white', cursor: 'pointer' }}
+                                                        >
+                                                            <FiTrash size={20} />
+                                                        </IconButton>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
 
                                         }
                                     </div>

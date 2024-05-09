@@ -7,7 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 
 import CheckloginContext from '/context/auth/CheckloginContext'
-import { LuEye,LuPencilLine,LuTrash2 } from "react-icons/lu";
+import { LuEye, LuPencilLine, LuTrash2 } from "react-icons/lu";
 
 import ReportPost from './ReportPost'
 import PostAdminMenu from './PostAdminMenu'
@@ -23,14 +23,14 @@ import { MediaFilesUrl, MediaFilesFolder, DomainURL } from '/Data/config'
 const FeedTopbox = ({ PostData }) => {
 
     const router = useRouter()
-   
+
     const Contextdata = useContext(CheckloginContext)
     const [anchorEl, setAnchorEl] = React.useState(null);
-    
+
     const [ShowData, setShowData] = useState(false);
- 
+
     const [OpenEdit, setOpenEdit] = React.useState(false);
-    
+
 
     const descriptionElementRef = React.useRef(null);
     React.useEffect(() => {
@@ -68,18 +68,28 @@ const FeedTopbox = ({ PostData }) => {
                         <div className={Mstyles.FeedItemTopA}>
                             <div className={Mstyles.FeedItemAvatar}>
                                 <Avatar
-                                    alt={PostData.Profile.name}
+                                    alt={'M'}
                                     src={`${MediaFilesUrl}${MediaFilesFolder}/${PostData.Profile.dp}`}
                                     sx={{ width: 40, height: 40 }}
                                 />
                             </div>
                             <div className={Mstyles.NametextboxText}>
                                 <div className={Mstyles.Nametextbox}>
-                                    <span>{PostData.Profile.name} </span>
+                                    <span>Magadh University Info<small>  |  {PostData.Profile.name}</small> </span>
 
                                 </div>
-                                <div>
-                                <small className={Mstyles.Cattagboxtext} onClick={() => router.push(`/feeds/interests/${PostData.PostData.CatData.category}`)}>{PostData.CatData.title}</small> 🔸 <small className={Mstyles.timetext}>{PostData.formattedDate}  </small>
+                                <div className={Mstyles.Cattagboxtext}>
+                                    <div className={Mstyles.CattagboxtextA}>
+                                        <span onClick={() => router.push(`/feeds/interests/${PostData.PostData.CatData.category}`)}>{PostData.CatData.title}</span>
+                                    </div>
+                                    <div className={Mstyles.LineDevider}>
+                                        |
+                                    </div>
+
+                                    <div className={Mstyles.CattagboxtextB}>
+                                        <span className={Mstyles.timetext}>{PostData.formattedDate}  </span>
+                                    </div>
+
                                 </div>
                             </div>
 
@@ -133,12 +143,12 @@ const FeedTopbox = ({ PostData }) => {
                             </ListItemIcon>
                             View Post
                         </MenuItem>
-                        
-                        
+
+
 
                         <PostAdminMenu PostData={PostData.PostData} />
                         <ReportPost PostData={PostData} />
-                       
+
 
                     </Menu>
                 </div>

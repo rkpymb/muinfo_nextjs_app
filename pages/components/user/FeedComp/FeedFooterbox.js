@@ -41,7 +41,7 @@ const FeedFooterbox = ({ PostData, ShowComments }) => {
 
         setShowData(true)
 
-    }, [router.query,]);
+    }, [router.query,Contextdata.UserData]);
 
     const MyLikeData = async () => {
 

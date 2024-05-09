@@ -80,8 +80,11 @@ const PostBoxUser = ({ PostData }) => {
     const descriptionElementRef = React.useRef(null);
 
     useEffect(() => {
-        GetCmtlistData()
-    }, [router.query]);
+
+        if (Contextdata.UserLogin) {
+            GetCmtlistData()
+        }
+    }, [router.query, Contextdata.UserData]);
 
 
     const GetCmtlistData = async () => {
@@ -175,96 +178,126 @@ const PostBoxUser = ({ PostData }) => {
 
     return (
         <div className={Mstyles.Cmtmainbox}>
-            <div>
+            {Contextdata.UserLogin ?
+
                 <div>
-                    <div className={Mstyles.PostBoxUserHeader}>
-                        <span>Add Your <span className={Mstyles.RedColor}>Comment</span></span>
-                        <small>Your Comment Will be Visible in Public</small>
+                    <div>
+                        <div className={Mstyles.PostBoxUserHeader}>
+                            <span>Add Your <span className={Mstyles.RedColor}>Comment</span></span>
+                            <small>Your Comment Will be Visible in Public</small>
 
-                    </div>
-                    <div className={Mstyles.PostBoxUserInput}>
-                        <textarea
-                            placeholder="Write your post here..."
-                            value={CmtText}
-                            autoFocus
-                            onChange={handleTextareaChange}
-                        />
-                    </div>
+                        </div>
+                        <div className={Mstyles.PostBoxUserInput}>
+                            <textarea
+                                placeholder="Write your comment here..."
+                                value={CmtText}
+                                autoFocus
+                                onChange={handleTextareaChange}
+                            />
+                        </div>
 
-                    <div style={{ marginTop: 20 }}></div>
-
-                    <div className={Mstyles.PostBoxFotter}>
-                        <LoadingButton
-                            fullWidth
-                            onClick={SubmitPost}
-                            endIcon={<FiChevronRight />}
-                            loading={LoadingSubmitBtn}
-                            loadingPosition="end"
-                            className={Mstyles.MainBtn}
-                        >
-                            <span>Post Comment</span>
-                        </LoadingButton>
-
-
-                        <div style={{ marginTop: 10 }}></div>
-
-
-                        <small style={{ fontSize: '10px' }}>You agree to our <span className={Mstyles.url} onClick={() => router.push('/TermsConditions')}>Terms & Conditions</span> and <span className={Mstyles.url} onClick={() => router.push('/PrivacyPolicy')}>Privacy Policy</span></small>
                         <div style={{ marginTop: 20 }}></div>
+
+                        <div className={Mstyles.PostBoxFotter}>
+                            <LoadingButton
+                                fullWidth
+                                onClick={SubmitPost}
+                                endIcon={<FiChevronRight />}
+                                loading={LoadingSubmitBtn}
+                                loadingPosition="end"
+                                className={Mstyles.MainBtn}
+                                variant='outlined'
+                            >
+                                <span>Post Comment</span>
+                            </LoadingButton>
+
+
+                            <div style={{ marginTop: 10 }}></div>
+
+
+                            <small style={{ fontSize: '10px' }}>You agree to our <span className={Mstyles.url} onClick={() => router.push('/TermsConditions')}>Terms & Conditions</span> and <span className={Mstyles.url} onClick={() => router.push('/PrivacyPolicy')}>Privacy Policy</span></small>
+                            <div style={{ marginTop: 20 }}></div>
+                        </div>
+
+
                     </div>
 
 
-                </div>
-
-
-                <div>
-                    {isLoading ? <div>
-                        {Dummydta.map((item, index) => {
-                            return <div key={index} style={{ marginBottom: '20px' }}>
-                                <Skeleton variant="text" sx={{ fontSize: '1rem', width: '100%' }} />
-                                <div style={{ height: '5px' }}></div>
-                                <Skeleton variant="text" sx={{ fontSize: '1rem', width: '50%' }} />
-                            </div>
-
-                        }
-
-                        )}
-                    </div> :
-                        <div>
-                            {Cmtlist.map((item, index) => {
-                                return <div className={Mstyles.CmtlistItem} key={index} >
-                                    <div className={Mstyles.CmtlistItemA}>
-                                        <Avatar
-                                            alt={item.UserData.name}
-                                            src={`${MediaFilesUrl}${MediaFilesFolder}/${item.UserData.dp}`}
-                                            sx={{ width: 30, height: 30 }}
-                                        />
-                                    </div>
-                                    <div className={Mstyles.CmtlistItemB}>
-                                        <div className={Mstyles.CmttextboxUser}>
-                                            <span>{item.UserData.name}</span>
-                                            <div className={Mstyles.linedevider}>|</div>
-                                            <small>{item.formattedDate}</small>
-                                        </div>
-
-                                        <div className={Mstyles.Cmttextbox}>
-                                            <span>{item.CmtData.CmtData.Text}</span>
-                                        </div>
-                                    </div>
-
-
-
+                    <div>
+                        {isLoading ? <div>
+                            {Dummydta.map((item, index) => {
+                                return <div key={index} style={{ marginBottom: '20px' }}>
+                                    <Skeleton variant="text" sx={{ fontSize: '1rem', width: '100%' }} />
+                                    <div style={{ height: '5px' }}></div>
+                                    <Skeleton variant="text" sx={{ fontSize: '1rem', width: '50%' }} />
                                 </div>
 
                             }
 
                             )}
+                        </div> :
+                            <div>
+                                {Cmtlist.map((item, index) => {
+                                    return <div className={Mstyles.CmtlistItem} key={index} >
+                                        <div className={Mstyles.CmtlistItemA}>
+                                            <Avatar
+                                                alt={item.UserData.name}
+                                                src={`${MediaFilesUrl}${MediaFilesFolder}/${item.UserData.dp}`}
+                                                sx={{ width: 30, height: 30 }}
+                                            />
+                                        </div>
+                                        <div className={Mstyles.CmtlistItemB}>
+                                            <div className={Mstyles.CmttextboxUser}>
+                                                <span>{item.UserData.name}</span>
+                                                <div className={Mstyles.linedevider}>|</div>
+                                                <small>{item.formattedDate}</small>
+                                            </div>
+
+                                            <div className={Mstyles.Cmttextbox}>
+                                                <span>{item.CmtData.CmtData.Text}</span>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+
+                                }
+
+                                )}
+                            </div>
+
+                        }
+
+                    </div>
+                </div> : <div>
+                    <div>
+
+
+                        <div className={Mstyles.PostBoxFotter}>
+                            <LoadingButton
+                                fullWidth
+                                onClick={() =>router.push('/account/user_login')}
+                                endIcon={<FiChevronRight />}
+                                loading={false}
+                                loadingPosition="end"
+                                className={Mstyles.MainBtn}
+                                variant='outlined'
+                            >
+                                <span>Login to View Comments</span>
+                            </LoadingButton>
+
+
                         </div>
 
-                    }
+
+                    </div>
 
                 </div>
-            </div>
+
+
+            }
+
         </div>
     )
 }

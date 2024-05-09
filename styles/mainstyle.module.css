@@ -17,12 +17,14 @@
   min-height: 150px;
 
 }
-.Cmtmainbox{
+
+.Cmtmainbox {
   background-color: rgba(255, 255, 255, 0.92);
-  padding: 30px; 
+  padding: 20px;
   border-top: 1px solid var(--border-color);
   margin-top: 20px;
 }
+
 .PdfitemCover {
   background-color: rgba(255, 255, 255, 0.92);
   padding: 30px;
@@ -35,10 +37,11 @@
 
 }
 
-.PdfitemCoverB{
+.PdfitemCoverB {
   margin-top: 10px;
   margin-bottom: 20px;
 }
+
 .DpDiloagContainer {
   margin: 0 auto;
   width: 50%;
@@ -3347,10 +3350,7 @@
   margin: auto;
 }
 
-.timetext {
-  margin-top: 10px;
-  font-size: 10px;
-}
+
 
 .FeedBtnitem:hover {
 
@@ -3472,11 +3472,27 @@
 
 }
 
+.LineDevider {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
 .Cattagboxtext {
-  font-weight: 600;
-  color: var(--accent-color);
-  font-size: 14px;
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+
+}
+
+.CattagboxtextA {
   cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.CattagboxtextB {
+  cursor: pointer;
+  font-size: 12px;
 }
 
 .PostFooterboxA {
@@ -3552,7 +3568,7 @@
 
 .FileItem img {
   border-radius: 20px;
-  width: 100%;
+ 
 }
 
 .FileItem video {
@@ -3574,6 +3590,10 @@
   border-radius: 20px;
   overflow: hidden;
   width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
 
 }
 
