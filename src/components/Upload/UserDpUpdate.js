@@ -73,6 +73,7 @@ const Demo = ({ SType }) => {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         'folderName': 'feedpost',
+                        'quality': 10,
                         Authorization: `Bearer ${Contextdata.UserJwtToken}`,
                     },
                     onUploadProgress: (progressEvent) => {

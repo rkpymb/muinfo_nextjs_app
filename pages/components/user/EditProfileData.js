@@ -108,7 +108,7 @@ export default function ScrollDialog() {
                         Contextdata.ChangeAlertData('Profile Updated Successfully', 'success')
                         setTimeout(function () {
                             setBtnloading(false)
-                          
+
                         }, 2000);
 
                     } else {
@@ -143,8 +143,11 @@ export default function ScrollDialog() {
         setCurrentState(Contextdata.UserData.ProfileData.State);
         setDateOfBirth(Contextdata.UserData.ProfileData.DateOfBirth);
         setCourses(Contextdata.UserData.ProfileData.Courses);
-        setStartYear(Contextdata.UserData.ProfileData.Session.StartYear);
-        setEndYear(Contextdata.UserData.ProfileData.Session.EndYear);
+        if (Contextdata.UserData.ProfileData.Session) {
+            setStartYear(Contextdata.UserData.ProfileData.Session.StartYear);
+            setEndYear(Contextdata.UserData.ProfileData.Session.EndYear);
+        }
+
         setCollageName(Contextdata.UserData.ProfileData.CollageName);
         GetCoursesListession()
     }, [])
@@ -402,7 +405,7 @@ export default function ScrollDialog() {
 
                             <div className={Mstyles.inputlogin}>
                                 <TextField
-                                   type='Number'
+                                    type='Number'
                                     label="Pincode"
                                     fullWidth
                                     value={Pincode}
@@ -416,7 +419,7 @@ export default function ScrollDialog() {
                             </div>
                             <div className={Mstyles.inputlogin}>
                                 <TextField
-                                   
+
                                     label="Current City"
                                     fullWidth
                                     value={City}
@@ -426,7 +429,7 @@ export default function ScrollDialog() {
                             </div>
                             <div className={Mstyles.inputlogin}>
                                 <TextField
-                                  
+
                                     label="Full Address"
                                     fullWidth
                                     value={FullAddress}
