@@ -22,6 +22,7 @@ import {
 
 
 } from '@mui/material';
+import { Start } from '@mui/icons-material';
 export default function ScrollDialog() {
     const Contextdata = useContext(CheckloginContext)
     const [Btnloading, setBtnloading] = useState(false);
@@ -47,6 +48,9 @@ export default function ScrollDialog() {
     const [CollageName, setCollageName] = useState(null);
     const [LoadingCS, setLoadingCS] = useState(false);
 
+    const [StartYear, setStartYear] = useState(null);
+    const [EndYear, setEndYear] = useState(null);
+
     const handleEditorChange = (content) => {
         setFullDesc(content);
 
@@ -67,14 +71,14 @@ export default function ScrollDialog() {
 
 
     const UpdateProfile = async (e) => {
-       
+
         e.preventDefault();
-        if (FullName !== '' && FullDesc !== '' && DateOfBirth !== null && Session !== null&& Courses !== null && CollageName !== null && Pincode !== '' && City !== '' && FullAddress !== '' && CurrentState !== '') {
+        if (FullName !== '' && DateOfBirth !== null) {
             setBtnloading(true)
             const sendUM = {
 
                 name: FullName,
-               
+
                 WhatsApp: WhatsApp,
                 Pincode: Pincode,
                 State: CurrentState,
@@ -82,9 +86,10 @@ export default function ScrollDialog() {
                 City: City,
                 Shortbio: FullDesc,
                 DateOfBirth: DateOfBirth,
-                CollageName:CollageName,
-                Courses:Courses,
-                Session: Session,
+                CollageName: CollageName,
+                Courses: Courses,
+                StartYear: StartYear,
+                EndYear: EndYear,
 
 
             }
@@ -103,7 +108,7 @@ export default function ScrollDialog() {
                         Contextdata.ChangeAlertData('Profile Updated Successfully', 'success')
                         setTimeout(function () {
                             setBtnloading(false)
-                            router.push('/user/edit-profile')
+                          
                         }, 2000);
 
                     } else {
@@ -136,15 +141,11 @@ export default function ScrollDialog() {
         setPincode(Contextdata.UserData.ProfileData.Pincode);
 
         setCurrentState(Contextdata.UserData.ProfileData.State);
-
-
-        setFullDesc(Contextdata.UserData.ProfileData.Shortbio);
         setDateOfBirth(Contextdata.UserData.ProfileData.DateOfBirth);
         setCourses(Contextdata.UserData.ProfileData.Courses);
-        setSession(Contextdata.UserData.ProfileData.Session);
+        setStartYear(Contextdata.UserData.ProfileData.Session.StartYear);
+        setEndYear(Contextdata.UserData.ProfileData.Session.EndYear);
         setCollageName(Contextdata.UserData.ProfileData.CollageName);
-
-
         GetCoursesListession()
     }, [])
 
@@ -163,7 +164,7 @@ export default function ScrollDialog() {
             return a.json();
         })
             .then((parsed) => {
-               
+
 
                 if (parsed.ReqData.Courses) {
                     setCoursesList(parsed.ReqData.Courses)
@@ -192,8 +193,34 @@ export default function ScrollDialog() {
         setCourses(event.target.value);
 
     };
-    const ChangeSession = (event) => {
-        setSession(event.target.value);
+    const ChnageStartYear = (event) => {
+        setStartYear(event.target.value);
+
+    };
+    const ChnageEndYear = (event) => {
+        if (StartYear > event.target.value) {
+            alert('End Year cannot be smaller than Start Year')
+        } else {
+            setEndYear(event.target.value);
+        }
+
+
+    };
+    const handle_whatsapp = (nm) => {
+        if (nm.length <= 10) {
+            console.log(nm)
+            setWhatsApp(nm)
+        }
+
+
+    };
+
+    const handle_pincode = (nm) => {
+        if (nm.length <= 6) {
+            console.log(nm)
+            setPincode(nm)
+        }
+
 
     };
 
@@ -244,21 +271,24 @@ export default function ScrollDialog() {
                             </div>
                             <div className={Mstyles.inputlogin}>
                                 <TextField
-                                    required
+
                                     label="WhatsApp Number"
                                     fullWidth
                                     value={WhatsApp}
-                                  
+                                    onChange={(e) => {
+                                        // Limit input length to 10 characters
+                                        const newValue = e.target.value
+                                        handle_whatsapp(newValue);
+                                    }}
                                     type='number'
-                                    onInput={e => setWhatsApp(e.target.value)}
+
 
                                 />
                             </div>
                             <div className={Mstyles.inputlogin}>
-                                <div style={{marginBottom:'15px'}}>Date Of Birth</div>
+                                <div style={{ marginBottom: '15px' }}>Date Of Birth*</div>
                                 <TextField
                                     required
-                                  
                                     fullWidth
                                     value={DateOfBirth}
                                     type='date'
@@ -273,6 +303,17 @@ export default function ScrollDialog() {
                             <h4>Academic Details</h4>
 
                             <div className={Mstyles.inputlogin}>
+                                <TextField
+
+                                    label="Collage Name"
+                                    fullWidth
+                                    value={CollageName}
+
+                                    onInput={e => setCollageName(e.target.value)}
+
+                                />
+                            </div>
+                            <div className={Mstyles.inputlogin}>
                                 {LoadingCS ?
                                     <div>
                                         <Skeleton variant="rounded" width='100%' height={60} />
@@ -283,7 +324,6 @@ export default function ScrollDialog() {
                                             <Select
                                                 value={Courses}
                                                 label="Select Course"
-
                                                 onChange={ChangeCourse}
                                             >
                                                 <MenuItem value={''}>Select</MenuItem>
@@ -298,44 +338,60 @@ export default function ScrollDialog() {
                                     </div>
                                 }
                             </div>
-                            <div className={Mstyles.inputlogin}>
-                                {LoadingCS ?
-                                    <div>
-                                        <Skeleton variant="rounded" width='100%' height={60} />
-                                    </div> :
-                                    <div>
-                                        <FormControl fullWidth>
-                                            <InputLabel >Select Session</InputLabel>
-                                            <Select
-                                                value={Session}
-                                                label="Select Session"
 
-                                                onChange={ChangeSession}
-                                            >
-                                                <MenuItem value={''}>Select</MenuItem>
-                                                {SessionList.map((item) => {
-                                                    return <MenuItem value={item.session_id}>{item.titleA}-{item.titleB}</MenuItem>
-                                                }
+                            <div className={Mstyles.inputloginGrid}>
 
-                                                )}
-                                            </Select>
+                                <div >
+                                    <FormControl fullWidth>
+                                        <InputLabel >Select Start Year</InputLabel>
+                                        <Select
+                                            value={StartYear}
+                                            label="Select Start Year"
+                                            onChange={ChnageStartYear}
+                                        >
+                                            <MenuItem value={''}>Select</MenuItem>
 
-                                        </FormControl>
-                                    </div>
-                                }
+                                            {Array.from({ length: 51 }, (_, i) => {
+                                                const year = new Date().getFullYear() - 25 + i;
+                                                return (
+                                                    <MenuItem key={year} value={year}>
+                                                        {year}
+                                                    </MenuItem>
+                                                );
+                                            })}
+
+                                        </Select>
+
+                                    </FormControl>
+
+                                </div>
+                                <div >
+                                    <FormControl fullWidth>
+                                        <InputLabel >Select End Year</InputLabel>
+                                        <Select
+                                            value={EndYear}
+                                            label="Select End Year"
+                                            onChange={ChnageEndYear}
+                                        >
+                                            <MenuItem value={''}>Select</MenuItem>
+
+                                            {Array.from({ length: 51 }, (_, i) => {
+                                                const year = new Date().getFullYear() - 25 + i;
+                                                return (
+                                                    <MenuItem key={year} value={year}>
+                                                        {year}
+                                                    </MenuItem>
+                                                );
+                                            })}
+
+                                        </Select>
+
+                                    </FormControl>
+
+                                </div>
+
                             </div>
-                        
-                            <div className={Mstyles.inputlogin}>
-                                <TextField
-                                    required
-                                    label="Collage Name"
-                                    fullWidth
-                                    value={CollageName}
 
-                                    onInput={e => setCollageName(e.target.value)}
-
-                                />
-                            </div>
 
 
 
@@ -346,17 +402,21 @@ export default function ScrollDialog() {
 
                             <div className={Mstyles.inputlogin}>
                                 <TextField
-                                    required
+                                   type='Number'
                                     label="Pincode"
                                     fullWidth
                                     value={Pincode}
-                                    onInput={e => setPincode(e.target.value)}
+                                    onChange={(e) => {
+                                        // Limit input length to 10 characters
+                                        const newValue = e.target.value
+                                        handle_pincode(newValue);
+                                    }}
 
                                 />
                             </div>
                             <div className={Mstyles.inputlogin}>
                                 <TextField
-                                    required
+                                   
                                     label="Current City"
                                     fullWidth
                                     value={City}
@@ -366,7 +426,7 @@ export default function ScrollDialog() {
                             </div>
                             <div className={Mstyles.inputlogin}>
                                 <TextField
-                                    required
+                                  
                                     label="Full Address"
                                     fullWidth
                                     value={FullAddress}
@@ -378,8 +438,6 @@ export default function ScrollDialog() {
                                 <FormControl fullWidth>
                                     <InputLabel >State</InputLabel>
                                     <Select
-
-
                                         value={CurrentState}
                                         label="State"
                                         onChange={handleChangeVState}

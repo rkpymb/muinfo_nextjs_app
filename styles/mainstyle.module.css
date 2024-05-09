@@ -1908,6 +1908,14 @@
   margin-bottom: 20px;
 }
 
+.inputloginGrid {
+  margin: 0 auto;
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+
 .VGaleryGridFlott {
   display: flex;
   align-items: center;

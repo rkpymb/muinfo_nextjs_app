@@ -37,7 +37,7 @@ function Home() {
             {!Loading &&
                 <div className={Mstyles.Fullbg}>
                     <div className={Mstyles.Container}>
-                        <div className={Mstyles.SecDevider}></div>
+                       
                         
                         <div className={Mstyles.SmallContainer}>
                         <div className={Mstyles.SecDevider}></div>
