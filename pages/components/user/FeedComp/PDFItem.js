@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { FaDownload, FaEye } from 'react-icons/fa';
+import { LuEye, LuDownload } from "react-icons/lu";
 import { MediaFilesUrl, FeedimgFolder } from '/Data/config';
 import Mstyles from '/styles/mainstyle.module.css';
 import Image from 'next/image';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { FiChevronRight, FiEdit } from 'react-icons/fi';
-import { LuEye ,LuDownload} from "react-icons/lu";
 
 const PDFItem = ({ item }) => {
     // Define the local storage key for the object that stores PDF files
@@ -20,12 +18,17 @@ const PDFItem = ({ item }) => {
     // On component mount, check if the file is already downloaded and saved in local storage
     useEffect(() => {
         const downloadedPDFs = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-        if (downloadedPDFs && downloadedPDFs[item.PostID]) {
+        if (downloadedPDFs && downloadedPDFs[item?.PostID]) {
             setIsDownloaded(true);
         }
-    }, [item.PostID]);
+    }, [item?.PostID]);
 
     const handleDownload = async () => {
+        if (!item?.PostList?.[0]?.postData) {
+            console.error('Invalid item data');
+            return;
+        }
+        
         try {
             // Construct the URL using imported constants and the item's postData
             const pdfUrl = `${MediaFilesUrl}${FeedimgFolder}/${item.PostList[0].postData}`;
@@ -66,10 +69,8 @@ const PDFItem = ({ item }) => {
     };
 
     const handleView = () => {
-        // Retrieve the downloaded PDFs object from local storage
         const downloadedPDFs = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-        if (downloadedPDFs && downloadedPDFs[item.PostID]) {
-            // Retrieve the Base64 string for the item's PostID
+        if (downloadedPDFs && downloadedPDFs[item?.PostID]) {
             const base64String = downloadedPDFs[item.PostID];
 
             // Convert the Base64 string back to a Blob
@@ -91,8 +92,8 @@ const PDFItem = ({ item }) => {
                 <div className={Mstyles.PdfitemCoverA}>
                     <div className={Mstyles.pdfimg}>
                         <Image
-                            src={`/img/pdf.png`}
-                            alt=""
+                            src={'/img/pdf.png'}
+                            alt=''
                             fill
                             height={'100%'}
                             width={'100%'}
@@ -106,48 +107,36 @@ const PDFItem = ({ item }) => {
                 <div className={Mstyles.PdfitemCoverB}>
                     {isDownloaded ? (
                         // If the file has been downloaded, show the "View" button
-                        <div>
-
-
-                            <LoadingButton
-                                fullWidth
-                                onClick={handleView}
-                                endIcon={<LuEye />}
-                                loading={false}
-                                size='small'
-                                loadingPosition="end"
-                                variant="outlined"
-
-                            >
-                                <span>View</span>
-                            </LoadingButton>
-
-                        </div>
+                        <LoadingButton
+                            fullWidth
+                            onClick={handleView}
+                            endIcon={<LuEye />}
+                            loading={false}
+                            size='small'
+                            loadingPosition="end"
+                            variant="outlined"
+                        >
+                            <span>View</span>
+                        </LoadingButton>
                     ) : (
-
-
-
                         <LoadingButton
                             fullWidth
                             onClick={handleDownload}
                             endIcon={<LuDownload />}
-                            loading={downloadProgress}
-                            desabled={downloadProgress}
+                            size='small'
+                            loading={downloadProgress !== null && downloadProgress !== 100}
+                            disabled={downloadProgress === 100}
                             loadingPosition="end"
                             variant="outlined"
-
                         >
                             <span>Download</span>
                         </LoadingButton>
                     )}
-                    {downloadProgress !== null && (
+                    {downloadProgress !== null && downloadProgress !== 100 && (
                         <p>Progress: {downloadProgress}%</p>
                     )}
                 </div>
             </div>
-
-
-
         </div>
     );
 };
