@@ -10,7 +10,7 @@ import Mstyles from '/styles/mainstyle.module.css';
 import { MediaFilesUrl, MediaFilesFolder } from '/Data/config'
 import FeedVideoPost from './FeedVideoPost';
 import FeedImagePost from './FeedImagePost';
-import FeedPdfPost from './FeedPdfPost';
+import PDFItem from './PDFItem';
 
 const FeedContentBox = ({ PostData }) => {
     const [ShowData, setShowData] = useState(false);
@@ -37,7 +37,7 @@ const FeedContentBox = ({ PostData }) => {
 
                         }
                         {PostData.PostData.PostList[0].PostType == 'pdf' &&
-                           <FeedPdfPost PostData={PostData.PostData} />
+                           <PDFItem item={PostData.PostData} />
 
                         }
                     </div>

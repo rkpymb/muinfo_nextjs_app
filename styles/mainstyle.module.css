@@ -4,6 +4,36 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
 
+
+.pdfimg {
+  width: 70px;
+}
+
+.Pdfitem {
+  width: 100%;
+  background-image: url(/img/pdfbg.png);
+  background-repeat: repeat;
+  background-size: 25px;
+  min-height: 150px;
+
+}
+
+.PdfitemCover {
+  background-color: rgba(255, 255, 255, 0.92);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+}
+
+.PdfitemCoverB{
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
 .DpDiloagContainer {
   margin: 0 auto;
   width: 50%;
@@ -135,6 +165,8 @@
 
 .Padfboxiframe {
   width: 100%;
+  background-color: #1d1a1a;
+  padding: 20px;
 }
 
 .EditPBox {

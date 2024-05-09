@@ -4,6 +4,7 @@ import CheckloginContext from '/context/auth/CheckloginContext'
 import Head from 'next/head';
 
 import MainNavBar from '../../src/components/Parts/Navbar/MainNavBar'
+import UserSidemenu from '../../src/components/Parts/UserSidemenu'
 import { AppDesc, AppName } from '/Data/config'
 import { useRouter, useParams } from 'next/router'
 import AddPost from '../components/user/AddPost'
@@ -35,36 +36,41 @@ function Home() {
       <MainNavBar />
 
       <div className={Mstyles.Fullbg}>
-          <div className={Mstyles.Container}>
+        <div className={Mstyles.Container}>
 
+
+          <div className={Mstyles.OnlyDesktop}>
 
             <div className={Mstyles.SecDevider}></div>
-            <div className={Mstyles.FeedSection}>
-
-              <div className={Mstyles.FeedSectionA}>
-
-                <Categories />
-
-
-              </div>
-              <div className={Mstyles.FeedSectionB}>
-                <div className={Mstyles.AddPostHome}>
-                  <AddPost />
-
-                </div>
-                <Feedlist />
-              </div>
-              <div className={Mstyles.FeedSectionC}>
-                <HomeAsideAddLaptop />
-
-                <div className={Mstyles.SecDevider}></div>
-                <HomeAsideAddLaptop />
-              </div>
-            </div>
-
-
           </div>
+          <div className={Mstyles.FeedSection}>
+
+            <div className={Mstyles.FeedSectionA}>
+
+              <Categories />
+
+
+              <UserSidemenu />
+
+            </div>
+            <div className={Mstyles.FeedSectionB}>
+              <div className={Mstyles.AddPostHome}>
+                <AddPost />
+
+              </div>
+              <Feedlist />
+            </div>
+            <div className={Mstyles.FeedSectionC}>
+              <HomeAsideAddLaptop />
+
+              <div className={Mstyles.SecDevider}></div>
+
+            </div>
+          </div>
+
+
         </div>
+      </div>
 
 
       <div className={Mstyles.SecDevider}></div>

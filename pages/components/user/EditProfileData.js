@@ -346,10 +346,10 @@ export default function ScrollDialog() {
 
                                 <div >
                                     <FormControl fullWidth>
-                                        <InputLabel >Select Start Year</InputLabel>
+                                        <InputLabel >Session Start Year</InputLabel>
                                         <Select
                                             value={StartYear}
-                                            label="Select Start Year"
+                                            label="Session Start Year"
                                             onChange={ChnageStartYear}
                                         >
                                             <MenuItem value={''}>Select</MenuItem>
@@ -370,10 +370,10 @@ export default function ScrollDialog() {
                                 </div>
                                 <div >
                                     <FormControl fullWidth>
-                                        <InputLabel >Select End Year</InputLabel>
+                                        <InputLabel >Session End Year</InputLabel>
                                         <Select
                                             value={EndYear}
-                                            label="Select End Year"
+                                            label="Session End Year"
                                             onChange={ChnageEndYear}
                                         >
                                             <MenuItem value={''}>Select</MenuItem>
