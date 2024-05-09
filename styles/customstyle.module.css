@@ -211,6 +211,9 @@ border-radius: 10px;
 
 
 }
+.FooterDevider{
+  height: 100px;
+}
 
 .LoginBox_input {
   margin-top: 20px;

@@ -17,7 +17,12 @@
   min-height: 150px;
 
 }
-
+.Cmtmainbox{
+  background-color: rgba(255, 255, 255, 0.92);
+  padding: 30px; 
+  border-top: 1px solid var(--border-color);
+  margin-top: 20px;
+}
 .PdfitemCover {
   background-color: rgba(255, 255, 255, 0.92);
   padding: 30px;
@@ -3301,9 +3306,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
   padding-bottom: 5px;
 }
 

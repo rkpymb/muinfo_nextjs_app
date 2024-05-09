@@ -2,14 +2,10 @@ import { useState, useEffect, useContext } from 'react';
 import Mstyles from '/styles/customstyle.module.css'
 import CheckloginContext from '/context/auth/CheckloginContext'
 
-
-import MainNavBar from '/src/components/Parts/Navbar/MainNavBar'
-
+import Layout from '../components/Layout';
 import { useRouter, useParams } from 'next/router'
 
 import Feedlist from '../components/user/FeedList'
-import Categories from '../components/user/Categories'
-import HomeAsideAddLaptop from '../components/Advt/HomeAsideAddLaptop'
 
 export async function getServerSideProps(context) {
   const PostID = context.query.pageno[0];
@@ -34,12 +30,12 @@ function Home({ PostData }) {
   const [Loading, setLoading] = useState(true);
 
   useEffect(() => {
-   
+
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
-    if(PostData){
+    if (PostData) {
       setLoading(false)
     }
     Contextdata.ChangeMainLoader(false)
@@ -50,34 +46,16 @@ function Home({ PostData }) {
 
 
   return (
-    <div>
-      <MainNavBar />
+    <Layout>
 
-      <div className={Mstyles.Fullbg}>
-        <div className={Mstyles.Container}>
-          <div className={Mstyles.SecDevider}></div>
-          <div className={Mstyles.FeedSection}>
-            <div className={Mstyles.FeedSectionA}>
-              <Categories />
-            </div>
-            <div className={Mstyles.FeedSectionB}>
-              {!Loading &&
-                <Feedlist PostData={PostData} />
+      <div>
 
-              }
+        {!Loading &&
+          <Feedlist PostData={PostData} />
 
-            </div>
-
-
-
-            <div className={Mstyles.FeedSectionC}>
-              <HomeAsideAddLaptop />
-            </div>
-          </div>
-        </div>
+        }
       </div>
-      <div className={Mstyles.SecDevider}></div>
-    </div>
+    </Layout>
   )
 }
 

@@ -18,6 +18,7 @@ const FeedlistMain = ({ bycat, PostData }) => {
     const [limit, setlimit] = useState(2);
     const [PostID, setPostID] = useState('Demo1234');
     const [hasMore, setHasMore] = useState(true);
+    const [ShowComments, setShowComments] = useState(false);
     const [page, setPage] = useState(1);
 
     const GetData = async () => {
@@ -99,7 +100,8 @@ const FeedlistMain = ({ bycat, PostData }) => {
             setFeedList(PostData)
             setIsLoading(false);
             setPage(1)
-
+            setHasMore(false)
+            setShowComments(true)
         } else {
             setPage(1)
             GetData();
@@ -137,7 +139,7 @@ const FeedlistMain = ({ bycat, PostData }) => {
                             <FeedContentBox PostData={item} />
                         </div>
                         <div>
-                            <FeedFooterbox PostData={item} />
+                            <FeedFooterbox PostData={item} ShowComments={ShowComments} />
                         </div>
 
                     </div>
@@ -148,6 +150,8 @@ const FeedlistMain = ({ bycat, PostData }) => {
 
                
             </InfiniteScroll>
+
+            
 
         </div>
     )

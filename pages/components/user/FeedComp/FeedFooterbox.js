@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import Mstyles from '/styles/mainstyle.module.css';
 import { MediaFilesUrl, FeedimgFolder, DomainURL } from '/Data/config';
 import IconButton from '@mui/material/IconButton';
-import PostCmt from './PostCmt';
+import PostCmtBox from './PostCmtBox';
 import Sharebtn from '../ShareBox/Sharebtn';
 import Badge from '@mui/material/Badge';
 import Image from 'next/image';
@@ -19,7 +19,7 @@ import {
 
 import { BsHandThumbsUp, BsFillHandThumbsUpFill, BsStarFill, BsStar, BsArrowsFullscreen } from "react-icons/bs";
 
-const FeedFooterbox = ({ PostData }) => {
+const FeedFooterbox = ({ PostData, ShowComments }) => {
     const router = useRouter();
     const Contextdata = useContext(CheckloginContext);
     const [Liked, setLiked] = useState(false);
@@ -63,6 +63,7 @@ const FeedFooterbox = ({ PostData }) => {
             .then((parsed) => {
 
                 if (parsed.ReqData) {
+                    console.log(parsed.ReqData)
                     setAllLikes(parsed.ReqData.AllLikes)
 
                     if (parsed.ReqData.MyLikeData) {
@@ -245,7 +246,26 @@ const FeedFooterbox = ({ PostData }) => {
 
                         <div className={Mstyles.FeedBtnitem} >
 
-                            <PostCmt PostData={PostData.PostData} />
+                            {!ShowComments &&
+                                <div className={Mstyles.FeedBtnitemA}>
+                                    <div>
+                                        <Image
+                                            alt="i"
+                                            src='/svg/comment.svg'
+                                            onClick={() => router.push(`${DomainURL}p/${PostData.PostData.PostID}`)}
+                                            height={30}
+                                            width={30}
+                                            blurDataURL={blurredImageData}
+                                            placeholder='blur'
+                                            style={{ objectFit: "cover" }}
+                                        />
+                                    </div>
+
+
+                                </div>
+                            }
+
+
 
                         </div>
                         <div className={Mstyles.FeedBtnitem} >
@@ -297,6 +317,14 @@ const FeedFooterbox = ({ PostData }) => {
 
                 </div>
             }
+
+            {ShowComments &&
+                <div>
+                    <PostCmtBox PostData={PostData.PostData} />
+                </div>
+
+            }
+
         </div>
     );
 };

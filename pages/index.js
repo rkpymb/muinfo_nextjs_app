@@ -2,15 +2,11 @@ import { useState, useEffect, useContext } from 'react';
 import Mstyles from '/styles/customstyle.module.css'
 import CheckloginContext from '/context/auth/CheckloginContext'
 import Head from 'next/head';
+import Layout from './components/Layout';
 
-import MainNavBar from '../src/components/Parts/Navbar/MainNavBar'
-import UserSidemenu from '../src/components/Parts/UserSidemenu'
-import { AppDesc, AppName } from '/Data/config'
 import { useRouter, useParams } from 'next/router'
 import AddPost from './components/user/AddPost'
 import Feedlist from './components/user/FeedList'
-import Categories from './components/user/Categories'
-import HomeAsideAddLaptop from './components/Advt/HomeAsideAddLaptop'
 
 function Home() {
   const router = useRouter();
@@ -33,47 +29,16 @@ function Home() {
 
   return (
     <div>
-      <MainNavBar />
-
-      <div className={Mstyles.Fullbg}>
-        <div className={Mstyles.Container}>
-
-
-          <div className={Mstyles.OnlyDesktop}>
-
-            <div className={Mstyles.SecDevider}></div>
-          </div>
-          <div className={Mstyles.FeedSection}>
-
-            <div className={Mstyles.FeedSectionA}>
-
-              <Categories />
-
-
-              <UserSidemenu />
-
-            </div>
-            <div className={Mstyles.FeedSectionB}>
-              <div className={Mstyles.AddPostHome}>
+       <Layout>
+           
+            <div>
+            <div className={Mstyles.AddPostHome}>
                 <AddPost />
 
               </div>
               <Feedlist />
             </div>
-            <div className={Mstyles.FeedSectionC}>
-              <HomeAsideAddLaptop />
-
-              <div className={Mstyles.SecDevider}></div>
-
-            </div>
-          </div>
-
-
-        </div>
-      </div>
-
-
-      <div className={Mstyles.SecDevider}></div>
+        </Layout>
 
     </div>
 
