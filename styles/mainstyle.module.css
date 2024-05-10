@@ -4,6 +4,42 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
 
+.floatingButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  /* Customize button styles */
+}
+
+.FbuttonBox {
+  background-color: #ff0000;
+  color: white;
+  padding: 5px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
+}
+
+.FbuttonBox {
+  display: flex;
+  align-items: center;
+}
+
+.FbuttonBoxA {
+  margin-top: 5px;
+}
+
+.FbuttonBoxB {
+  margin-left: 5px;
+}
+
+.FbuttonBox span {
+  font-weight: 500;
+  font-size: 12px;
+}
+
 .PostFooterboxB {
   margin-top: 20px;
 }
@@ -73,7 +109,7 @@
 
 .PdfitemCover {
   background-color: rgba(255, 255, 255, 0.92);
-  
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -86,8 +122,9 @@
 .downloadPgbox {
   margin-top: 10px;
   margin-bottom: 20px;
- 
+
 }
+
 .PdfitemCoverB {
   margin-top: 10px;
   margin-bottom: 20px;
@@ -3231,6 +3268,27 @@
 
 }
 
+.Blackbg {
+  background-color: black;
+}
+
+.Fullimgbox {
+  margin: auto;
+  padding: 0;
+  width: 70%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+}
+
+.Fullimgbox img {
+  width: 100%;
+  object-fit: contain;
+}
+
 .FeedMediaImgbox {
   cursor: pointer;
   width: 100%;
@@ -3283,15 +3341,15 @@
 
 .FeedVideo {
   cursor: pointer;
-  max-height: 512px;
-  margin: auto;
-  object-fit: cover;
-  overflow: hidden;
+
+
 }
 
 .FeedVideo video {
   width: 100%;
- 
+  height: 512px;
+  object-fit: contain;
+
 }
 
 
@@ -3306,15 +3364,15 @@
 
 
 .progressbarbox {
- 
+
   background-color: #4caf50;
- 
+
   height: 10px;
- 
+
   width: 0;
- 
+
   transition: width 0.3s ease;
-  
+
 }
 
 
@@ -5689,6 +5747,30 @@
 
     height: 300px;
 
+  }
+
+  .FeedVideo video {
+    width: 100%;
+    height: 300px;
+    object-fit: contain;
+
+  }
+
+  .Fullimgbox {
+    margin: auto;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+  }
+
+  .Fullimgbox img {
+    width: 100%;
+    object-fit: contain;
   }
 
 

@@ -85,6 +85,14 @@
 
 
 }
+.CreatePostSec {
+  margin: 0 auto;
+  width: 70%;
+  padding: 20px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
+  border-radius: 10px;
+}
+
 
 .PageSection {
   margin: 0 auto;
@@ -514,6 +522,12 @@
     width: 100%;
     padding: 10px;
 
+  }
+
+  .CreatePostSec {
+    margin: 0 auto;
+    width: 100%;
+    padding: 0px;
   }
 
   .SecDevider {

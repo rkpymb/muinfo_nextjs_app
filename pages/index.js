@@ -32,10 +32,7 @@ function Home() {
        <Layout>
            
             <div>
-            <div className={Mstyles.AddPostHome}>
-                <AddPost />
-
-              </div>
+           
               <Feedlist />
             </div>
         </Layout>

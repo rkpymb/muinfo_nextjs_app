@@ -11,6 +11,7 @@ import { useRouter, useParams } from 'next/router'
 
 import Categories from './user/Categories'
 import HomeAsideAddLaptop from './Advt/HomeAsideAddLaptop'
+import FloatingBtn from './user/FloatingBtn'
 
 
 const Layout = ({ children }) => {
@@ -30,6 +31,7 @@ const Layout = ({ children }) => {
                         <div className={Mstyles.FeedSectionA}>
                             <Categories />
                             <UserSidemenu />
+                            <FloatingBtn />
                         </div>
                         <div className={Mstyles.FeedSectionB}>
                             {children}
@@ -37,7 +39,7 @@ const Layout = ({ children }) => {
                         </div>
                         <div className={Mstyles.FeedSectionC}>
                             <HomeAsideAddLaptop />
-                            <div style={{height:'15px'}}></div>
+                            <div style={{ height: '15px' }}></div>
                             <HomeAsideAddLaptop />
                             <div className={Mstyles.SecDevider}></div>
                         </div>
@@ -45,7 +47,7 @@ const Layout = ({ children }) => {
                 </div>
             </div>
 
-          
+
         </div>
     );
 };

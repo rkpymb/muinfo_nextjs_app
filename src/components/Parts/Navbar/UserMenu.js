@@ -35,19 +35,44 @@ const MainNavBar = () => {
     const HandleCloseMenu = async () => {
         setOpenMenu(false)
     }
-    const removeCookie = (name) => {
-        document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-        Contextdata.ChangeAlertData('Logout Succesfully', 'success');
-        router.push('/account/user_login')
-    };
-
     const LogoutBtn = async () => {
-
-        let text = "Do you Really want to log out?";
-        if (confirm(text) == true) {
-            removeCookie('jwt_token');
-
+        const confirmLogout = confirm('Do you really want to log out?');
+        if (confirmLogout) {
+            // Send a request to the server-side route to log out the user
+            try {
+                const response = await fetch('/api/user/user_logout', {
+                    method: 'POST',
+                    credentials: 'include', // Include cookies in the request
+                });
+                
+                
+                if (response.ok) {
+                    // // Clear local storage
+                    removeCookie('jwt_token')
+                    localStorage.clear();
+                    
+                    // Notify the user of successful logout
+                    Contextdata.ChangeAlertData('Logout successfully', 'success');
+                    
+                    // Refresh the page
+                    window.location.reload();
+                } else {
+                    // Handle error
+                    console.error('Error logging out:', response.msg);
+                    Contextdata.ChangeAlertData('Logout failed. Please try again.', 'error');
+                }
+            } catch (error) {
+                // Handle fetch error
+                console.error('Error logging out:', error);
+                Contextdata.ChangeAlertData('Logout failed. Please try again.', 'error');
+            }
         }
+    };
+    
+    
+    // Utility function to remove a cookie
+    const removeCookie = (name, path = '/') => {
+        document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=${path};`;
     };
 
 
@@ -211,7 +236,7 @@ const MainNavBar = () => {
                             <div className={Mstyles.VmSmallItem} onClick={() => router.push('/advertise')}>
                                 <span>• Advertise with us</span>
                             </div>
-                          
+
                             <div className={Mstyles.VmSmallItem} onClick={() => router.push('/terms_and_conditions')}>
                                 <span>• Terms and Conditions</span>
                             </div>

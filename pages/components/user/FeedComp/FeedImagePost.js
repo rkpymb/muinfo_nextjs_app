@@ -12,10 +12,10 @@ const FeedImgPost = ({ Imgurl }) => {
 
 
     const Viewimg = async () => {
-        const TragetUrl = Imgurl
-        if (TragetUrl) {
-            // window.open(`${MediaFilesUrl}${FeedimgFolder}/${TragetUrl}`, "_blank");
-            console.log(`${MediaFilesUrl}${FeedimgFolder}/${TragetUrl}`, "_blank");
+      
+        if (Imgurl) {
+            router.push(`/Image_view/${Imgurl}`);
+           
         }
 
     };

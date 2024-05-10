@@ -141,8 +141,11 @@ const PostBox = () => {
                     setTimeout(function () {
                         if (parsed.ReqData.done) {
                             setPostText('')
+                            setUploadedFiles([])
+                            setCategory(null)
                             document.getElementById("ConentMedia").value = '';
                             Contextdata.ChangeAlertData(`${parsed.ReqData.msg}`, 'success');
+                            router.push('/feeds')
                         }
 
                         if (!parsed.ReqData.done && parsed.ReqData.msg) {
@@ -324,7 +327,7 @@ const PostBox = () => {
                                                                     />
                                                                 </div>
                                                             }
-                                                            {item.postType.startsWith('application/pdf/')  &&
+                                                            {item.postType.startsWith('application/pdf/') &&
                                                                 <div className={Mstyles.FileGridItemimg}>
                                                                     <Image
                                                                         src={`/img/pdf.png`}

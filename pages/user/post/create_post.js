@@ -39,7 +39,7 @@ function Create_post() {
                     <div className={Mstyles.Container}>
                         <div className={Mstyles.SecDevider}></div>
 
-                        <div className={Mstyles.PageSection}>
+                        <div className={Mstyles.CreatePostSec}>
 
                             <AddPost />
                         </div>
