@@ -12,35 +12,76 @@ import FeedVideoPost from './FeedVideoPost';
 import FeedImagePost from './FeedImagePost';
 import PDFItem from './PDFItem';
 
+
+// import required modules
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
 const FeedContentBox = ({ PostData }) => {
     const [ShowData, setShowData] = useState(false);
+    const [PData, setPData] = useState([]);
     const router = useRouter();
     const blurredImageData = 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88enTfwAJYwPNteQx0wAAAABJRU5ErkJggg==';
 
     useEffect(() => {
-        // console.log(PostData)
+        setPData(PostData.PostData.PostList)
+        console.log(PostData.PostData.PostList)
         setShowData(true)
-    }, [router.query]);
+    }, [PostData]);
 
     return (
         <div>
             {ShowData &&
                 <div className={Mstyles.FeedItemMedium}>
                     <div className={Mstyles.FeedItemMediumTextbox} dangerouslySetInnerHTML={{ __html: PostData.PostData.PostText }} />
-                    <div className={Mstyles.PostMediabox}>
-                        {PostData.PostData.PostList[0].PostType == 'image' &&
-                            <FeedImagePost PostData={PostData.PostData} />
+                    <Swiper
+                        className={Mstyles.PostMediabox}
+                        breakpoints={{
+                            768: {
+                                slidesPerView: 1,
+                            },
+                            992: {
+                                slidesPerView: 1, // Display 3 slides on desktop (992px or more)
+                            },
+                        }}
+                        slidesPerView={1}
+                        spaceBetween={10}
+                        centeredSlides={false}
+
+                        pagination={{
+                            clickable: true,
+                        }}
+                        navigation={true}
+                        modules={[Pagination, Navigation]}
+                    >
+
+                        {PData.map((item, index) => {
+                            return <SwiperSlide key={index}>
+
+                                {item.postType.startsWith('image/') &&
+                                    <FeedImagePost Imgurl={item.postData} />
+
+                                }
+                                {item.postType.startsWith('application/pdf') &&
+                                    <PDFItem item={item}  />
+
+                                }
+                                {item.postType.startsWith('video/') &&
+                                    <FeedVideoPost item={item} />
+
+                                }
+                            </SwiperSlide>
 
                         }
-                        {PostData.PostData.PostList[0].PostType == 'video' &&
-                            <FeedVideoPost PostData={PostData.PostData} />
 
-                        }
-                        {PostData.PostData.PostList[0].PostType == 'pdf' &&
-                           <PDFItem item={PostData.PostData} />
+                        )}
 
-                        }
-                    </div>
+
+                    </Swiper>
                 </div>
             }
         </div>

@@ -5,7 +5,7 @@ import Mstyles from '/styles/mainstyle.module.css';
 import { FiPlay, FiPause, FiVolume1, FiVolumeX, FiMaximize } from "react-icons/fi";
 import IconButton from '@mui/material/IconButton';
 
-function VideoPlayer({ PostData }) {
+function VideoPlayer({ item }) {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMute, setIsMute] = useState(false);
@@ -14,7 +14,8 @@ function VideoPlayer({ PostData }) {
   const [VideoUrl, setVideoUrl] = useState('');
 
   useEffect(() => {
-    setVideoUrl(PostData.PostList[0].postData)
+    setVideoUrl(item.postData)
+   
     const video = videoRef.current;
     const observer = new IntersectionObserver(
       (entries) => {
@@ -104,7 +105,7 @@ function VideoPlayer({ PostData }) {
         {PlayerOverlay && (
           <div className={Mstyles.FVPlayerOverlay}>
             <div>
-              <IconButton style={{ color: 'white' }} aria-label="toggle password visibility">
+              <IconButton style={{ color: 'white' }}>
                 {isPlaying ? (
                   <FiPause size={30} onClick={togglePlayPause} />
                 ) : (
@@ -114,7 +115,7 @@ function VideoPlayer({ PostData }) {
             </div>
             <div>
               <IconButton
-                aria-label="toggle password visibility"
+               
                 style={{ color: 'white' }}
               >
                 {isMute ? (
@@ -126,7 +127,7 @@ function VideoPlayer({ PostData }) {
             </div>
             <div>
               <IconButton
-                aria-label="toggle password visibility"
+               
                 style={{ color: 'white' }}
               >
                <FiMaximize size={30} onClick={Handlefullscreen} />

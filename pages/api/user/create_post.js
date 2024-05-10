@@ -15,7 +15,7 @@ export default function handler(req, res) {
             axios.post(`${process.env.API_URL}user/create_post`, { 
                 token: process.env.MYKEY,
                 PostText: req.body.PostText,
-                PostFile: req.body.PostFile,
+                PostList: req.body.PostList,
                 tags: req.body.tags,
                 category: req.body.category,
 

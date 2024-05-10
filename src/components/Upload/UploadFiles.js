@@ -22,7 +22,7 @@ import {
     TextField,
     useTheme,
 } from '@mui/material';
-import { SellTwoTone } from '@mui/icons-material';
+
 const UploadFiles = () => {
     const router = useRouter()
 
@@ -132,7 +132,7 @@ const UploadFiles = () => {
                     document.getElementById("ConentMedia").value = response.data.filename;
                     const Fimg = MediaFilesUrl + MediaFilesFolder + response.data.filename
                     setFileUpldedFinal(Fimg)
-                    SellTwoTone(fileFormat)
+                  
 
 
 

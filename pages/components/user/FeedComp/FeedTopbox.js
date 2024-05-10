@@ -75,15 +75,18 @@ const FeedTopbox = ({ PostData }) => {
                             </div>
                             <div className={Mstyles.NametextboxText}>
                                 <div className={Mstyles.Nametextbox}>
-                                    <span>Magadh University Info<small>  |  {PostData.Profile.name}</small> </span>
-
+                                    <span>Magadh University Info</span>  | 
+                                    <small onClick={() => router.push(`/feeds/interests/${PostData.PostData.CatData.category}`)}> {PostData.CatData.title}</small>
                                 </div>
+                               
                                 <div className={Mstyles.Cattagboxtext}>
-                                    <div className={Mstyles.CattagboxtextA}>
-                                        <span onClick={() => router.push(`/feeds/interests/${PostData.PostData.CatData.category}`)}>{PostData.CatData.title}</span>
+                                    
+                                   
+                                    <div className={Mstyles.CattagboxtextB}>
+                                        <span className={Mstyles.timetext}>{PostData.Profile.name}  </span>
                                     </div>
                                     <div className={Mstyles.LineDevider}>
-                                        |
+                                    ●
                                     </div>
 
                                     <div className={Mstyles.CattagboxtextB}>

@@ -10,8 +10,9 @@ import {
 
 import LoadingButton from '@mui/lab/LoadingButton';
 import { FiChevronRight, FiEdit } from 'react-icons/fi';
+import IconButton from '@mui/material/IconButton';
 
-
+import { LuX } from "react-icons/lu";
 const ariaLabel = { 'aria-label': 'description' };
 
 import Dialog from '@mui/material/Dialog';
@@ -33,7 +34,7 @@ import { MediaFilesUrl, MediaFilesFolder } from '/Data/config'
 import { useRouter, useParams } from 'next/router'
 
 
-import UploadFiles from '../../../src/components/Upload/UploadFiles'
+import UploadFilesPost from './UploadFilesPost'
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 
 
@@ -55,7 +56,7 @@ const PostBox = () => {
 
     const [OpenCatBox, setOpenCatBox] = useState(false);
     const [scroll, setScroll] = useState('paper');
-
+    const [uploadedFiles, setUploadedFiles] = useState([]);
     const [Catimg, setCatimg] = useState('categories.png');
     const Contextdata = useContext(CheckloginContext)
     const blurredImageData = 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88enTfwAJYwPNteQx0wAAAABJRU5ErkJggg==';
@@ -89,7 +90,7 @@ const PostBox = () => {
     };
     const CatClick = (e) => {
         setCategory(e.slug)
-        setCatimg(e.image)
+
         setCategoryText(e.title)
         setOpenCatBox(false);
     };
@@ -109,8 +110,9 @@ const PostBox = () => {
 
 
     const SubmitPost = async (e) => {
+        console.log(uploadedFiles)
         e.preventDefault();
-        let FinalFileName = document.querySelector('#ConentMedia').value
+
         if (Category == null) {
             Contextdata.ChangeAlertData(`Please Select Post Category`, 'warning');
         }
@@ -120,9 +122,8 @@ const PostBox = () => {
         if (Category !== null && PostText !== '') {
             setLoadingSubmitPost(true)
             const sendUM = {
-                PostFile: FinalFileName,
+                PostList: uploadedFiles,
                 PostText: PostText,
-
                 tags: tags,
                 category: Category,
             }
@@ -182,7 +183,25 @@ const PostBox = () => {
                 setLoading(false)
             })
     }
+    const DeleteMediaItem = async (DeleteItem, index) => {
+        console.log(DeleteItem, index);
 
+
+        const updatedFiles = uploadedFiles.filter((item, idx) => {
+
+            return !(item.postData === DeleteItem.postData && idx === index);
+        });
+
+
+        setUploadedFiles(updatedFiles);
+    };
+
+
+
+    const handleFileUpload = (Filedata) => {
+        setUploadedFiles([...uploadedFiles, Filedata]);
+        console.log([...uploadedFiles, Filedata])
+    };
 
 
 
@@ -286,8 +305,69 @@ const PostBox = () => {
                                             <Skeleton variant="text" style={{ height: 60, width: 100 }} />
                                         </div> :
                                         <div>
-                                            <UploadFiles />
+                                            <UploadFilesPost onFileUpload={handleFileUpload} />
+                                            <div className={Mstyles.FileGrid}>
+                                                {uploadedFiles.map((item, index) => {
+                                                    return (
+                                                        <div className={Mstyles.FileGridItem}>
+                                                            {item.postType.startsWith('image/') &&
+                                                                <div className={Mstyles.FileGridItemimg}>
+                                                                    <Image
+                                                                        src={`${MediaFilesUrl}${MediaFilesFolder}${item.postData}`}
+                                                                        alt=""
+                                                                        fill
+                                                                        height={'100%'}
+                                                                        width={'100%'}
+                                                                        blurDataURL={blurredImageData}
+                                                                        placeholder='blur'
+                                                                        style={{ objectFit: "cover" }}
+                                                                    />
+                                                                </div>
+                                                            }
+                                                            {item.postType.startsWith('application/pdf/')  &&
+                                                                <div className={Mstyles.FileGridItemimg}>
+                                                                    <Image
+                                                                        src={`/img/pdf.png`}
+                                                                        alt=""
+                                                                        fill
+                                                                        height={'100%'}
+                                                                        width={'100%'}
+                                                                        blurDataURL={blurredImageData}
+                                                                        placeholder='blur'
+                                                                        style={{ objectFit: "cover" }}
+                                                                    />
+                                                                </div>
+                                                            }
+                                                            {item.postType.startsWith('video/') &&
+                                                                <div className={Mstyles.FileGridItemimg}>
+                                                                    <Image
+                                                                        src={`/img/video.png`}
+                                                                        alt=""
+                                                                        fill
+                                                                        height={'100%'}
+                                                                        width={'100%'}
+                                                                        blurDataURL={blurredImageData}
+                                                                        placeholder='blur'
+                                                                        style={{ objectFit: "cover" }}
+                                                                    />
+                                                                </div>
+                                                            }
 
+                                                            <div className={Mstyles.FileGridItemOverlay}>
+                                                                <IconButton
+                                                                    onClick={() => DeleteMediaItem(item, index)}
+                                                                    aria-label="toggle password visibility"
+                                                                    style={{ width: 40, height: 40, color: 'white' }}
+                                                                >
+                                                                    <LuX size={20} />
+                                                                </IconButton>
+                                                            </div>
+                                                        </div>
+
+
+                                                    );
+                                                })}
+                                            </div>
                                         </div>
 
                                     }
@@ -330,14 +410,14 @@ const PostBox = () => {
                     <React.Fragment>
 
                         <Dialog
-                        fullScreen={isMobile ? true : false}
+                            fullScreen={isMobile ? true : false}
                             open={OpenCatBox}
                             onClose={handleClose}
                             scroll={scroll}
                             aria-labelledby="scroll-dialog-title"
                             aria-describedby="scroll-dialog-description"
                         >
-                            <DialogTitle id="scroll-dialog-title">Select post Interest</DialogTitle>
+                            <DialogTitle id="scroll-dialog-title">Select Post Category</DialogTitle>
                             <DialogContent dividers={scroll === 'paper'}>
                                 <div>
 
@@ -345,27 +425,8 @@ const PostBox = () => {
                                     <div className={Mstyles.SCatGrid}>
                                         {Catlist.map((item, index) => {
                                             return <div className={Mstyles.HomeCatGridItem} key={index} onClick={() => CatClick(item)}  >
-                                                <div className={Mstyles.HomeCatGridItemImageBox}>
-                                                    <div className={Mstyles.HomeCatGridItemImage}>
-                                                        <Image
-                                                            src={`${MediaFilesUrl}${MediaFilesFolder}/${item.image}`}
-                                                            alt=""
-                                                            height={'100%'}
-                                                            width={'100%'}
-                                                            fill
-                                                            blurDataURL={blurredImageData}
-                                                            placeholder='blur'
 
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className={Mstyles.HomeCatGridItemContent}>
-                                                    <span className={Mstyles.OnlyDesktop}>{item.title.length > 12 ? `${item.title.slice(0, 12)} ...` : item.title}</span>
-                                                    <span className={Mstyles.OnlyMobile}>{item.title.length > 10 ? `${item.title.slice(0, 10)} ...` : item.title}</span>
-                                                </div>
-
-
-
+                                                <span>{item.title}</span>
                                             </div>
 
                                         }

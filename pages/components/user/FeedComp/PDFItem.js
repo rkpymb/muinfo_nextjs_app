@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { LuEye, LuDownload } from "react-icons/lu";
 import { MediaFilesUrl, FeedimgFolder } from '/Data/config';
@@ -7,31 +7,18 @@ import Image from 'next/image';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 const PDFItem = ({ item }) => {
-    // Define the local storage key for the object that stores PDF files
-    const LOCAL_STORAGE_KEY = 'downloadedPDFs';
-    const blurredImageData = 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88enTfwAJYwPNteQx0wAAAABJRU5ErkJggg==';
-
     // State variables
     const [downloadProgress, setDownloadProgress] = useState(null);
-    const [isDownloaded, setIsDownloaded] = useState(false);
-
-    // On component mount, check if the file is already downloaded and saved in local storage
-    useEffect(() => {
-        const downloadedPDFs = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-        if (downloadedPDFs && downloadedPDFs[item?.PostID]) {
-            setIsDownloaded(true);
-        }
-    }, [item?.PostID]);
 
     const handleDownload = async () => {
-        if (!item?.PostList?.[0]?.postData) {
+        if (!item?.postData) {
             console.error('Invalid item data');
             return;
         }
-        
+
         try {
             // Construct the URL using imported constants and the item's postData
-            const pdfUrl = `${MediaFilesUrl}${FeedimgFolder}/${item.PostList[0].postData}`;
+            const pdfUrl = `${MediaFilesUrl}${FeedimgFolder}/${item.postData}`;
 
             // Fetch the PDF file as a blob
             const response = await axios.get(pdfUrl, {
@@ -42,48 +29,39 @@ const PDFItem = ({ item }) => {
                 },
             });
 
-            // Once the download is complete
-            setDownloadProgress(100);
-            setIsDownloaded(true);
-
-            // Create a Blob and convert it to a Base64 string
+            // Create a Blob from the PDF response
             const blob = new Blob([response.data], { type: 'application/pdf' });
-            const reader = new FileReader();
-            reader.onloadend = function () {
-                // Convert the Blob to a Base64 string
-                const base64String = reader.result;
 
-                // Retrieve the existing downloaded PDFs object from local storage
-                let downloadedPDFs = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || {};
+            // Create a URL for the Blob
+            const fileUrl = URL.createObjectURL(blob);
 
-                // Update the object with the new Base64 string for the item PostID
-                downloadedPDFs[item.PostID] = base64String;
+            // Create a link element and trigger the download
+            const link = document.createElement('a');
+            link.href = fileUrl;
+            link.download = item.postData;
+            link.click();
 
-                // Save the updated object back to local storage
-                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(downloadedPDFs));
-            };
-            reader.readAsDataURL(blob);
+            // Clean up the created URL
+            URL.revokeObjectURL(fileUrl);
+
+            // Reset the download progress
+            setDownloadProgress(null);
         } catch (error) {
             console.error('Error downloading file:', error);
         }
     };
 
-    const handleView = () => {
-        const downloadedPDFs = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-        if (downloadedPDFs && downloadedPDFs[item?.PostID]) {
-            const base64String = downloadedPDFs[item.PostID];
-
-            // Convert the Base64 string back to a Blob
-            const base64Parts = base64String.split(',');
-            const byteCharacters = atob(base64Parts[1]);
-            const byteNumbers = Array.from(byteCharacters, char => char.charCodeAt(0));
-            const byteArray = new Uint8Array(byteNumbers);
-            const blob = new Blob([byteArray], { type: 'application/pdf' });
-
-            // Create a URL for the Blob and open the PDF in a new tab or window
-            const fileUrl = URL.createObjectURL(blob);
-            window.open(fileUrl, '_blank');
+    const handleView = async () => {
+        if (!item?.postData) {
+            console.error('Invalid item data');
+            return;
         }
+
+        // Construct the URL using imported constants and the item's postData
+        const pdfUrl = `${MediaFilesUrl}${FeedimgFolder}/${item.postData}`;
+
+        // Open the PDF in a new tab or window
+        window.open(pdfUrl, '_blank');
     };
 
     return (
@@ -98,43 +76,44 @@ const PDFItem = ({ item }) => {
                             height={'100%'}
                             width={'100%'}
                             size='small'
-                            blurDataURL={blurredImageData}
+                            blurDataURL={'/img/pdf.png'}
                             placeholder='blur'
-                            style={{ objectFit: "cover" }}
+                            style={{ objectFit: 'cover' }}
                         />
                     </div>
                 </div>
+                <div className={Mstyles.downloadPgbox}>
+                {downloadProgress !== null && downloadProgress !== 100 && (
+                        <p>Downloading: {downloadProgress}%</p>
+                    )}
+                </div>
                 <div className={Mstyles.PdfitemCoverB}>
-                    {isDownloaded ? (
-                        // If the file has been downloaded, show the "View" button
-                        <LoadingButton
-                            fullWidth
-                            onClick={handleView}
-                            endIcon={<LuEye />}
-                            loading={false}
-                            size='small'
-                            loadingPosition="end"
-                            variant="outlined"
-                        >
-                            <span>View</span>
-                        </LoadingButton>
-                    ) : (
-                        <LoadingButton
-                            fullWidth
-                            onClick={handleDownload}
-                            endIcon={<LuDownload />}
-                            size='small'
-                            loading={downloadProgress !== null && downloadProgress !== 100}
-                            disabled={downloadProgress === 100}
-                            loadingPosition="end"
-                            variant="outlined"
-                        >
-                            <span>Download</span>
-                        </LoadingButton>
-                    )}
-                    {downloadProgress !== null && downloadProgress !== 100 && (
-                        <p>Progress: {downloadProgress}%</p>
-                    )}
+                    <LoadingButton
+                        fullWidth
+                        onClick={handleDownload}
+                        startIcon={<LuDownload />}
+                        size='small'
+                        loading={downloadProgress !== null && downloadProgress !== 100}
+                        loadingPosition="end"
+                        variant="outlined"
+                    >
+                        <span>Download</span>
+                    </LoadingButton>
+
+                    <div style={{ width: '20px' }}></div>
+                    <LoadingButton
+                        fullWidth
+                        onClick={handleView}
+                        startIcon={<LuEye />}
+                        size='small'
+                        loading={false}
+                        loadingPosition="end"
+                        variant="outlined"
+                    >
+                        <span>View</span>
+                    </LoadingButton>
+
+                   
                 </div>
             </div>
         </div>

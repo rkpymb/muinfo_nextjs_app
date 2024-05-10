@@ -87,8 +87,7 @@ const Demo = ({ SType }) => {
 
           <IconButton
             onClick={handleClickOpen}
-            aria-label="toggle password visibility"
-            style={{ width: 40, height: 40, }}
+            style={{ width: 40, height: 40, color: '#ff0000' }}
           >
             <LuSearch size={25} />
           </IconButton>

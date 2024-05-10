@@ -91,7 +91,7 @@
   width: 70%;
   padding: 20px;
   box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
-border-radius: 10px;
+  border-radius: 10px;
 }
 
 .PageSection h1 {
@@ -211,7 +211,8 @@ border-radius: 10px;
 
 
 }
-.FooterDevider{
+
+.FooterDevider {
   height: 100px;
 }
 
@@ -337,7 +338,7 @@ border-radius: 10px;
 .IconMenu {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+
 }
 
 .IconMenuItem {
@@ -368,12 +369,7 @@ border-radius: 10px;
 
 .PostBoxVendor {
 
-  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 22%);
-
-  border-radius: 30px;
-
-
-  overflow: hidden;
+  margin: 10px;
 }
 
 
@@ -409,36 +405,6 @@ border-radius: 10px;
 
 }
 
-.FileUploadingbox {
-  width: 100%;
-  padding: 20px;
-  max-height: 300px;
-  overflow: auto;
-}
-
-.FileUploadingbox::-webkit-scrollbar {
-  width: 5px;
-}
-
-.FileUploadingbox::-webkit-scrollbar-thumb {
-  background-color: #dee5d9;
-  border-radius: 10px;
-}
-
-.FileUploadingbox::-webkit-scrollbar-track {
-  background-color: #eee;
-}
-
-
-.FileItem img {
-  border-radius: 20px;
-  width: 100%;
-}
-
-.FileItem video {
-  border-radius: 20px;
-  width: 100%;
-}
 
 .UploadedBox {
   margin-top: 10px;
@@ -474,23 +440,7 @@ border-radius: 10px;
 }
 
 
-.UploadteUploadDetalisBox {
 
-  font-size: 10px;
-}
-
-.UploadingboxText {
-  margin-top: 5px;
-  text-transform: uppercase;
-  font-weight: 600;
-}
-
-.UploadingboxTextDone {
-  margin-top: 5px;
-  text-transform: uppercase;
-  font-weight: 600;
-
-}
 
 
 .PostUserbox {
@@ -590,7 +540,7 @@ border-radius: 10px;
     padding: 0px;
     overflow: auto;
     padding-bottom: 10px;
-    background-color: rgb(249, 246, 246);
+    background-color: white;
 
   }
 
@@ -659,6 +609,12 @@ border-radius: 10px;
 
   .OnlyMobile {
     display: block;
+  }
+
+
+  .NavLogo {
+    width: 130px;
+    cursor: pointer;
   }
 
 }
