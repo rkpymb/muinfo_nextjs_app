@@ -43,6 +43,8 @@ function TokyoApp({ Component, pageProps }) {
       <Head>
         <title>Magadh University Info</title>
         <link rel="icon" href="/logo/fevi.svg" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Magadh University Info" />
       </Head>
 
       <Script

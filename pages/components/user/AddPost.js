@@ -327,8 +327,9 @@ const PostBox = () => {
                                                                     />
                                                                 </div>
                                                             }
-                                                            {item.postType.startsWith('application/pdf/') &&
+                                                            {item.postType.startsWith('application/pdf') &&
                                                                 <div className={Mstyles.FileGridItemimg}>
+                                                                   
                                                                     <Image
                                                                         src={`/img/pdf.png`}
                                                                         alt=""

@@ -32,7 +32,7 @@ function Home({ PostData }) {
   const [PostFeed, setPostFeed] = useState(null);
 
   useEffect(() => {
-    console.log('PostData')
+
     console.log(PostData[0])
     if (PostData.length > 0) {
       setPostFeed(PostData[0])
@@ -64,9 +64,12 @@ function Home({ PostData }) {
       <div>
 
         <Head>
-          <title>{PostFeed && stripHtml(PostFeed.PostData.PostText).slice(0, 30)}</title>
-          <meta name="description" content={PostFeed && stripHtml(PostFeed.PostData.PostText).slice(0, 30)} />
-          <meta property="og:image" content={PostFeed && PostFeed.PostData.PostList[0].postData} />
+          <title>{PostFeed && PostFeed.PostData.MetaTagData.og_title}</title>
+          <meta property="og:title" content={PostFeed && PostFeed.PostData.MetaTagData.og_title} />
+          <meta property="og:description" content={PostFeed && PostFeed.PostData.MetaTagData.og_description} />
+          <meta property="og:image" content={PostFeed && `https://api.magadhuniversityinfo.com/content/${PostFeed.PostData.MetaTagData.og_image}`} />
+          <meta property="og:url" content={PostFeed && `https://magadhuniversityinfo.com/p/${PostFeed.PostData.MetaTagData.og_url}`} />
+          
         </Head>
 
         {!Loading &&

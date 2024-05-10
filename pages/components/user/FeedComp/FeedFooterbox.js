@@ -63,7 +63,7 @@ const FeedFooterbox = ({ PostData, ShowComments }) => {
             .then((parsed) => {
 
                 if (parsed.ReqData) {
-                    console.log(parsed.ReqData)
+                   
                     setAllLikes(parsed.ReqData.AllLikes)
 
                     if (parsed.ReqData.MyLikeData) {
@@ -172,17 +172,7 @@ const FeedFooterbox = ({ PostData, ShowComments }) => {
     }
 
 
-    const handleShareClick = async () => {
-        try {
-            await navigator.share({
-                title: 'Share Post',
-                text: 'Check out this awesome content!',
-                url: `${DomainURL}post/${PostData.PostData.PostID}`,
-            });
-        } catch (error) {
-            console.error('Error sharing:', error);
-        }
-    };
+  
 
     const StyledBadge = styled(Badge)(({ theme }) => ({
         '& .MuiBadge-badge': {

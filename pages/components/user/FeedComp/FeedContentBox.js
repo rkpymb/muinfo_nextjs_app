@@ -28,8 +28,9 @@ const FeedContentBox = ({ PostData }) => {
     const blurredImageData = 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88enTfwAJYwPNteQx0wAAAABJRU5ErkJggg==';
 
     useEffect(() => {
+       
         setPData(PostData.PostData.PostList)
-        console.log(PostData.PostData.PostList)
+     
         setShowData(true)
     }, [PostData]);
 

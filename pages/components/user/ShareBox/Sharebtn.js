@@ -76,19 +76,24 @@ const Sharebtn = ({ ContentUrl }) => {
     const handleOpenEdit = () => () => {
         setOpenEdit(true);
 
-
     };
 
-
+    const handleShareClick = async () => {
+        try {
+            await navigator.share({
+                title: 'Share Post',
+                text: 'Check out this awesome content!',
+                url: ContentUrl,
+            });
+        } catch (error) {
+            console.error('Error sharing:', error);
+        }
+    };
 
     return (
         <div>
 
 
-            {/* <ListItemIcon onClick={handleOpenEdit('paper')}>
-                <LuShare2 />
-            </ListItemIcon>
-            Share */}
 
 
 
@@ -98,7 +103,7 @@ const Sharebtn = ({ ContentUrl }) => {
                     <LoadingButton
                         fullWidth
                         size='small'
-                        onClick={handleOpenEdit('paper')}
+                        onClick={handleShareClick}
                         startIcon={<LuShare2 />}
                         loading={false}
                         loadingPosition="end"

@@ -12,9 +12,9 @@ const FloatingButton = () => {
         <div>
             {Contextdata.UserData && Contextdata.UserData.Role === 1 &&
 
-                <div className={Mstyles.floatingButton}>
+                <div className={Mstyles.floatingButton} onClick={() => router.push(`/user/post/create_post`)}>
                     <div className={Mstyles.FbuttonBox}
-                        onClick={() => router.push(`/user/post/create_post`)}
+                       
                     >
                         <div className={Mstyles.FbuttonBoxA}>
                             <LuPencilLine />

@@ -165,15 +165,7 @@ const UploadFiles = ({ onFileUpload}) => {
                                 <LinearProgress variant="buffer" value={uploadProgress} valueBuffer={uploadProgress} />
                                 <div className={Mstyles.UploadingboxText}>  Uploading {uploadProgress.toFixed(2)}%</div>
                             </div> :
-                            <div>
-
-                                <div className={Mstyles.UploadedBox}>
-
-                                    file adedd
-                                </div>
-
-
-                            </div>
+                           null
                         }
 
                     </div>
