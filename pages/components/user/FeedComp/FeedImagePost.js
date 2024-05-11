@@ -14,7 +14,7 @@ const FeedImgPost = ({ Imgurl }) => {
     const Viewimg = async () => {
       
         if (Imgurl) {
-            router.push(`/Image_view/${Imgurl}`);
+            window.open(`/Image_view/${Imgurl}`, '_blank');
            
         }
 
