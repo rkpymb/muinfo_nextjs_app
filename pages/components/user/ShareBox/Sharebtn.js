@@ -9,7 +9,7 @@ import Dialog from '@mui/material/Dialog';
 import Mstyles from '/styles/mainstyle.module.css';
 import DialogContent from '@mui/material/DialogContent';
 
-
+import CheckloginContext from '/context/auth/CheckloginContext'
 import Badge from '@mui/material/Badge';
 
 import {
@@ -18,6 +18,7 @@ import {
 } from '@mui/material';
 import { ShareSocial } from 'react-share-social'
 const Sharebtn = ({ ContentUrl }) => {
+    const Contextdata = useContext(CheckloginContext)
     const [ShowShare, setShowShare] = useState(false);
     const [Shareurl, setShareurl] = useState('');
     const [OpenEdit, setOpenEdit] = React.useState(false);
@@ -79,6 +80,9 @@ const Sharebtn = ({ ContentUrl }) => {
     };
 
     const handleShareClick = async () => {
+        if (Contextdata.AppMode === true) {
+            window.open(`https://sharepost.com/?url=${ContentUrl}`, '_blank');
+        }
         try {
             await navigator.share({
                 title: 'Share Post',
@@ -88,6 +92,7 @@ const Sharebtn = ({ ContentUrl }) => {
         } catch (error) {
             console.error('Error sharing:', error);
         }
+
     };
 
     return (

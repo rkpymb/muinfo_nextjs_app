@@ -7,6 +7,7 @@ const CheckloginStates = (props) => {
   const [UserData, setUserData] = useState({});
   const [UserLogin, setUserLogin] = useState(false);
   const [MainLoader, setMainLoader] = useState(true);
+  const [AppMode, setAppMode] = useState(false);
   const [UserJwtToken, setUserJwtToken] = useState(null);
 
 
@@ -27,6 +28,10 @@ const CheckloginStates = (props) => {
  
   const ChangeMainLoader = async (e) => {
     setMainLoader(e)
+  }
+  const ChangeAppMode = async (e) => {
+    setAppMode(e)
+    console.log(`AppMode : ${e}`)
   }
   
   const CheckUserLogin = async () => {
@@ -75,7 +80,7 @@ const CheckloginStates = (props) => {
 
 
   return (
-    <CheckloginContext.Provider value={{UserJwtToken, UserData, UserLogin, ChangeAlertData, AlertData ,ChangeMainLoader,MainLoader}}>
+    <CheckloginContext.Provider value={{UserJwtToken, UserData, UserLogin, ChangeAlertData, AlertData ,ChangeMainLoader,MainLoader,ChangeAppMode,AppMode}}>
       {props.children}
     </CheckloginContext.Provider>
   )
