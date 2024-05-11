@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext,memo } from 'react';
 import { Typography, Box, Card, Container, Button, styled, Switch } from '@mui/material';
 import { ThemeContext } from '../../../theme/ThemeProvider';
 import Mstyles from '/styles/mainstyle.module.css'
@@ -61,4 +61,4 @@ const ThemeSwitch = () => {
     );
 };
 
-export default ThemeSwitch;
+export default memo(ThemeSwitch);

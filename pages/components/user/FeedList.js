@@ -19,6 +19,7 @@ const FeedlistMain = ({ bycat, PostData }) => {
     const [PostID, setPostID] = useState('Demo1234');
     const [hasMore, setHasMore] = useState(true);
     const [ShowComments, setShowComments] = useState(false);
+    const [count, setCount] = useState(1);
     const [page, setPage] = useState(1);
 
     const GetData = async () => {
@@ -109,7 +110,7 @@ const FeedlistMain = ({ bycat, PostData }) => {
 
 
 
-    }, [router.query])
+    }, [count])
 
     return (
         <div>

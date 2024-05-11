@@ -42,8 +42,7 @@ const CheckloginStates = (props) => {
         return a.json();
       })
         .then((parsedFinal) => {
-        console.log('parsedFinal.ReqData.UserData')
-        console.log(parsedFinal.ReqData.UserData)
+      
           if (parsedFinal.ReqData.UserData) {
             setUserData(parsedFinal.ReqData.UserData)
             setUserJwtToken(parsedFinal.ReqData.jwt_token)

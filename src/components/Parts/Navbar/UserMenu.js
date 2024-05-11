@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext,memo } from 'react';
 import Image from 'next/image'
 import CheckloginContext from '/context/auth/CheckloginContext'
 import Mstyles from '/styles/mainstyle.module.css'
@@ -270,4 +270,4 @@ const MainNavBar = () => {
 }
 
 
-export default MainNavBar;
+export default memo(MainNavBar);

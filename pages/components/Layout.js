@@ -1,13 +1,10 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext,memo } from 'react';
 import Mstyles from '/styles/customstyle.module.css'
-import CheckloginContext from '/context/auth/CheckloginContext'
-import Head from 'next/head';
+
 
 import MainNavBar from '../../src/components/Parts/Navbar/MainNavBar'
 
 import UserSidemenu from '../../src/components/Parts/UserSidemenu'
-import { AppDesc, AppName } from '/Data/config'
-import { useRouter, useParams } from 'next/router'
 
 import Categories from './user/Categories'
 import HomeAsideAddLaptop from './Advt/HomeAsideAddLaptop'
@@ -52,4 +49,4 @@ const Layout = ({ children }) => {
     );
 };
 
-export default Layout;
+export default memo(Layout);

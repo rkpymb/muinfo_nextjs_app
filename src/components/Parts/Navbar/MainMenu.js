@@ -1,5 +1,4 @@
-import React from 'react'
-
+import React, { useState, useEffect, useContext,memo } from 'react';
 import { useRouter, useParams } from 'next/router'
 import Mstyles from '/styles/customstyle.module.css'
 const MainMenu = () => {
@@ -20,4 +19,4 @@ const MainMenu = () => {
     )
 }
 
-export default MainMenu
+export default memo(MainMenu)

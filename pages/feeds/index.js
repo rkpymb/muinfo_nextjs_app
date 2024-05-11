@@ -29,16 +29,11 @@ function Home() {
 
   return (
     <div>
-       <Layout>
-           
-            <div>
-            <div className={Mstyles.AddPostHome}>
-                <AddPost />
-
-              </div>
-              <Feedlist />
-            </div>
-        </Layout>
+      <Layout>
+        <div>
+          <Feedlist />
+        </div>
+      </Layout>
 
     </div>
 

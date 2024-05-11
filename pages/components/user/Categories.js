@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { useRouter } from 'next/router';
 import { LuTrendingUp } from 'react-icons/lu';
 import Skeleton from '@mui/material/Skeleton';
 import { useTheme } from '@mui/material';
 import Mstyles from '/styles/mainstyle.module.css';
 
-function Categories({ Type }) {
+function Categories() {
     const [Retdata, setRetdata] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const router = useRouter();
@@ -72,7 +72,7 @@ function Categories({ Type }) {
                 ) : (
                     <div>
                         {Retdata.length > 0 && (
-                            <div className={Type === 1 ? Mstyles.HCatGrid : Mstyles.HCatGrid}>
+                            <div className={Mstyles.HCatGrid}>
                                 {Retdata.map((item, index) => {
                                     // Determine the color combination based on the index
                                     const colorIndex = index % colorList.length;
@@ -98,4 +98,4 @@ function Categories({ Type }) {
     );
 }
 
-export default Categories;
+export default memo(Categories);

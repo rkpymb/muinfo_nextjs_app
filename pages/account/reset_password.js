@@ -15,7 +15,6 @@ import { FiChevronRight, FiEdit } from 'react-icons/fi';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import Image from 'next/image';
-
 import { SvgLogo } from '/Data/config'
 import * as animationData from '/Data/Lottie/loginone.json'
 
@@ -60,16 +59,15 @@ function Overview() {
 
 
     // On submit mobile
-    const CheckLogin = async (e) => {
+    const CreateAccount = async (e) => {
         e.preventDefault();
-        if (mobile !== null && password !== null) {
+        if (mobile !== null) {
             setLoadingSignupbtn(true)
             const sendUM = {
                 mobile,
-                password,
 
             }
-            const data = await fetch("/api/user/user_login", {
+            const data = await fetch("/api/user/reset_password_otp", {
                 method: "POST",
                 headers: {
                     'Content-type': 'application/json'
@@ -79,24 +77,75 @@ function Overview() {
                 return a.json();
             })
                 .then((parsedFinal) => {
+
                     setTimeout(function () {
 
-                        if (parsedFinal.ReqData.LoginStatus == true) {
-                            const newToken = parsedFinal.ReqData.token
-                            const UserData = JSON.stringify(parsedFinal.ReqData.UserData)
-                            document.cookie = `jwt_token=${newToken}; expires=${new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000).toUTCString()}; path=/`;
-                            document.cookie = `user_data=${UserData}; expires=${new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000).toUTCString()}; path=/`;
-                            Contextdata.ChangeAlertData(`${parsedFinal.ReqData.msg}`, 'success');
-                            router.push('/feeds')
 
+                        if (parsedFinal.ReqData.done) {
 
-                        } else {
-                            setLoadingSignupbtn(false);
-                            Contextdata.ChangeAlertData(`${parsedFinal.ReqData.msg}`, 'warning')
+                            setMobilebox(false)
+                            setOtpBox(true)
+
                         }
+
+                        if (parsedFinal.ReqData.msg) {
+
+                            Contextdata.ChangeAlertData(`${parsedFinal.ReqData.msg}`, 'warning')
+
+
+                        }
+
+                        setLoadingSignupbtn(false);
                     }, 2000);
 
 
+                })
+
+
+
+        } else {
+            setLoadingSignupbtn(false)
+            Contextdata.ChangeAlertData('😣 All Fields are required', 'warning')
+        }
+
+    }
+    const VerifyOTP = async (e) => {
+        e.preventDefault();
+        if (mobile !== null && otp !== null && password !== null) {
+            setLoadingSignupbtn(true)
+            const sendUM = {
+                mobile,
+                otp,
+                password
+
+            }
+            const data = await fetch("/api/user/reset_password", {
+                method: "POST",
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(sendUM)
+            }).then((a) => {
+                return a.json();
+            })
+                .then((parsedFinal) => {
+                  
+                    setTimeout(function () {
+                        if (parsedFinal.ReqData.done) {
+                            Contextdata.ChangeAlertData(`Password Reset Successfully`, 'success',)
+                            router.push('/account/user_login')
+
+                        }
+
+                        if (parsedFinal.ReqData.msg) {
+
+                            Contextdata.ChangeAlertData(`${parsedFinal.ReqData.msg}`, 'warning')
+
+
+                        }
+
+                        setLoadingSignupbtn(false);
+                    }, 2000);
 
                 })
 
@@ -110,36 +159,34 @@ function Overview() {
     }
 
 
-
     useEffect(() => {
         Contextdata.ChangeMainLoader(false)
     });
     return (
         <>
             <Head>
-                <title>Login</title>
+                <title>Reset Password</title>
             </Head>
-
             <div className={Mstyles.iconbg}>
                 <div className={Mstyles.iconbgBox}>
-
                     <div className={Mstyles.loginboxmain}>
                         <div className={Mstyles.loginbox}>
                             <div className={Mstyles.loginboxB}>
                                 {mobilebox && (
+
                                     <div className={Mstyles.Authbox}>
                                         <div className={Mstyles.LoginLogo}>
                                             <img src={SvgLogo} width={'100%'} alt='logo' />
                                         </div>
                                         <div style={{ height: '10px' }}> </div>
                                         <div className={Mstyles.Lheader}>
-                                            <span>Login to your Account </span>
+                                            <span>Reset Password</span>
                                             <div style={{ height: '10px' }}> </div>
-                                            <small>Enter your Registerd Mobile Number and password to login into your Account !</small>
+                                            <small>Create Your Password Stonger 🔐</small>
                                         </div>
                                         <div style={{ height: '20px' }}> </div>
 
-                                        <form onSubmit={CheckLogin}>
+                                        <form onSubmit={CreateAccount}>
 
                                             <div className={Mstyles.LoginBox_input}>
                                                 <TextField
@@ -152,9 +199,54 @@ function Overview() {
                                                 />
                                             </div>
 
+                                        </form>
+                                        <div className={Mstyles.Loginbtnbox}>
+                                            <LoadingButton
+                                                fullWidth
+                                                onClick={CreateAccount}
+                                                endIcon={<FiChevronRight />}
+                                                loading={LoadingSignupbtn}
+                                                loadingPosition="end"
+                                                variant='contained'
+                                            >
+                                                <span>Send OTP</span>
+                                            </LoadingButton>
+
+
+                                        </div>
+
+
+                                    </div>
+                                )}
+                                {OtpBox && (
+
+                                    <div className={Mstyles.Authbox}>
+                                        <div className={Mstyles.LoginLogo}>
+                                            <img src={SvgLogo} width={'100%'} alt='logo' />
+                                        </div>
+                                        <div style={{ height: '10px' }}> </div>
+                                        <div className={Mstyles.Lheader}>
+                                            <span>Enter OTP </span>
+                                            <div style={{ height: '10px' }}> </div>
+                                            <small>OTP Succesfully sent on <small className={Mstyles.Otpmobiletext}>+91 {mobile}</small></small>
+                                        </div>
+                                        <div style={{ height: '20px' }}> </div>
+
+                                        <form onSubmit={VerifyOTP}>
 
                                             <div className={Mstyles.LoginBox_input}>
-                                                <TextField fullWidth label="Enter Password" type={`${PasswordShowtype}`} value={password}
+                                                <TextField
+                                                    required
+                                                    label="6 Digit OTP"
+                                                    fullWidth
+                                                    value={otp}
+                                                    onInput={e => setOtp(e.target.value)}
+                                                    type="number"
+                                                />
+                                            </div>
+                                            
+                                            <div className={Mstyles.LoginBox_input}>
+                                                <TextField fullWidth label="Create New Password" type={`${PasswordShowtype}`} value={password}
                                                     onInput={e => setPassword(e.target.value)}
                                                     InputProps={{
 
@@ -173,51 +265,50 @@ function Overview() {
 
                                                 />
                                             </div>
-                                        </form>
-                                        <div className={Mstyles.Loginbtnbox}>
+
+                                            <div className={Mstyles.Loginbtnbox}>
                                             <LoadingButton
                                                 fullWidth
-                                                onClick={CheckLogin}
+                                                onClick={VerifyOTP}
                                                 endIcon={<FiChevronRight />}
                                                 loading={LoadingSignupbtn}
                                                 loadingPosition="end"
                                                 variant='contained'
+                                                
                                             >
-                                                <span>Proceed to Login</span>
+                                                <span>Verify OTP</span>
                                             </LoadingButton>
 
 
                                         </div>
-                                        <div className={Mstyles.ForgotpassText} onClick={() => router.push('/account/reset_password')}>
-                                            <span>Forgot Password ?</span>
-                                        </div>
-                                        <div className={Mstyles.SignTextBox} onClick={() => router.push('/account/user_signup')}>
-                                            <span>Don't have an account? Sign up</span>
-                                        </div>
+
+                                        </form>
+                                       
 
 
 
                                     </div>
                                 )}
 
-
-
                             </div>
                             <div className={Mstyles.loginboxA}>
 
                                 <div className={Mstyles.loginboxAimg}>
                                     <Image
-                                        src={`/img/login_girl.jpg`}
+                                        src={`/img/signup_girl.jpg`}
                                         alt="image"
                                         placeholder="blur"
                                         blurDataURL={blurredImageData}
                                         layout='responsive'
-                                        quality={100}
+                                        quality={60}
                                         loading="lazy"
                                         width={0}
                                         height={0}
                                         style={{ objectFit: "center", borderRadius: "15px" }}
                                     />
+
+
+
                                 </div>
                             </div>
 
@@ -226,18 +317,11 @@ function Overview() {
 
                         </div>
 
-
-
-
                     </div>
+
                 </div>
 
             </div>
-
-
-
-
-
 
 
         </>
