@@ -26,7 +26,7 @@ const MainNavBar = () => {
             <div className={Mstyles.navbarMain}>
                 <div className={Mstyles.NavBarbox}>
                     <div className={Mstyles.NavBarboxA}>
-                        <div className={Mstyles.NavLogo} onClick={() => router.push('/')}>
+                        <div className={Mstyles.NavLogo} onClick={() => router.push('/feeds')}>
                             <img src='/logo/mu_logo.png' width='100%' />
                         </div>
                     </div>

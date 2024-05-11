@@ -3,7 +3,7 @@ export default function handler(req, res) {
         const apiData = getApiDataFromCookie(req);
         const jwt_token = getTokenFromCookie(req);
 
-        if (apiData) {
+        if (apiData && jwt_token) {
             
             res.status(200).json({ReqData: apiData,jwt_token});
             
