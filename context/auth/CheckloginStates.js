@@ -9,6 +9,7 @@ const CheckloginStates = (props) => {
   const [MainLoader, setMainLoader] = useState(true);
   const [AppMode, setAppMode] = useState(false);
   const [UserJwtToken, setUserJwtToken] = useState(null);
+ 
 
 
   const [AlertData, setAlertData] = useState({
@@ -23,7 +24,7 @@ const CheckloginStates = (props) => {
     checkAppMode()
     CheckUserLogin()
    
-  }, []);
+  }, [router.query]);
 
  
   const ChangeMainLoader = async (e) => {

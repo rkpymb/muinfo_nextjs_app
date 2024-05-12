@@ -8,7 +8,7 @@ import MainNavBar from '/src/components/Parts/Navbar/MainNavBar'
 import { AppDesc, AppName } from '/Data/config'
 import { useRouter, useParams } from 'next/router'
 import NavbarTitle from '../../../src/components/Parts/Navbar/NavbarTitle';
-import Categories from '../../components/user/Categories'
+import CategoriesAll from '../../components/user/CategoriesAll'
 
 function Home() {
     const router = useRouter();
@@ -33,11 +33,11 @@ function Home() {
         <div>
             <MainNavBar />
             <NavbarTitle Title={`Feeds By Interest`} />
+            <div className={Mstyles.SecDevider}></div>
             <div className={Mstyles.Fullbg}>
                 <div className={Mstyles.Container}>
-                    <div className={Mstyles.SecDevider}></div>
                     <div className={Mstyles.ContainerContent}>
-                        <Categories Type={1}/>
+                        <CategoriesAll Type={1} />
                     </div>
 
                 </div>

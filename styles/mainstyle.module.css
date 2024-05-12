@@ -183,6 +183,12 @@
   font-weight: 600;
 }
 
+.CategoriesAll {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+
 .HCatGrid {
   display: grid;
   gap: 0.8rem;
