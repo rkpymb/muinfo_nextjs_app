@@ -12,8 +12,6 @@ import MainMenu from './MainMenu'
 import IconMenu from './IconMenu'
 
 
-import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
-
 
 const MainNavBar = () => {
 

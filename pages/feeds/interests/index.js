@@ -7,7 +7,7 @@ import Head from 'next/head';
 import MainNavBar from '/src/components/Parts/Navbar/MainNavBar'
 import { AppDesc, AppName } from '/Data/config'
 import { useRouter, useParams } from 'next/router'
-
+import NavbarTitle from '../../../src/components/Parts/Navbar/NavbarTitle';
 import Categories from '../../components/user/Categories'
 
 function Home() {
@@ -32,7 +32,7 @@ function Home() {
     return (
         <div>
             <MainNavBar />
-
+            <NavbarTitle Title={`Feeds By Interest`} />
             <div className={Mstyles.Fullbg}>
                 <div className={Mstyles.Container}>
                     <div className={Mstyles.SecDevider}></div>

@@ -7,7 +7,7 @@ import EditProfileData from '../../components/user/EditProfileData'
 import MainNavBar from '/src/components/Parts/Navbar/MainNavBar'
 import { AppDesc, AppName } from '/Data/config'
 import { useRouter, useParams } from 'next/router'
-
+import NavbarTitle from '/src/components/Parts/Navbar/NavbarTitle';
 function Home() {
     const router = useRouter();
     const Contextdata = useContext(CheckloginContext)
@@ -34,6 +34,7 @@ function Home() {
     return (
         <div>
             <MainNavBar />
+            <NavbarTitle Title={`Edit Profile`} />
             {!Loading &&
                 <div className={Mstyles.Fullbg}>
                     <div className={Mstyles.Container}>

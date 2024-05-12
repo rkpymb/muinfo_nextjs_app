@@ -7,7 +7,7 @@ import Layout from '../../components/Layout';
 import { useRouter, useParams } from 'next/router'
 
 import Feedlist from '../../components/user/FeedList'
-
+import NavbarTitle from '../../../src/components/Parts/Navbar/NavbarTitle';
 function Home() {
   const router = useRouter();
   const Contextdata = useContext(CheckloginContext)
@@ -30,6 +30,7 @@ function Home() {
   return (
     <div>
        <Layout>
+       <NavbarTitle Title={`Feeds By Interest`} />
            
             <div>
            

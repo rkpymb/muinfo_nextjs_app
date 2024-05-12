@@ -2084,7 +2084,7 @@
 }
 
 .TopTitleBox {
-  width: 90%;
+  width: 100%;
   margin: auto;
   display: flex;
   align-items: center;
@@ -2109,7 +2109,7 @@
 
 .TopTitleBoxMain {
   position: sticky;
-  top: 10%;
+  top: 7%;
   z-index: 999;
 
 }
@@ -2127,21 +2127,18 @@
 .TopTitleBoxMainNav {
 
 
-  border-bottom: 1px solid var(--border-color);
   font-weight: 700;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  /* background-color: rgba(255, 255, 255, 0.686); */
+  background-color: rgb(255, 255, 255);
   padding: 5px;
-  margin-top: -1px;
 
 
 }
 
 .transparentTopTitleBoxMainNav {
 
-  border-bottom: 1px solid var(--border-color);
-
+ 
   font-weight: 700;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);

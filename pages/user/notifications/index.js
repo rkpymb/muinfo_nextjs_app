@@ -7,7 +7,7 @@ import { AppDesc, AppName } from '/Data/config'
 import { useRouter, useParams } from 'next/router'
 
 import NotificationsList from '../../components/user/NotificationsList'
-
+import NavbarTitle from '/src/components/Parts/Navbar/NavbarTitle';
 function Home() {
     const router = useRouter();
     const Contextdata = useContext(CheckloginContext)
@@ -31,6 +31,7 @@ function Home() {
         <div>
             <MainNavBar />
 
+            <NavbarTitle Title={`Notifications`} />
             <div className={Mstyles.Fullbg}>
                 <div className={Mstyles.Container}>
                     <div className={Mstyles.SecDevider}></div>

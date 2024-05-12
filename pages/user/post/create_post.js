@@ -7,7 +7,7 @@ import AddPost from '../../components/user/AddPost'
 import MainNavBar from '/src/components/Parts/Navbar/MainNavBar'
 import { AppDesc, AppName } from '/Data/config'
 import { useRouter, useParams } from 'next/router'
-
+import NavbarTitle from '/src/components/Parts/Navbar/NavbarTitle';
 function Create_post() {
     const router = useRouter();
     const Contextdata = useContext(CheckloginContext)
@@ -34,6 +34,7 @@ function Create_post() {
     return (
         <div>
             <MainNavBar />
+            <NavbarTitle Title={`Create Post`} />
             {!Loading &&
                 <div className={Mstyles.Fullbg}>
                     <div className={Mstyles.Container}>

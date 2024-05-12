@@ -19,7 +19,7 @@ import { MediaFilesUrl, MediaFilesFolder } from '/Data/config'
 import MainNavBar from '/src/components/Parts/Navbar/MainNavBar'
 
 import { useRouter, useParams } from 'next/router'
-
+import NavbarTitle from '/src/components/Parts/Navbar/NavbarTitle';
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 
 import {
@@ -194,6 +194,7 @@ function Home({ PostData }) {
   return (
     <div>
       <MainNavBar />
+      <NavbarTitle Title={`Edit Post`} />
       {!Loading &&
         <div className={MstylesCustom.Fullbg}>
           <div className={MstylesCustom.Container}>

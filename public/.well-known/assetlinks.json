@@ -5,9 +5,9 @@
       ],
       "target": {
         "namespace": "android_app",
-        "package_name": "com.dritapp",
+        "package_name": "com.magadhuniversityinfo",
         "sha256_cert_fingerprints": [
-          "E6:35:93:F3:30:FC:AD:6A:1D:7A:22:BB:41:52:D4:D7:A9:38:4F:8C:54:6C:3B:81:E0:8C:F6:04:9E:D6:D5:AB"
+          "48:7A:05:2C:69:E9:A7:F5:2D:2C:67:B6:6F:6B:51:A7:6A:72:40:51:33:37:8D:57:60:BD:96:15:A9:BF:45:F6"
         ]
       }
     }

@@ -7,7 +7,7 @@ import { useRouter, useParams } from 'next/router'
 import { MediaFilesUrl, MediaFilesFolder, FeedimgFolder } from '/Data/config';
 import Feedlist from '../components/user/FeedList'
 import Head from 'next/head'
-
+import NavbarTitle from '../../src/components/Parts/Navbar/NavbarTitle';
 export async function getServerSideProps(context) {
   const PostID = context.query.pageno[0];
   const requestOptions = {
@@ -18,6 +18,7 @@ export async function getServerSideProps(context) {
   const response = await fetch(`${process.env.API_URL}user/feed_post_data`, requestOptions);
   const p = await response.json();
   const PostData = p.DataList;
+  console.log(PostData)
   return {
 
     props: { PostData }, // will be passed to the page component as props
@@ -33,6 +34,7 @@ function Home({ PostData }) {
 
   useEffect(() => {
 
+    console.log('PostData')
     console.log(PostData[0])
     if (PostData.length > 0) {
       setPostFeed(PostData[0])
@@ -64,13 +66,15 @@ function Home({ PostData }) {
       <div>
 
         <Head>
-          <title>{PostFeed && PostFeed.PostData.MetaTagData.og_title}</title>
-          <meta property="og:title" content={PostFeed && PostFeed.PostData.MetaTagData.og_title} />
-          <meta property="og:description" content={PostFeed && PostFeed.PostData.MetaTagData.og_description} />
-          <meta property="og:image" content={PostFeed && `https://api.magadhuniversityinfo.com/content/${PostFeed.PostData.MetaTagData.og_image}`} />
-          <meta property="og:url" content={PostFeed && `https://magadhuniversityinfo.com/p/${PostFeed.PostData.MetaTagData.og_url}`} />
-          
+          <title>{PostData && `${PostData[0].PostData.MetaTagData.og_title}`}</title>
+          <meta property="og:title" name="og:title" content={PostData && `${PostData[0].PostData.MetaTagData.og_title}`} />
+          <meta name="description" property="og:description" content={PostData && `${PostData[0].PostData.MetaTagData.og_description}...`} />
+          <meta property="og:image" name="og:image" content={PostData && `https://api.magadhuniversityinfo.com/content/${PostData[0].PostData.MetaTagData.og_image}`} />
+          <meta property="og:url" name="og:url" content={PostData && `https://magadhuniversityinfo.com/p/$${PostData[0].PostData.MetaTagData.og_url}`} />
+
         </Head>
+
+        <NavbarTitle Title={PostData && `${PostData[0].PostData.MetaTagData.og_title}...`} />
 
         {!Loading &&
           <Feedlist PostData={PostData} />

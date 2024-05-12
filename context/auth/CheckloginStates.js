@@ -20,10 +20,10 @@ const CheckloginStates = (props) => {
 
 
   useEffect(() => {
-  
+    checkAppMode()
     CheckUserLogin()
    
-  }, [router.query]);
+  }, []);
 
  
   const ChangeMainLoader = async (e) => {
@@ -34,6 +34,17 @@ const CheckloginStates = (props) => {
     console.log(`AppMode : ${e}`)
   }
   
+
+  const checkAppMode = () => {
+    const storedAppMode = localStorage.getItem('appMode');
+    if(storedAppMode) {
+      setAppMode(true)
+    
+    }else{
+    
+      setAppMode(false)
+    }
+  };
   const CheckUserLogin = async () => {
     try {
       const sendUM = { }

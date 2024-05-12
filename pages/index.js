@@ -7,6 +7,8 @@ import Layout from './components/Layout';
 import { useRouter, useParams } from 'next/router'
 import AddPost from './components/user/AddPost'
 import Feedlist from './components/user/FeedList'
+import Categories from './components/user/Categories'
+import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 
 function Home() {
   const router = useRouter();
@@ -29,13 +31,14 @@ function Home() {
 
   return (
     <div>
-       <Layout>
-           
-            <div>
-           
-              <Feedlist />
-            </div>
-        </Layout>
+      <Layout>
+        <div>
+          {isMobile &&
+            <Categories />
+          }
+          <Feedlist />
+        </div>
+      </Layout>
 
     </div>
 
