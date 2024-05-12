@@ -2,6 +2,7 @@ import { useState, useEffect, useContext, memo } from 'react';
 import Mstyles from '/styles/mainstyle.module.css';
 import { useRouter } from 'next/router';
 import CheckloginContext from '/context/auth/CheckloginContext';
+import {SocialHandles} from '/Data/config'
 
 const MobileAppFooter = () => {
     const Contextdata = useContext(CheckloginContext);
