@@ -8,8 +8,7 @@ const MobileAppFooter = () => {
     const router = useRouter();
     const [Loading, setLoading] = useState(true);
     useEffect(() => {
-        if (Contextdata.AppMode === true) {
-
+        if (Contextdata.AppMode === false) {
             setTimeout(function () {
                 setLoading(false)
             }, 1000);
@@ -17,7 +16,7 @@ const MobileAppFooter = () => {
             setLoading(true)
         }
 
-    }, [router.query]);
+    }, [Contextdata.AppMode]);
     return (
         <div>
             {!Loading &&
