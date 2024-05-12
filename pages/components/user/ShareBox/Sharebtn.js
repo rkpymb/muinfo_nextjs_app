@@ -17,7 +17,7 @@ import {
     styled
 } from '@mui/material';
 import { ShareSocial } from 'react-share-social'
-const Sharebtn = ({ ContentUrl }) => {
+const Sharebtn = ({ ShareFeed }) => {
     const Contextdata = useContext(CheckloginContext)
     const [ShowShare, setShowShare] = useState(false);
     const [Shareurl, setShareurl] = useState('');
@@ -25,7 +25,7 @@ const Sharebtn = ({ ContentUrl }) => {
     const [scroll, setScroll] = React.useState('paper');
 
     useEffect(() => {
-        setShareurl(ContentUrl)
+        console.log(ShareFeed)
     }, []);
 
 
@@ -81,13 +81,13 @@ const Sharebtn = ({ ContentUrl }) => {
 
     const handleShareClick = async () => {
         if (Contextdata.AppMode === true) {
-            window.open(`https://sharepost.com/?url=${ContentUrl}`, '_blank');
+            window.open(`https://sharepost.com/?url=${ShareFeed.text} click here to read post ${ShareFeed.url}`, '_blank');
         }
         try {
             await navigator.share({
-                title: 'Share Post',
-                text: 'Check out this awesome content!',
-                url: ContentUrl,
+                title: ShareFeed.title,
+                text: ShareFeed.text,
+                url: `${ShareFeed.url}`,
             });
         } catch (error) {
             console.error('Error sharing:', error);

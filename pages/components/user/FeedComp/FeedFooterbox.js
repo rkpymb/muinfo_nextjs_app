@@ -27,12 +27,28 @@ const FeedFooterbox = ({ PostData, ShowComments }) => {
     const [animate, setAnimate] = useState(false);
 
 
+
     const [AllLikes, setAllLikes] = useState(0);
     const [FavPost, setFavPost] = useState(false);
 
     const blurredImageData = 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88enTfwAJYwPNteQx0wAAAABJRU5ErkJggg==';
 
+    const [ShareFeed, setShareFeed] = useState({});
+
     useEffect(() => {
+
+        setShareFeed(
+            {
+                title: `${PostData.PostData.MetaTagData.og_title}`,
+                text: `${PostData.PostData.MetaTagData.og_description}`,
+                url: `${DomainURL}p/${PostData.PostData.PostID}`,
+
+            }
+
+
+        )
+
+
         setAllLikes(PostData.PostLikes)
 
         if (Contextdata.UserLogin) {
@@ -41,7 +57,7 @@ const FeedFooterbox = ({ PostData, ShowComments }) => {
 
         setShowData(true)
 
-    }, [router.query,Contextdata.UserData]);
+    }, [router.query, Contextdata.UserData]);
 
     const MyLikeData = async () => {
 
@@ -63,7 +79,7 @@ const FeedFooterbox = ({ PostData, ShowComments }) => {
             .then((parsed) => {
 
                 if (parsed.ReqData) {
-                   
+
                     setAllLikes(parsed.ReqData.AllLikes)
 
                     if (parsed.ReqData.MyLikeData) {
@@ -172,7 +188,7 @@ const FeedFooterbox = ({ PostData, ShowComments }) => {
     }
 
 
-  
+
 
     const StyledBadge = styled(Badge)(({ theme }) => ({
         '& .MuiBadge-badge': {
@@ -301,7 +317,7 @@ const FeedFooterbox = ({ PostData, ShowComments }) => {
                     </div>
 
                     <div className={Mstyles.FeedItemBottomB}>
-                        <Sharebtn ContentUrl={`${DomainURL}p/${PostData.PostData.PostID}`} />
+                        <Sharebtn ShareFeed={ShareFeed} />
                     </div>
 
 
