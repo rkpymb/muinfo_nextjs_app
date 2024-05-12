@@ -4,7 +4,51 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
 
+.MobileAppFooter {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: transparent;
+  padding: 10px;
+  z-index: 9999;
+  cursor: pointer;
 
+}
+
+.AppF {
+  background-color: #ff0b0b;
+  border-radius: 10px;
+  width: 99%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  
+}
+.AppFA span{
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+}
+.AppFA small{
+  color: white;
+  
+  font-weight: 600;
+}
+.AppFA{
+  display: flex;
+  flex-direction: column;
+}
+
+.AppFA {
+  
+  width: 80%;
+}
+.AppFBimg {
+  width: 150px;
+}
 
 .floatingButton {
   position: fixed;
@@ -2144,7 +2188,7 @@
 
 .transparentTopTitleBoxMainNav {
 
- 
+
   font-weight: 700;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -5778,5 +5822,17 @@
     object-fit: contain;
   }
 
+  .MobileAppFooter {
+    display: block !important;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: transparent;
+    padding: 10px;
+    z-index: 9999;
+    cursor: pointer;
+  
+  }
+  
 
 }

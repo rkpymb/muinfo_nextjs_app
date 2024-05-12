@@ -9,6 +9,7 @@ import UserSidemenu from '../../src/components/Parts/UserSidemenu';
 import Categories from './user/Categories';
 import HomeAsideAddLaptop from './Advt/HomeAsideAddLaptop';
 import FloatingBtn from './user/FloatingBtn';
+import MobileAppFooter from '../../src/components/Parts/Footers/MobileAppFooter'
 
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 
@@ -29,7 +30,7 @@ const Layout = ({ children }) => {
     return (
         <div>
             <MainNavBar />
-            
+
             {isBrowser ?
                 <div className={Mstyles.Fullbg}>
                     <div className={Mstyles.Container}>
@@ -71,6 +72,8 @@ const Layout = ({ children }) => {
 
             }
 
+<MobileAppFooter />
+           
             <FloatingBtn />
         </div>
     );
