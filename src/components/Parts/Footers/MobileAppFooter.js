@@ -12,7 +12,9 @@ const MobileAppFooter = () => {
 
             setTimeout(function () {
                 setLoading(false)
-            }, 3000);
+            }, 1000);
+        } else {
+            setLoading(true)
         }
 
     }, [router.query]);

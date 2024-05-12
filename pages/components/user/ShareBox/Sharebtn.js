@@ -81,7 +81,7 @@ const Sharebtn = ({ ShareFeed }) => {
 
     const handleShareClick = async () => {
         if (Contextdata.AppMode === true) {
-            window.open(`https://sharepost.com/?url=${ShareFeed.text} click here to read post ${ShareFeed.url}`, '_blank');
+            window.open(`https://sharepost.com/?url=${ShareFeed.url}`, '_blank');
         }
         try {
             await navigator.share({
