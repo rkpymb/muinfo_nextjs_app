@@ -12,8 +12,9 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { FiChevronRight, FiEdit } from 'react-icons/fi';
 import IconButton from '@mui/material/IconButton';
 
+import EditCategoryForm from './EditCategoryForm';
 const ariaLabel = { 'aria-label': 'description' };
-import { LuPlus, LuX } from "react-icons/lu";
+import { LuPlus, LuX, LuPencilLine, LuTrash2 } from "react-icons/lu";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -51,6 +52,7 @@ const PostBox = () => {
     const [PostText, setPostText] = useState();
     const [EditorContent, setEditorContent] = useState('');
     const [CatTitle_new, setCatTitle_new] = useState(null);
+    const [CatTitle_edit, setCatTitle_edit] = useState(null);
     const [LoadingCatadd, setLoadingCatadd] = useState(false);
     const [tags, setTags] = useState('xyz');
     const [Category, setCategory] = useState(null);
@@ -64,9 +66,17 @@ const PostBox = () => {
     const [Catimg, setCatimg] = useState('categories.png');
     const Contextdata = useContext(CheckloginContext)
     const [SendTelegram, setSendTelegram] = useState(true);
+    const [EditCatBox, setEditCatBox] = useState(true);
     const [SendOneSignal, setSendOneSignal] = useState(true);
+    const [showEditBox, setShowEditBox] = useState(false);
+    const [editItem, setEditItem] = useState(null);
     const blurredImageData = 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88enTfwAJYwPNteQx0wAAAABJRU5ErkJggg==';
 
+    const [openCategoryIndex, setOpenCategoryIndex] = useState(null);
+
+    const handleCategoryClick = (index) => {
+        setOpenCategoryIndex(openCategoryIndex === index ? null : index);
+    };
 
     const handleSendTelegram = (event) => {
         setSendTelegram(event.target.checked);
@@ -90,6 +100,12 @@ const PostBox = () => {
 
     };
 
+    const [clickedIndex, setClickedIndex] = useState(null);
+
+    const toggleEditBox = (item) => {
+        setEditItem(item);
+        setShowEditBox(!showEditBox);
+    };
 
     useEffect(() => {
         if (Contextdata.UserLogin == true) {
@@ -240,7 +256,7 @@ const PostBox = () => {
                 console.log(parsed)
             })
     }
-    const AddCategory = async (PD) => {
+    const AddCategory = async () => {
         if (CatTitle_new !== null && CatTitle_new !== '') {
             setLoadingCatadd(true)
 
@@ -262,15 +278,16 @@ const PostBox = () => {
                     setLoadingCatadd(false)
                     if (parsed.ReqData.done) {
                         Contextdata.ChangeAlertData(`Category Added`, 'success');
-                        
+
                         GetCatList()
                         setCatTitle_new(null)
-                    }else{
+                    } else {
                         Contextdata.ChangeAlertData(`Something Went Wrong`, 'warning');
                     }
                 })
         }
     }
+
 
 
     const GetCatList = async () => {
@@ -314,6 +331,41 @@ const PostBox = () => {
     };
 
 
+
+    const DeleteItem = async (e) => {
+        let text = "Do you really want to delete This Category ?";
+        if (confirm(text) == true) {
+            const sendUM = {
+                slug: e.slug
+            }
+            const data = await fetch("/api/user/delete_category", {
+                method: "POST",
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(sendUM)
+            }).then((a) => {
+                return a.json();
+            })
+                .then((parsed) => {
+
+                    if (parsed.ReqData.done) {
+
+
+                        Contextdata.ChangeAlertData(`Category Deleted successfully`, 'success');
+                        GetCatList()
+                    } else {
+                        alert('Something went wrong')
+                    }
+
+
+
+                })
+        }
+
+
+
+    };
 
     return (
         <div>
@@ -570,70 +622,148 @@ const PostBox = () => {
                                 <div>
 
                                     <div className={Mstyles.Modalwidth}></div>
-                                    <div className={Mstyles.SCatGrid}>
-                                        {Catlist.map((item, index) => {
-                                            return <div className={Mstyles.HomeCatGridItem} key={index} onClick={() => CatClick(item)}  >
+                                    <div>
 
-                                                <span>{item.title}</span>
+                                        {Loading ?
+                                            <div>
+                                                <Skeleton variant="text" style={{ height: 20, width: '100%' }} />
+                                                <div style={{ height: '5px' }}></div>
+                                                <Skeleton variant="text" style={{ height: 20, width: '50%' }} />
+
+                                            </div> :
+                                            <div
+                                                className={Mstyles.SCatGrid}
+                                            >
+                                                {Catlist.map((item, index) => {
+                                                    return <div >
+                                                        <div className={Mstyles.HomeCatGridItem}  >
+                                                            <div className={Mstyles.HomeCatGridItemTitle} onClick={() => CatClick(item)} >
+                                                                <span>{item.title}</span>
+
+                                                            </div>
+
+                                                            <div className={Mstyles.EditDeleteBox}>
+                                                                <div className={Mstyles.EditDeleteItem}>
+                                                                    <div className={Mstyles.EditDeleteItemA} >
+                                                                        <div className={Mstyles.EditDeleteItemA} >
+
+                                                                            <IconButton
+                                                                                onClick={() => handleCategoryClick(index)}
+                                                                                aria-label="toggle password visibility"
+                                                                                style={{ width: 35, height: 35, color: 'black' }}
+                                                                            >
+                                                                                {openCategoryIndex === index ? <LuX size={30} /> : <LuPencilLine size={40} />}
+                                                                            </IconButton>
+
+                                                                        </div>
+                                                                        <div className={Mstyles.EditDeleteItemB}>
+                                                                            <IconButton
+                                                                                onClick={() => DeleteItem(item)}
+                                                                                aria-label="toggle password visibility"
+                                                                                style={{ width: 35, height: 35, color: 'black' }}
+                                                                            >
+                                                                                <LuTrash2 size={40} />
+                                                                            </IconButton>
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                    <div className={Mstyles.EditDeleteItemB}>
+
+                                                                        <LoadingButton
+                                                                            fullWidth
+                                                                            size='small'
+                                                                            endIcon={<FiChevronRight />}
+                                                                            loading={false}
+                                                                            loadingPosition="end"
+                                                                            variant="outlined"
+                                                                            onClick={() => CatClick(item)}
+
+                                                                        >
+                                                                            <span>Select</span>
+                                                                        </LoadingButton>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <EditCategoryForm
+                                                                isOpen={openCategoryIndex === index}
+                                                                item={item}
+
+                                                                GetCatList={GetCatList}
+                                                                handleClose={() => setOpenCategoryIndex(null)}
+                                                            />
+                                                        </div>
+
+                                                    </div>
+
+                                                }
+
+                                                )}
                                             </div>
 
                                         }
 
-                                        )}
 
 
                                     </div>
 
-                                    <div className={Mstyles.AddCatBoxMain}>
-                                        <LoadingButton
-                                            fullWidth
-                                            onClick={HandleAddCatBox}
-                                            startIcon={AddCatBox ? <LuX /> : <LuPlus />}
-                                            loading={LoadingSubmitPost}
-                                            loadingPosition="end"
-                                            variant="text"
+                                    {!Loading &&
 
-                                        >
-                                            <span>{AddCatBox ? 'Close' : 'Add New'}</span>
-                                        </LoadingButton>
+                                        <div className={Mstyles.AddCatBoxMain}>
+                                            <LoadingButton
+                                                fullWidth
+                                                onClick={HandleAddCatBox}
+                                                startIcon={AddCatBox ? <LuX /> : <LuPlus />}
+                                                loading={LoadingSubmitPost}
+                                                loadingPosition="end"
+                                                variant="text"
 
-                                        {AddCatBox &&
-                                            <div className={Mstyles.AddCatBox}>
-                                                <form onSubmit={AddCategory}>
+                                            >
+                                                <span>{AddCatBox ? 'Close' : 'Add New'}</span>
+                                            </LoadingButton>
 
-                                                    <div className={Mstyles.LoginBox_input}>
-                                                        <TextField
-                                                            required
-                                                            label="Category Title"
-                                                            fullWidth
-                                                            value={CatTitle_new}
-                                                            onInput={e => setCatTitle_new(e.target.value)}
+                                            {AddCatBox &&
+                                                <div className={Mstyles.AddCatBox}>
+                                                    <form onSubmit={AddCategory} className={Mstyles.fadeinAnimation}>
 
-                                                        />
-                                                    </div>
-                                                    <div style={{ height: '20px' }}></div>
-                                                    <div className={Mstyles.Loginbtnbox}>
-                                                        <LoadingButton
+                                                        <div className={Mstyles.LoginBox_input}>
+                                                            <TextField
+                                                                required
+                                                                label="Category Title"
+                                                                fullWidth
+                                                                value={CatTitle_new}
+                                                                onInput={e => setCatTitle_new(e.target.value)}
 
-                                                            size='small'
-                                                            onClick={AddCategory}
-                                                            endIcon={<FiChevronRight />}
-                                                            loading={LoadingCatadd}
-                                                            loadingPosition="end"
-                                                            variant='contained'
-                                                        >
-                                                            <span>Save Category</span>
-                                                        </LoadingButton>
+                                                            />
+                                                        </div>
+                                                        <div style={{ height: '20px' }}></div>
+                                                        <div className={Mstyles.Loginbtnbox}>
+                                                            <LoadingButton
+
+                                                                size='small'
+                                                                onClick={AddCategory}
+                                                                endIcon={<FiChevronRight />}
+                                                                loading={LoadingCatadd}
+                                                                loadingPosition="end"
+                                                                variant='contained'
+                                                            >
+                                                                <span>Save Category</span>
+                                                            </LoadingButton>
 
 
-                                                    </div>
+                                                        </div>
 
-                                                </form>
+                                                    </form>
 
-                                            </div>
-                                        }
+                                                </div>
+                                            }
 
-                                    </div>
+                                        </div>
+
+                                    }
+
 
 
                                 </div>
