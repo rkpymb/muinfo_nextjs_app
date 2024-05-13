@@ -8,7 +8,21 @@ import { useRouter, useParams } from 'next/router'
 
 import Feedlist from '../../components/user/FeedList'
 import NavbarTitle from '../../../src/components/Parts/Navbar/NavbarTitle';
-function Home() {
+
+
+export async function getServerSideProps(context) {
+
+  const bycat = context.query.pageno[0];
+  console.log(bycat)
+  return {
+
+    props: { bycat }, // will be passed to the page component as props
+  }
+
+}
+
+function Home({ bycat }) {
+
   const router = useRouter();
   const Contextdata = useContext(CheckloginContext)
   const [Loading, setLoading] = useState(true);
@@ -19,24 +33,27 @@ function Home() {
       top: 0,
       behavior: "smooth",
     });
+    if (bycat) {
+      setLoading(false);
+
+    }
 
     Contextdata.ChangeMainLoader(false)
-
-  }, [Contextdata.UserData]);
+  }, [router.query, Contextdata.UserData]);
 
 
 
 
   return (
     <div>
-       <Layout>
-       <NavbarTitle Title={`Feeds By Interest`} />
-           
-            <div>
-           
-              <Feedlist />
-            </div>
-        </Layout>
+      <Layout>
+        <NavbarTitle Title={bycat.toUpperCase()} />
+
+        <div>
+          <Feedlist bycat={bycat} />
+
+        </div>
+      </Layout>
 
     </div>
 

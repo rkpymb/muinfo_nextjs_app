@@ -24,10 +24,7 @@ const Sharebtn = ({ ShareFeed }) => {
     const [OpenEdit, setOpenEdit] = React.useState(false);
     const [scroll, setScroll] = React.useState('paper');
 
-    useEffect(() => {
-        console.log(ShareFeed)
-    }, []);
-
+   
 
     const handleCloseEdit = () => {
         setOpenEdit(false);

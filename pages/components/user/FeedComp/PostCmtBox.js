@@ -168,18 +168,18 @@ const PostBoxUser = ({ PostData }) => {
     const [openCategoryIndex, setOpenCategoryIndex] = useState(null);
 
     const ClickEdit = (index) => {
-        console.log(Cmtlist)
+
         setOpenCategoryIndex(openCategoryIndex === index ? null : index);
     };
 
 
     const updateComment = (updatedComment) => {
-        console.log(updatedComment);
+
         // Find the index of the comment to be updated
         const index = Cmtlist.findIndex(comment => comment.CmtData._id == updatedComment._id);
 
         if (index !== -1) {
-            console.log(index);
+
             // If the comment is found, update it in the comment list
             setCmtlist(prevCmtlist => {
                 const newCmtlist = [...prevCmtlist];
@@ -190,7 +190,7 @@ const PostBoxUser = ({ PostData }) => {
                         Text: updatedComment.CmtData.Text // Update the Text property
                     }
                 };
-                console.log(newCmtlist);
+
 
                 return newCmtlist;
             });
@@ -315,10 +315,13 @@ const PostBoxUser = ({ PostData }) => {
                                                 <div>
                                                     {Contextdata.UserData.Role === 1 &&
                                                         <div className={Mstyles.CmtEditDeletebox}>
-                                                            <div className={Mstyles.CmtEditDeleteitem} onClick={() => ClickEdit(index)}>
-                                                                <span>Edit</span>
+                                                            {Contextdata.UserData.mobile == item.CmtData.UserData.mobile &&
 
-                                                            </div>
+                                                                <div className={Mstyles.CmtEditDeleteitem} onClick={() => ClickEdit(index)}>
+                                                                    <span>Edit</span>
+                                                                </div>
+
+                                                            }
                                                             <div className={Mstyles.CmtEditDeleteitem} onClick={() => DeleteItem(item)}>
                                                                 <span>Delete</span>
                                                             </div>
