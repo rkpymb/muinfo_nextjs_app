@@ -4,13 +4,55 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
 
+
+
+.cmttextarea {
+  width: 100%;
+
+  outline: none;
+  border: none;
+
+  min-height: 80px;
+ 
+}
+
+.EditCmtBox {
+  margin-top: 5px;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+}
+
+.CmtEditDeletebox {
+  display: flex;
+  align-items: center;
+
+
+}
+
+.CmtEditDeleteitem {
+  margin: 5px;
+  cursor: pointer;
+}
+
+.CmtEditDeleteitem span {
+  font-weight: 600;
+  font-size: 12px;
+
+}
+
+.CmtEditDeleteitem :hover {
+  color: var(--accent-color);
+}
+
 .EditDeleteBox {
   padding: 5px;
 }
 
 .EditDeleteItemA {
- display: flex;
- align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .EditDeleteItemB {
@@ -289,6 +331,8 @@
 
 .PostCounter {
   padding: 10px;
+  display: flex;
+  align-items: center;
 }
 
 .PostCounterItem span {
@@ -441,7 +485,8 @@
   gap: 0.8rem;
   grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
 }
-.Flexbtnbox{
+
+.Flexbtnbox {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -458,11 +503,11 @@
 
 .HomeCatGridItem {
 
-  
+
 
   display: flex;
- 
-  
+
+
   flex-direction: column;
 
 
@@ -5786,7 +5831,7 @@
   }
 
 
- 
+
   .SearchGrid {
 
     display: grid;

@@ -29,6 +29,7 @@ const FeedFooterbox = ({ PostData, ShowComments }) => {
 
 
     const [AllLikes, setAllLikes] = useState(0);
+    const [TotalCmt, setTotalCmt] = useState(0);
     const [FavPost, setFavPost] = useState(false);
 
     const blurredImageData = 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88enTfwAJYwPNteQx0wAAAABJRU5ErkJggg==';
@@ -50,6 +51,7 @@ const FeedFooterbox = ({ PostData, ShowComments }) => {
 
 
         setAllLikes(PostData.PostLikes)
+        setTotalCmt(PostData.TotalCmt)
 
         if (Contextdata.UserLogin) {
             MyLikeData()
@@ -81,7 +83,7 @@ const FeedFooterbox = ({ PostData, ShowComments }) => {
                 if (parsed.ReqData) {
 
                     setAllLikes(parsed.ReqData.AllLikes)
-
+                   
                     if (parsed.ReqData.MyLikeData) {
                         setLiked(true)
                     } else {
@@ -206,6 +208,10 @@ const FeedFooterbox = ({ PostData, ShowComments }) => {
             <div className={Mstyles.PostCounter}>
                 <div className={Mstyles.PostCounterItem}>
                     <span>{AllLikes} Likes</span>
+                </div>
+                <div style={{width:'20px'}}></div>
+                <div className={Mstyles.PostCounterItem}>
+                    <span>{TotalCmt} Comments</span>
                 </div>
             </div>
             {ShowData &&

@@ -5,25 +5,14 @@ import CheckloginContext from '/context/auth/CheckloginContext'
 import Mstyles from '/styles/mainstyle.module.css'
 import Skeleton from '@mui/material/Skeleton';
 import { useRouter, useParams } from 'next/router'
-import { BsChatSquareDots } from "react-icons/bs";
-import Button from '@mui/material/Button';
+
 import { ShortAbout, AppName, SocialHandles, MediaFilesFolder, MediaFilesUrl } from '/Data/config'
 import { Router } from 'next/router';
 import { FiMessageCircle, FiChevronRight } from 'react-icons/fi';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 import Avatar from '@mui/material/Avatar';
-
-import IconButton from '@mui/material/IconButton';
-import Image from 'next/image';
-import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
-
-
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import EditComment from './EditComment';
 
 import Badge from '@mui/material/Badge';
 
@@ -110,6 +99,7 @@ const PostBoxUser = ({ PostData }) => {
 
                 setTimeout(function () {
                     setIsLoading(false)
+
                 }, 2000);
             })
     }
@@ -174,6 +164,71 @@ const PostBoxUser = ({ PostData }) => {
             padding: '0 4px',
         },
     }));
+
+    const [openCategoryIndex, setOpenCategoryIndex] = useState(null);
+
+    const ClickEdit = (index) => {
+        console.log(Cmtlist)
+        setOpenCategoryIndex(openCategoryIndex === index ? null : index);
+    };
+
+
+    const updateComment = (updatedComment) => {
+        console.log(updatedComment);
+        // Find the index of the comment to be updated
+        const index = Cmtlist.findIndex(comment => comment.CmtData._id == updatedComment._id);
+
+        if (index !== -1) {
+            console.log(index);
+            // If the comment is found, update it in the comment list
+            setCmtlist(prevCmtlist => {
+                const newCmtlist = [...prevCmtlist];
+                newCmtlist[index] = {
+                    ...newCmtlist[index],
+                    CmtData: {
+                        ...newCmtlist[index].CmtData,
+                        Text: updatedComment.CmtData.Text // Update the Text property
+                    }
+                };
+                console.log(newCmtlist);
+
+                return newCmtlist;
+            });
+        } else {
+            console.log('Unable to update item');
+        }
+    };
+
+
+
+    const DeleteItem = async (deletedComment) => {
+        const _id = deletedComment.CmtData._id;
+        let text = "Do you really want to delete This Comment ?";
+        if (confirm(text) == true) {
+            const sendUM = {
+                _id: _id
+            };
+            const data = await fetch("/api/user/delete_cmt", {
+                method: "POST",
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(sendUM)
+            }).then((a) => {
+                return a.json();
+            }).then((parsed) => {
+                if (parsed.ReqData.done) {
+                    // Remove the deleted comment from the Cmtlist array
+                    setCmtlist(prevCmtlist => prevCmtlist.filter(item => item.CmtData._id !== _id));
+                    Contextdata.ChangeAlertData(`Comment Deleted`, 'success');
+                } else {
+                    alert('Something went wrong');
+                }
+            });
+        }
+    };
+
+
 
 
     return (
@@ -254,8 +309,46 @@ const PostBoxUser = ({ PostData }) => {
                                             </div>
 
                                             <div className={Mstyles.Cmttextbox}>
-                                                <span>{item.CmtData.CmtData.Text}</span>
+                                                <span>{item.CmtData.Text || item.CmtData.CmtData.Text}</span>
                                             </div>
+                                            {Contextdata.UserLogin &&
+                                                <div>
+                                                    {Contextdata.UserData.Role === 1 &&
+                                                        <div className={Mstyles.CmtEditDeletebox}>
+                                                            <div className={Mstyles.CmtEditDeleteitem} onClick={() => ClickEdit(index)}>
+                                                                <span>Edit</span>
+
+                                                            </div>
+                                                            <div className={Mstyles.CmtEditDeleteitem} onClick={() => DeleteItem(item)}>
+                                                                <span>Delete</span>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    {Contextdata.UserData.Role === 2 && Contextdata.UserData.mobile == item.CmtData.UserData.mobile &&
+                                                        <div className={Mstyles.CmtEditDeletebox}>
+                                                            <div className={Mstyles.CmtEditDeleteitem} onClick={() => ClickEdit(index)}>
+                                                                <span>Edit</span>
+
+                                                            </div>
+                                                            <div className={Mstyles.CmtEditDeleteitem} onClick={() => DeleteItem(item)}>
+                                                                <span>Delete</span>
+                                                            </div>
+                                                        </div>
+                                                    }
+
+                                                    <div>
+                                                        <EditComment
+                                                            isOpen={openCategoryIndex === index}
+                                                            item={item}
+                                                            handleClose={() => setOpenCategoryIndex(null)}
+                                                            updateComment={updateComment}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            }
+
+
+
                                         </div>
 
 
@@ -277,7 +370,7 @@ const PostBoxUser = ({ PostData }) => {
                         <div className={Mstyles.PostBoxFotter}>
                             <LoadingButton
                                 fullWidth
-                                onClick={() =>router.push('/account/user_login')}
+                                onClick={() => router.push('/account/user_login')}
                                 endIcon={<FiChevronRight />}
                                 loading={false}
                                 loadingPosition="end"

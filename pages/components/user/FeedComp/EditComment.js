@@ -1,4 +1,4 @@
-// EditCategoryForm.js
+// EditComment.js
 import React, { useState, useEffect, useContext } from 'react';
 import { LuPlus, LuX, LuPencilLine, LuTrash2 } from "react-icons/lu";
 import Mstyles from '/styles/mainstyle.module.css'
@@ -7,34 +7,34 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { FiChevronRight, FiEdit } from 'react-icons/fi';
 import IconButton from '@mui/material/IconButton';
 import CheckloginContext from '/context/auth/CheckloginContext'
-const EditCategoryForm = ({ isOpen, item, GetCatList, handleClose }) => {
-    const [title, setTitle] = useState();
+const EditComment = ({ isOpen, item, handleClose,updateComment }) => {
+    const [Text, setText] = useState();
     const [order, setOrder] = useState();
     const [slug, setSlug] = useState();
     const [LoadingBtn, setLoadingBtn] = useState(false);
     const Contextdata = useContext(CheckloginContext)
-    const handleTitleChange = (e) => {
-        setTitle(e.target.value);
+    const handleTextChange = (e) => {
+        setText(e.target.value);
     };
 
     useEffect(() => {
-        setTitle(item.title)
+      
+        setText(item.CmtData.Text || item.CmtData.CmtData.Text)
         setSlug(item.slug)
         setOrder(item.order)
     }, [item]);
 
     const EditData = async (e) => {
         e.preventDefault();
-        if (title !== null && title !== '') {
+        if (Text !== null && Text !== '') {
             setLoadingBtn(true)
 
             const sendUM = {
-                title: title,
-                slug: slug,
-                order: order
+                Text: Text,
+                item: item,
 
             }
-            const data = await fetch("/api/user/update_category", {
+            const data = await fetch("/api/user/update_comment", {
                 method: "POST",
                 headers: {
                     'Content-type': 'application/json'
@@ -46,47 +46,38 @@ const EditCategoryForm = ({ isOpen, item, GetCatList, handleClose }) => {
                 .then((parsed) => {
                     setLoadingBtn(false)
                     if (parsed.ReqData.done) {
-                        Contextdata.ChangeAlertData(`Category Updated`, 'success');
-
-                        GetCatList()
-                       
+                        Contextdata.ChangeAlertData(`Comment Updated`, 'success');
+                        updateComment(parsed.ReqData.updated);
                         handleClose()
                     } else {
                         Contextdata.ChangeAlertData(`Something Went Wrong`, 'warning');
                     }
                 })
         }
-        console.log('dfd')
+        
     }
 
 
     return (
-        <div className={Mstyles.AddCatBox} style={{ display: isOpen ? 'block' : 'none' }}>
+        <div className={Mstyles.EditCmtBox} style={{ display: isOpen ? 'block' : 'none' }}>
 
             <form onSubmit={EditData} className={Mstyles.fadeinAnimation}>
-                <div className={Mstyles.inputlogin}>
-                    <TextField
+                <div>
+
+
+                    <textarea
+                        placeholder="Write your comment here..."
                         required
-                        label="Category Title"
-                        fullWidth
-                        value={title}
-                      
-                        onInput={e => setTitle(e.target.value)}
+                        label="Category Text"
+                        value={Text}
+                        className={Mstyles.cmttextarea}
+                        onInput={e => setText(e.target.value)}
+                        autoFocus
 
                     />
                 </div>
-                <div className={Mstyles.inputlogin}>
-                    <TextField
-                        required
-                        label="Category Order"
-                        fullWidth
-                        type='Number'
-                        value={order}
-                        onInput={e => setOrder(e.target.value)}
-                       
-                    />
-                </div>
-                <div style={{ height: '10px' }}></div>
+
+                <div style={{ height: '15px' }}></div>
                 <div className={Mstyles.Flexbtnbox}>
                     <LoadingButton
                         size="small"
@@ -96,10 +87,10 @@ const EditCategoryForm = ({ isOpen, item, GetCatList, handleClose }) => {
                         loading={LoadingBtn}
                         desabled={LoadingBtn}
                         loadingPosition="end"
-                        variant="contained"
+                        variant="outlined"
 
                     >
-                        <span>Update Category</span>
+                        <span>Update Comment</span>
                     </LoadingButton>
 
 
@@ -119,4 +110,4 @@ const EditCategoryForm = ({ isOpen, item, GetCatList, handleClose }) => {
     );
 };
 
-export default EditCategoryForm;
+export default EditComment;
