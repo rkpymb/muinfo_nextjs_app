@@ -7,14 +7,13 @@ import {
     Button,
     styled
 } from '@mui/material';
-
+import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { FiChevronRight, FiEdit } from 'react-icons/fi';
 import IconButton from '@mui/material/IconButton';
 
-import { LuX } from "react-icons/lu";
 const ariaLabel = { 'aria-label': 'description' };
-
+import { LuPlus, LuX } from "react-icons/lu";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -23,6 +22,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 import Image from 'next/image';
 
+
+import Switch from '@mui/material/Switch';
 
 import Avatar from '@mui/material/Avatar';
 import CheckloginContext from '/context/auth/CheckloginContext'
@@ -49,24 +50,44 @@ const PostBox = () => {
     const [DesabledButon, setDesabledButon] = useState(true);
     const [PostText, setPostText] = useState();
     const [EditorContent, setEditorContent] = useState('');
+    const [CatTitle_new, setCatTitle_new] = useState(null);
+    const [LoadingCatadd, setLoadingCatadd] = useState(false);
     const [tags, setTags] = useState('xyz');
     const [Category, setCategory] = useState(null);
     const [CategoryText, setCategoryText] = useState('Select Post Category');
     const [Catlist, setCatlist] = useState([]);
 
+    const [AddCatBox, setAddCatBox] = useState(false);
     const [OpenCatBox, setOpenCatBox] = useState(false);
     const [scroll, setScroll] = useState('paper');
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const [Catimg, setCatimg] = useState('categories.png');
     const Contextdata = useContext(CheckloginContext)
+    const [SendTelegram, setSendTelegram] = useState(true);
+    const [SendOneSignal, setSendOneSignal] = useState(true);
     const blurredImageData = 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88enTfwAJYwPNteQx0wAAAABJRU5ErkJggg==';
 
 
+    const handleSendTelegram = (event) => {
+        setSendTelegram(event.target.checked);
+    };
+    const handleSendOneSignal = (event) => {
+        setSendOneSignal(event.target.checked);
+    };
 
 
     const handleEditorChange = (content) => {
         setEditorContent(content);
         setPostText(content);
+    };
+    const HandleAddCatBox = () => {
+        if (AddCatBox === true) {
+
+            setAddCatBox(false);
+        } else {
+            setAddCatBox(true);
+        }
+
     };
 
 
@@ -145,6 +166,16 @@ const PostBox = () => {
                             setCategory(null)
                             document.getElementById("ConentMedia").value = '';
                             Contextdata.ChangeAlertData(`${parsed.ReqData.msg}`, 'success');
+
+
+
+                            if (SendOneSignal === true) {
+                                SendOneSignalMsg(parsed.ReqData.postdata)
+                            }
+                            if (SendTelegram === true) {
+                                SendTelegramMsg(parsed.ReqData.postdata)
+                            }
+
                             router.push('/feeds')
                         }
 
@@ -165,6 +196,82 @@ const PostBox = () => {
 
 
     }
+
+    const SendTelegramMsg = async (PD) => {
+        const PostUrl = `https://magadhuniversityinfo.com/p/${PD.PostID}`
+        const title = PD.MetaTagData.og_description
+        const message = PostUrl
+        const sendUM = {
+            title: title,
+            message: message
+        }
+        const data = await fetch("/api/user/send_to_telegram_channel", {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(sendUM)
+        }).then((a) => {
+            return a.json();
+        })
+            .then((parsed) => {
+                console.log(parsed)
+            })
+    }
+    const SendOneSignalMsg = async (PD) => {
+        const imageUrl = `https://api.magadhuniversityinfo.com/content/${PD.MetaTagData.og_image}`
+        const buttonUrl = `https://magadhuniversityinfo.com/p/${PD.PostID}`
+        const message = PD.MetaTagData.og_description
+        const sendUM = {
+            imageUrl: imageUrl,
+            buttonUrl: buttonUrl,
+            message: message,
+        }
+        const data = await fetch("/api/user/send_onesignal_notification", {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(sendUM)
+        }).then((a) => {
+            return a.json();
+        })
+            .then((parsed) => {
+                console.log(parsed)
+            })
+    }
+    const AddCategory = async (PD) => {
+        if (CatTitle_new !== null && CatTitle_new !== '') {
+            setLoadingCatadd(true)
+
+            const sendUM = {
+                title: CatTitle_new,
+                image: 'catimg7.png',
+
+            }
+            const data = await fetch("/api/user/add_category", {
+                method: "POST",
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(sendUM)
+            }).then((a) => {
+                return a.json();
+            })
+                .then((parsed) => {
+                    setLoadingCatadd(false)
+                    if (parsed.ReqData.done) {
+                        Contextdata.ChangeAlertData(`Category Added`, 'success');
+                        
+                        GetCatList()
+                        setCatTitle_new(null)
+                    }else{
+                        Contextdata.ChangeAlertData(`Something Went Wrong`, 'warning');
+                    }
+                })
+        }
+    }
+
 
     const GetCatList = async () => {
         setLoading(true)
@@ -329,7 +436,7 @@ const PostBox = () => {
                                                             }
                                                             {item.postType.startsWith('application/pdf') &&
                                                                 <div className={Mstyles.FileGridItemimg}>
-                                                                   
+
                                                                     <Image
                                                                         src={`/img/pdf.png`}
                                                                         alt=""
@@ -371,6 +478,43 @@ const PostBox = () => {
 
                                                     );
                                                 })}
+                                            </div>
+                                        </div>
+
+                                    }
+                                </div>
+                                <div className={Mstyles.NotificationItemBox}>
+                                    {Loading ?
+                                        <div className={Mstyles.NotificationItem}>
+                                            <Skeleton variant="text" style={{ height: 60, width: 100 }} />
+                                        </div> :
+                                        <div>
+                                            <div className={Mstyles.NotificationItem}>
+                                                <div className={Mstyles.NotificationItemA}>
+                                                    <span>App Notification</span>
+                                                    <small>Send App Notification using OneSignal to all Users.</small>
+                                                </div>
+                                                <div className={Mstyles.NotificationItemB}>
+                                                    <Switch
+                                                        checked={SendOneSignal}
+                                                        onChange={handleSendOneSignal}
+                                                        inputProps={{ 'aria-label': 'controlled' }}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div style={{ height: '20px' }}></div>
+                                            <div className={Mstyles.NotificationItem}>
+                                                <div className={Mstyles.NotificationItemA}>
+                                                    <span>Telegram Channel Notification</span>
+                                                    <small>Send Telegram Channel Notification uning bot API.</small>
+                                                </div>
+                                                <div className={Mstyles.NotificationItemB}>
+                                                    <Switch
+                                                        checked={SendTelegram}
+                                                        onChange={handleSendTelegram}
+                                                        inputProps={{ 'aria-label': 'controlled' }}
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
 
@@ -439,6 +583,59 @@ const PostBox = () => {
 
 
                                     </div>
+
+                                    <div className={Mstyles.AddCatBoxMain}>
+                                        <LoadingButton
+                                            fullWidth
+                                            onClick={HandleAddCatBox}
+                                            startIcon={AddCatBox ? <LuX /> : <LuPlus />}
+                                            loading={LoadingSubmitPost}
+                                            loadingPosition="end"
+                                            variant="text"
+
+                                        >
+                                            <span>{AddCatBox ? 'Close' : 'Add New'}</span>
+                                        </LoadingButton>
+
+                                        {AddCatBox &&
+                                            <div className={Mstyles.AddCatBox}>
+                                                <form onSubmit={AddCategory}>
+
+                                                    <div className={Mstyles.LoginBox_input}>
+                                                        <TextField
+                                                            required
+                                                            label="Category Title"
+                                                            fullWidth
+                                                            value={CatTitle_new}
+                                                            onInput={e => setCatTitle_new(e.target.value)}
+
+                                                        />
+                                                    </div>
+                                                    <div style={{ height: '20px' }}></div>
+                                                    <div className={Mstyles.Loginbtnbox}>
+                                                        <LoadingButton
+
+                                                            size='small'
+                                                            onClick={AddCategory}
+                                                            endIcon={<FiChevronRight />}
+                                                            loading={LoadingCatadd}
+                                                            loadingPosition="end"
+                                                            variant='contained'
+                                                        >
+                                                            <span>Save Category</span>
+                                                        </LoadingButton>
+
+
+                                                    </div>
+
+                                                </form>
+
+                                            </div>
+                                        }
+
+                                    </div>
+
+
                                 </div>
                             </DialogContent>
                             <DialogActions>

@@ -70,7 +70,7 @@ function Home({ PostData }) {
           <meta property="og:title" name="og:title" content={PostData && `${PostData[0].PostData.MetaTagData.og_title}`} />
           <meta name="description" property="og:description" content={PostData && `${PostData[0].PostData.MetaTagData.og_description}...`} />
           <meta property="og:image" name="og:image" content={PostData && `https://api.magadhuniversityinfo.com/content/${PostData[0].PostData.MetaTagData.og_image}`} />
-          <meta property="og:url" name="og:url" content={PostData && `https://magadhuniversityinfo.com/p/$${PostData[0].PostData.MetaTagData.og_url}`} />
+          <meta property="og:url" name="og:url" content={PostData && `https://magadhuniversityinfo.com/p/${PostData[0].PostData.MetaTagData.og_url}`} />
 
         </Head>
 
