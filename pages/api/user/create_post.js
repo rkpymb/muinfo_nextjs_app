@@ -18,6 +18,8 @@ export default function handler(req, res) {
                 PostList: req.body.PostList,
                 tags: req.body.tags,
                 category: req.body.category,
+                date: req.body.date,
+                time: req.body.time
 
             
             }, { headers }).then((response) => {

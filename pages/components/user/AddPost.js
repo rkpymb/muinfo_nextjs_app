@@ -67,9 +67,12 @@ const PostBox = () => {
     const Contextdata = useContext(CheckloginContext)
     const [SendTelegram, setSendTelegram] = useState(true);
     const [EditCatBox, setEditCatBox] = useState(true);
-    const [SendOneSignal, setSendOneSignal] = useState(true);
+    const [SendOneSignal, setSendOneSignal] = useState(false);
     const [showEditBox, setShowEditBox] = useState(false);
     const [editItem, setEditItem] = useState(null);
+    const [PostDate, setPostDate] = useState(null);
+    const [PostTime, setPostTime] = useState(null);
+    const [PostDatetimeOpen, setPostDatetimeOpen] = useState(false);
     const blurredImageData = 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88enTfwAJYwPNteQx0wAAAABJRU5ErkJggg==';
 
     const [openCategoryIndex, setOpenCategoryIndex] = useState(null);
@@ -80,6 +83,9 @@ const PostBox = () => {
 
     const handleSendTelegram = (event) => {
         setSendTelegram(event.target.checked);
+    };
+    const handlePostDatetimebox = (event) => {
+        setPostDatetimeOpen(event.target.checked);
     };
     const handleSendOneSignal = (event) => {
         setSendOneSignal(event.target.checked);
@@ -157,12 +163,23 @@ const PostBox = () => {
             Contextdata.ChangeAlertData(`Can't Publish Empty Post `, 'warning');
         }
         if (Category !== null && PostText !== '') {
+            let d = PostDate
+            let t = PostTime
+            console.log(d)
+            console.log(t)
+            if (!PostDatetimeOpen) {
+                d = null,
+                t = null
+            }
             setLoadingSubmitPost(true)
             const sendUM = {
                 PostList: uploadedFiles,
                 PostText: PostText,
                 tags: tags,
                 category: Category,
+                date: d,
+                time: t
+
             }
             const data = await fetch("/api/user/create_post", {
                 method: "POST",
@@ -554,7 +571,7 @@ const PostBox = () => {
                                                     />
                                                 </div>
                                             </div>
-                                            <div style={{ height: '20px' }}></div>
+
                                             <div className={Mstyles.NotificationItem}>
                                                 <div className={Mstyles.NotificationItemA}>
                                                     <span>Telegram Channel Notification</span>
@@ -564,6 +581,47 @@ const PostBox = () => {
                                                     <Switch
                                                         checked={SendTelegram}
                                                         onChange={handleSendTelegram}
+                                                        inputProps={{ 'aria-label': 'controlled' }}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div style={{ height: '20px' }}></div>
+                                            <div className={Mstyles.NotificationItem}>
+                                                <div className={Mstyles.NotificationItemA}>
+                                                    <span>Set Post Date and Time</span>
+                                                    <small>Set post Date and time (optional)</small>
+
+                                                    {PostDatetimeOpen &&
+
+                                                        <div className={Mstyles.MidComp}>
+                                                            <div className={Mstyles.Datetimebox}>
+                                                                <div className={Mstyles.DatetimeboxItem}>
+                                                                    <TextField
+                                                                        fullWidth
+                                                                        value={PostDate}
+                                                                        onInput={e => setPostDate(e.target.value)}
+                                                                        type="date"
+                                                                        size='small'
+                                                                    />
+                                                                </div>
+                                                                <div style={{ height: '15px' }}></div>
+                                                                <div className={Mstyles.DatetimeboxItem}>
+                                                                    <TextField
+                                                                        fullWidth
+                                                                        value={PostTime}
+                                                                        onInput={e => setPostTime(e.target.value)}
+                                                                        type="time"
+                                                                        size='small'
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div className={Mstyles.NotificationItemB}>
+                                                    <Switch
+                                                        checked={PostDatetimeOpen}
+                                                        onChange={handlePostDatetimebox}
                                                         inputProps={{ 'aria-label': 'controlled' }}
                                                     />
                                                 </div>
