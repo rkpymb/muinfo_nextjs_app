@@ -5,7 +5,7 @@ import Head from 'next/head';
 import Layout from './components/Layout';
 
 import { useRouter, useParams } from 'next/router'
-import AddPost from './components/user/AddPost'
+import PinnedPostList from './components/user/PinnedPostList'
 import Feedlist from './components/user/FeedList'
 import Categories from './components/user/Categories'
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
@@ -36,6 +36,7 @@ function Home() {
           {isMobile &&
             <Categories />
           }
+          <PinnedPostList/>
           <Feedlist />
         </div>
       </Layout>

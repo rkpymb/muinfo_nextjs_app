@@ -27,8 +27,6 @@ function Home() {
   }, [Contextdata.UserData]);
 
 
-
-
   return (
     <div>
       <Layout>
