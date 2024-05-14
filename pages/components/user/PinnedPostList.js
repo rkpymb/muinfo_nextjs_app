@@ -100,7 +100,7 @@ const FeedlistMain = () => {
     }, [count])
 
     return (
-        <div className={Mstyles.FBBox}>
+        <div>
 
 
             <InfiniteScroll

@@ -5,6 +5,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
 .FBBox{
   padding: 0;
+ 
+
 }
 
 .MobileCatbox{
@@ -14,7 +16,7 @@
   background-size: 100%;
   animation: slide-in 0.5s ease forwards;
   box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
-  margin-bottom: 10px;
+ 
 }
 .MobileCatboxCover{
   padding: 10px  0px  10px 0px;
@@ -3429,7 +3431,7 @@
 }
 
 .FeedItemGrid {
-  margin: 0 auto;
+  margin: 10px auto;
   display: grid;
   gap: 0.8rem;
   grid-template-columns: repeat(minmax(99%, 1fr));

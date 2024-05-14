@@ -34,15 +34,15 @@ function Home() {
       <Layout>
 
         <div>
-        
-          <PinnedPostList/>
-            {isMobile &&
+        {isMobile &&
             <div className={Mstyles.MobileCatbox}>
               <div className={Mstyles.MobileCatboxCover}>
               <Categories />
             </div>
             </div>
           }
+          <PinnedPostList/>
+          
           <Feedlist />
         </div>
       </Layout>
