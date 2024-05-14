@@ -1,11 +1,11 @@
 import { useState, useEffect, useContext } from 'react';
-import Mstyles from '/styles/customstyle.module.css'
+import Mstyles from '/styles/mainstyle.module.css'
 import CheckloginContext from '/context/auth/CheckloginContext'
 import Head from 'next/head';
 import Layout from '../components/Layout';
 
 import { useRouter, useParams } from 'next/router'
-import AddPost from '../components/user/AddPost'
+import PinnedPostList from '../components/user/PinnedPostList'
 import Feedlist from '../components/user/FeedList'
 import Categories from '../components/user/Categories'
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
@@ -34,8 +34,14 @@ function Home() {
       <Layout>
 
         <div>
-          {isMobile &&
-            <Categories />
+        
+          <PinnedPostList/>
+            {isMobile &&
+            <div className={Mstyles.MobileCatbox}>
+              <div className={Mstyles.MobileCatboxCover}>
+              <Categories />
+            </div>
+            </div>
           }
           <Feedlist />
         </div>

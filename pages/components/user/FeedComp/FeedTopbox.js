@@ -149,7 +149,7 @@ const FeedTopbox = ({ PostData }) => {
 
 
 
-                        <PostAdminMenu PostData={PostData.PostData} />
+                        <PostAdminMenu PostData={PostData} />
                         <ReportPost PostData={PostData} />
 
 
