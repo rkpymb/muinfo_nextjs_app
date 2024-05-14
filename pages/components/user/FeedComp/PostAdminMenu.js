@@ -21,7 +21,7 @@ const PostAdminMenu = ({ PostData }) => {
        
        console.log(PostData.PostData)
 
-    }, [PostData.PostData]);
+    }, [PostData]);
 
     
     const DeletePost = async (e) => {
