@@ -100,49 +100,55 @@ const FeedlistMain = () => {
     }, [count])
 
     return (
-        <div className={Mstyles.PinDeboxm}>
+        <div >
+            {FeedList.length > 0 &&
 
+                <div className={Mstyles.PinDeboxm}>
+                    <InfiniteScroll
+                        dataLength={FeedList.length}
+                        next={loadMoreData}
+                        hasMore={hasMore}
+                        scrollThreshold={0.2}
 
-            <InfiniteScroll
-                dataLength={FeedList.length}
-                next={loadMoreData}
-                hasMore={hasMore}
-                scrollThreshold={0.2}
+                    >
 
-            >
+                        <div className={Mstyles.FeedItemGrid}>
 
-                <div className={Mstyles.FeedItemGrid}>
+                            {FeedList.map((item, index) => {
+                                return <div hover key={index} className={Mstyles.FeedItem}>
 
-                    {FeedList.map((item, index) => {
-                        return <div hover key={index} className={Mstyles.FeedItem}>
-
-                            <div>
-                                <FeedTopbox PostData={item} />
-                                <div className={Mstyles.shapeItem}>
-                                        <div className={Mstyles.shapetext}>
-                                            <div className={Mstyles.shapetextA}>
-                                                <TiPin size={18} />
-                                            </div>
-                                            <div className={Mstyles.shapetextB}>
-                                                Pinned Post
+                                    <div>
+                                        <FeedTopbox PostData={item} />
+                                        <div className={Mstyles.shapeItem}>
+                                            <div className={Mstyles.shapetext}>
+                                                <div className={Mstyles.shapetextA}>
+                                                    <TiPin size={18} />
+                                                </div>
+                                                <div className={Mstyles.shapetextB}>
+                                                    Pinned Post
+                                                </div>
                                             </div>
                                         </div>
+
+                                        <FeedContentBox PostData={item} />
+                                    </div>
+                                    <div>
+                                        <FeedFooterbox PostData={item} ShowComments={ShowComments} />
                                     </div>
 
-                                <FeedContentBox PostData={item} />
-                            </div>
-                            <div>
-                                <FeedFooterbox PostData={item} ShowComments={ShowComments} />
-                            </div>
+                                </div>
+                            }
 
+                            )}
                         </div>
-                    }
 
-                    )}
+
+                    </InfiniteScroll>
                 </div>
 
+            }
 
-            </InfiniteScroll>
+
 
 
 
