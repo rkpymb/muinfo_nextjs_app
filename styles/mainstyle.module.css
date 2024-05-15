@@ -3,36 +3,95 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
-.FBBox{
-  padding: 0;
- 
+
+
+.PinDeboxm {
+  border-radius: 20px;
+
+  margin-bottom: 15px;
+  background-color: white;
+
+  height: 100%;
+  width: 100%;
+
+  border: 3px solid #e9e1e1;
 
 }
 
-.MobileCatbox{
+
+
+
+
+.shapeItem {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  padding: 1px 10px 0px 10px;
+  width: fit-content;
+  border-radius: 10px;
+  margin: 10px;
+
+}
+
+.shapetext {
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  font-size: 10px;
+}
+
+.shapetextA {
+  margin-top: 4px;
+}
+
+.shapetextB {
+  margin-left: 5px;
+  font-weight: 500;
+}
+
+
+.shapetext {
+  color: #52BE80;
+  text-align: center;
+
+}
+
+
+
+
+
+.FBBox {
+  padding: 0;
+
+
+}
+
+.MobileCatbox {
   background-image: url(/icon/icongbg.png);
- 
+
   background-repeat: repeat;
   background-size: 100%;
   animation: slide-in 0.5s ease forwards;
   box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
- 
+
 }
-.MobileCatboxCover{
-  padding: 10px  0px  10px 0px;
+
+.MobileCatboxCover {
+  padding: 10px 0px 10px 0px;
 
   background-color: rgba(255, 255, 255, 0.636);
- 
+
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(100px);
-    
 
 
 
-  
- 
+
+
+
 }
-.MidComp{
+
+.MidComp {
   margin-top: 20px;
   color: white;
 }
@@ -44,7 +103,7 @@
   border: none;
 
   min-height: 80px;
- 
+
 }
 
 .EditCmtBox {
@@ -3430,8 +3489,10 @@
 
 }
 
+
+
 .FeedItemGrid {
-  margin: 10px auto;
+  margin: 0 auto;
   display: grid;
   gap: 0.8rem;
   grid-template-columns: repeat(minmax(99%, 1fr));
@@ -3439,8 +3500,8 @@
 
 .FeedItem {
   box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
-  margin: 5px;
 
+  margin: 5px;
   border-radius: 10px;
 
   min-height: 150px;
@@ -3449,6 +3510,7 @@
 
   justify-content: space-between;
   overflow: hidden;
+  position: relative;
 
 }
 
@@ -4897,9 +4959,8 @@
   }
 
   .FeedItem {
+    margin: 0;
 
-    border-radius: 0px;
-    margin-top: 10px;
 
   }
 
@@ -5597,12 +5658,7 @@
 
   }
 
-  .FeedItem {
 
-    margin: 0px;
-
-
-  }
 
   .FooterMobileBox {
     width: 100%;

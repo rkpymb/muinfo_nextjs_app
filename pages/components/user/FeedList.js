@@ -133,7 +133,7 @@ const FeedlistMain = ({ bycat, PostData }) => {
 
                 <div className={Mstyles.FeedItemGrid}>
                 {FeedList.map((item, index) => {
-                    return <div hover key={index} className={Mstyles.FeedItem}>
+                    return <div key={index} className={Mstyles.FeedItem}>
                         <div>
                             <FeedTopbox PostData={item} />
 

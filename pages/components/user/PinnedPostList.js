@@ -3,7 +3,7 @@ import Mstyles from '/styles/mainstyle.module.css'
 import InfiniteScroll from 'react-infinite-scroll-component';
 import CircularProgress from '@mui/material/CircularProgress';
 
-
+import { TiPin } from "react-icons/ti";
 import FeedFooterbox from './FeedComp/FeedFooterbox';
 import FeedTopbox from './FeedComp/FeedTopbox';
 import FeedContentBox from './FeedComp/FeedContentBox';
@@ -100,7 +100,7 @@ const FeedlistMain = () => {
     }, [count])
 
     return (
-        <div>
+        <div className={Mstyles.PinDeboxm}>
 
 
             <InfiniteScroll
@@ -108,15 +108,26 @@ const FeedlistMain = () => {
                 next={loadMoreData}
                 hasMore={hasMore}
                 scrollThreshold={0.2}
-               
+
             >
 
                 <div className={Mstyles.FeedItemGrid}>
-                    
+
                     {FeedList.map((item, index) => {
                         return <div hover key={index} className={Mstyles.FeedItem}>
+
                             <div>
                                 <FeedTopbox PostData={item} />
+                                <div className={Mstyles.shapeItem}>
+                                        <div className={Mstyles.shapetext}>
+                                            <div className={Mstyles.shapetextA}>
+                                                <TiPin size={18} />
+                                            </div>
+                                            <div className={Mstyles.shapetextB}>
+                                                Pinned Post
+                                            </div>
+                                        </div>
+                                    </div>
 
                                 <FeedContentBox PostData={item} />
                             </div>
