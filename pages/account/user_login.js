@@ -42,7 +42,7 @@ function Overview() {
 
 
 
-    const [PasswordShowtype, setPasswordShowtype] = useState('password');
+    const [PasswordShowtype, setPasswordShowtype] = useState('text');
 
 
     const handleClickShowPassword = async () => {

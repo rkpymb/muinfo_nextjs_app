@@ -18,8 +18,7 @@ const PostAdminMenu = ({ PostData }) => {
 
     useEffect(() => {
         setPindeP(PostData.IsPined)
-       
-       console.log(PostData.PostData)
+     
 
     }, [PostData]);
 
