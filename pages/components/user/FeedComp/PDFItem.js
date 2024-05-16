@@ -1,67 +1,75 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { LuEye, LuDownload } from "react-icons/lu";
 import { MediaFilesUrl, FeedimgFolder } from '/Data/config';
 import Mstyles from '/styles/mainstyle.module.css';
 import Image from 'next/image';
 import LoadingButton from '@mui/lab/LoadingButton';
-
+import CheckloginContext from '/context/auth/CheckloginContext'
 const PDFItem = ({ item }) => {
+    const Contextdata = useContext(CheckloginContext)
     // State variables
     const [downloadProgress, setDownloadProgress] = useState(null);
 
     const handleDownload = async () => {
-        if (!item?.postData) {
-            console.error('Invalid item data');
-            return;
-        }
-
-        try {
-            // Construct the URL using imported constants and the item's postData
+        if (Contextdata.AppMode) {
             const pdfUrl = `${MediaFilesUrl}${FeedimgFolder}/${item.postData}`;
+            window.open(pdfUrl, '_blank');
 
-            // Fetch the PDF file as a blob
-            const response = await axios.get(pdfUrl, {
-                responseType: 'blob',
-                onDownloadProgress: (progressEvent) => {
-                    const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                    setDownloadProgress(progress);
-                },
-            });
+        } else {
 
-            // Create a Blob from the PDF response
-            const blob = new Blob([response.data], { type: 'application/pdf' });
 
-            // Create a URL for the Blob
-            const fileUrl = URL.createObjectURL(blob);
+            try {
+                // Construct the URL using imported constants and the item's postData
+                const pdfUrl = `${MediaFilesUrl}${FeedimgFolder}/${item.postData}`;
 
-            // Create a link element and trigger the download
-            const link = document.createElement('a');
-            link.href = fileUrl;
-            link.download = item.postData;
-            link.click();
+                // Fetch the PDF file as a blob
+                const response = await axios.get(pdfUrl, {
+                    responseType: 'blob',
+                    onDownloadProgress: (progressEvent) => {
+                        const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                        setDownloadProgress(progress);
+                    },
+                });
 
-            // Clean up the created URL
-            URL.revokeObjectURL(fileUrl);
+                // Create a Blob from the PDF response
+                const blob = new Blob([response.data], { type: 'application/pdf' });
 
-            // Reset the download progress
-            setDownloadProgress(null);
-        } catch (error) {
-            console.error('Error downloading file:', error);
+                // Create a URL for the Blob
+                const fileUrl = URL.createObjectURL(blob);
+
+                // Create a link element and trigger the download
+                const link = document.createElement('a');
+                link.href = fileUrl;
+                link.download = item.postData;
+                link.click();
+
+                // Clean up the created URL
+                URL.revokeObjectURL(fileUrl);
+
+                // Reset the download progress
+                setDownloadProgress(null);
+            } catch (error) {
+                console.error('Error downloading file:', error);
+            }
+
         }
+
+
     };
 
+
+
     const handleView = async () => {
-        if (!item?.postData) {
-            console.error('Invalid item data');
-            return;
+
+        if (Contextdata.AppMode) {
+            const pdfUrl = `${MediaFilesUrl}${FeedimgFolder}/${item.postData}`;
+            window.open(`/pdf_view/${pdfUrl}`, '_blank');
+        } else {
+            window.open(pdfUrl, '_blank');
+
         }
 
-        // Construct the URL using imported constants and the item's postData
-        const pdfUrl = `${MediaFilesUrl}${FeedimgFolder}/${item.postData}`;
-
-        // Open the PDF in a new tab or window
-        window.open(pdfUrl, '_blank');
     };
 
     return (
@@ -83,7 +91,7 @@ const PDFItem = ({ item }) => {
                     </div>
                 </div>
                 <div className={Mstyles.downloadPgbox}>
-                {downloadProgress !== null && downloadProgress !== 100 && (
+                    {downloadProgress !== null && downloadProgress !== 100 && (
                         <p>Downloading: {downloadProgress}%</p>
                     )}
                 </div>
@@ -113,7 +121,7 @@ const PDFItem = ({ item }) => {
                         <span>View</span>
                     </LoadingButton>
 
-                   
+
                 </div>
             </div>
         </div>
