@@ -428,8 +428,11 @@
 
 .PostCounterItem span {
   font-weight: 600;
+  cursor: pointer;
 }
-
+.PostCounterItem span:hover {
+  text-decoration: underline;
+}
 .CategoriesAll {
   display: grid;
   gap: 0.8rem;
@@ -3779,9 +3782,8 @@
 
 }
 
-.Nametextbox:hover {
+.Nametextbox small:hover {
 
-  color: var(--accent-color);
   text-decoration: underline;
 
 }

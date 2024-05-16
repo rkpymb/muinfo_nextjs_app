@@ -83,7 +83,7 @@ const FeedFooterbox = ({ PostData, ShowComments }) => {
                 if (parsed.ReqData) {
 
                     setAllLikes(parsed.ReqData.AllLikes)
-                   
+
                     if (parsed.ReqData.MyLikeData) {
                         setLiked(true)
                     } else {
@@ -108,6 +108,19 @@ const FeedFooterbox = ({ PostData, ShowComments }) => {
         } else {
             setAnimate(true)
         }
+    }
+    const ViewPost = async (PostData) => {
+
+        if (Contextdata.AppMode) {
+           
+            if (PostData.PostData.PostID) {
+                const PostID = PostData.PostData.PostID
+                window.open(`/post_view/${PostID}`, '_blank');
+            }
+        } else {
+            router.push(`${DomainURL}p/${PostData.PostData.PostID}`)
+        }
+
     }
 
 
@@ -209,8 +222,8 @@ const FeedFooterbox = ({ PostData, ShowComments }) => {
                 <div className={Mstyles.PostCounterItem}>
                     <span>{AllLikes} Likes</span>
                 </div>
-                <div style={{width:'20px'}}></div>
-                <div className={Mstyles.PostCounterItem}>
+                <div style={{ width: '20px' }}></div>
+                <div className={Mstyles.PostCounterItem}  onClick={() => ViewPost(PostData)}>
                     <span>{TotalCmt} Comments</span>
                 </div>
             </div>
@@ -264,7 +277,7 @@ const FeedFooterbox = ({ PostData, ShowComments }) => {
                                         <Image
                                             alt="i"
                                             src='/svg/comment.svg'
-                                            onClick={() => router.push(`${DomainURL}p/${PostData.PostData.PostID}`)}
+                                            onClick={() => ViewPost(PostData)}
                                             height={30}
                                             width={30}
                                             blurDataURL={blurredImageData}

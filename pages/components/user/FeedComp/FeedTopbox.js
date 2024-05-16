@@ -58,7 +58,19 @@ const FeedTopbox = ({ PostData }) => {
     }, [router.query]);
 
 
+    const ViewPost = async (PostData) => {
 
+        if (Contextdata.AppMode) {
+           
+            if (PostData.PostData.PostID) {
+                const PostID = PostData.PostData.PostID
+                window.open(`/post_view/${PostID}`, '_blank');
+            }
+        } else {
+            router.push(`${DomainURL}p/${PostData.PostData.PostID}`)
+        }
+
+    }
 
     return (
         <div>
@@ -140,7 +152,7 @@ const FeedTopbox = ({ PostData }) => {
                         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                     >
-                        <MenuItem onClick={() => router.push(`${DomainURL}p/${PostData.PostData.PostID}`)}>
+                        <MenuItem  onClick={() => ViewPost(PostData)}>
                             <ListItemIcon>
                                 <LuEye />
                             </ListItemIcon>

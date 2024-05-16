@@ -64,7 +64,7 @@ const FeedContentBox = ({ PostData }) => {
                             return <SwiperSlide key={index}>
 
                                 {item.postType.startsWith('image/') &&
-                                    <FeedImagePost Imgurl={item.postData} />
+                                    <FeedImagePost Imgurl={item.postData}  PostData={PostData} />
 
                                 }
                                 {item.postType.startsWith('application/pdf') &&
