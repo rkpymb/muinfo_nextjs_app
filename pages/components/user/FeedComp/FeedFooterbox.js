@@ -115,7 +115,7 @@ const FeedFooterbox = ({ PostData, ShowComments }) => {
            
             if (PostData.PostData.PostID) {
                 const PostID = PostData.PostData.PostID
-                window.open(`/post_view/${PostID}`, '_blank');
+                window.open(`/p/${PostID}`, '_blank');
             }
         } else {
             router.push(`${DomainURL}p/${PostData.PostData.PostID}`)
