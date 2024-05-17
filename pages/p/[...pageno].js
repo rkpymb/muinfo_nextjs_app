@@ -7,7 +7,7 @@ import { useRouter, useParams } from 'next/router'
 import { MediaFilesUrl, MediaFilesFolder, FeedimgFolder } from '/Data/config';
 import Feedlist from '../components/user/FeedList'
 import Head from 'next/head'
-import NavbarTitle from '../../src/components/Parts/Navbar/NavbarTitle';
+
 export async function getServerSideProps(context) {
   const PostID = context.query.pageno[0];
   const requestOptions = {
@@ -74,8 +74,7 @@ function Home({ PostData }) {
 
         </Head>
 
-        <NavbarTitle Title={PostData && `${PostData[0].PostData.MetaTagData.og_title}...`} />
-
+       
         {!Loading &&
           <Feedlist PostData={PostData} />
 

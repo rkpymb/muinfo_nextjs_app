@@ -13,7 +13,6 @@ import { FiChevronRight, FiEdit } from 'react-icons/fi';
 import IconButton from '@mui/material/IconButton';
 
 import EditCategoryForm from './EditCategoryForm';
-import EditCollegeForm from './EditCollegeForm';
 const ariaLabel = { 'aria-label': 'description' };
 import { LuPlus, LuX, LuPencilLine, LuTrash2 } from "react-icons/lu";
 import Dialog from '@mui/material/Dialog';
@@ -38,7 +37,6 @@ import { useRouter, useParams } from 'next/router'
 
 
 import UploadFilesPost from './UploadFilesPost'
-import Uploadimg from './Uploadimg'
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 
 
@@ -54,26 +52,18 @@ const PostBox = () => {
     const [PostText, setPostText] = useState();
     const [EditorContent, setEditorContent] = useState('');
     const [CatTitle_new, setCatTitle_new] = useState(null);
-    const [CollegeName_new, setCollegeName_new] = useState(null);
     const [CatTitle_edit, setCatTitle_edit] = useState(null);
     const [LoadingCatadd, setLoadingCatadd] = useState(false);
     const [tags, setTags] = useState('xyz');
     const [Category, setCategory] = useState(null);
-    const [College, setCollege] = useState(null);
-    const [CategoryText, setCategoryText] = useState('Select Post Category *');
-    const [CollegeText, setCollegeText] = useState('Select Post College');
+    const [CategoryText, setCategoryText] = useState('Select Post Category');
     const [Catlist, setCatlist] = useState([]);
-    const [CollegeList, setCollegeList] = useState([]);
 
     const [AddCatBox, setAddCatBox] = useState(false);
-    const [AddCollgebox, setAddCollgebox] = useState(false);
     const [OpenCatBox, setOpenCatBox] = useState(false);
-    const [OpenCollege, setOpenCollege] = useState(false);
     const [scroll, setScroll] = useState('paper');
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const [Catimg, setCatimg] = useState('categories.png');
-    const [Collegeimg, setCollegeimg] = useState('college.png');
-    const [College_img, setCollege_img] = useState(null);
     const Contextdata = useContext(CheckloginContext)
     const [SendTelegram, setSendTelegram] = useState(true);
     const [EditCatBox, setEditCatBox] = useState(true);
@@ -83,11 +73,9 @@ const PostBox = () => {
     const [PostDate, setPostDate] = useState(null);
     const [PostTime, setPostTime] = useState(null);
     const [PostDatetimeOpen, setPostDatetimeOpen] = useState(false);
-    const [ForCollege, setForCollege] = useState(false);
     const blurredImageData = 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88enTfwAJYwPNteQx0wAAAABJRU5ErkJggg==';
 
     const [openCategoryIndex, setOpenCategoryIndex] = useState(null);
-    const [openCollegeIndex, setOpenCollegeIndex] = useState(null);
 
     const handleCategoryClick = (index) => {
         setOpenCategoryIndex(openCategoryIndex === index ? null : index);
@@ -98,24 +86,6 @@ const PostBox = () => {
     };
     const handlePostDatetimebox = (event) => {
         setPostDatetimeOpen(event.target.checked);
-    };
-    const CollageSwitch = (event) => {
-
-        if (!event.target.checked) {
-            setForCollege(false);
-            setCollegeText('Select Post College')
-            setCollege(null)
-        } else {
-            setForCollege(event.target.checked);
-            if (College == null) {
-
-                setOpenCollege(true)
-                GetCollegeList()
-
-            }
-        }
-
-
     };
     const handleSendOneSignal = (event) => {
         setSendOneSignal(event.target.checked);
@@ -132,15 +102,6 @@ const PostBox = () => {
             setAddCatBox(false);
         } else {
             setAddCatBox(true);
-        }
-
-    };
-    const HandleAddCollegeBox = () => {
-        if (AddCollgebox === true) {
-
-            setAddCollgebox(false);
-        } else {
-            setAddCollgebox(true);
         }
 
     };
@@ -166,31 +127,15 @@ const PostBox = () => {
         setScroll(scrollType);
         GetCatList()
     };
-    const handleOpenCollege = (scrollType) => () => {
-
-        setOpenCollege(true);
-        setScroll(scrollType);
-        GetCollegeList()
-    };
 
     const handleClose = () => {
         setOpenCatBox(false);
-        setOpenCollege(false);
     };
     const CatClick = (e) => {
         setCategory(e.slug)
 
         setCategoryText(e.title)
         setOpenCatBox(false);
-    };
-    const CollegeClick = (e) => {
-        setCollege(e)
-
-        console.log(e)
-        setCollegeText(e.title)
-
-        setOpenCollege(false);
-        setForCollege(true);
     };
 
     const descriptionElementRef = React.useRef(null);
@@ -214,7 +159,6 @@ const PostBox = () => {
         if (Category == null) {
             Contextdata.ChangeAlertData(`Please Select Post Category`, 'warning');
         }
-       
         if (PostText == '') {
             Contextdata.ChangeAlertData(`Can't Publish Empty Post `, 'warning');
         }
@@ -225,7 +169,7 @@ const PostBox = () => {
             console.log(t)
             if (!PostDatetimeOpen) {
                 d = null,
-                    t = null
+                t = null
             }
             setLoadingSubmitPost(true)
             const sendUM = {
@@ -234,8 +178,7 @@ const PostBox = () => {
                 tags: tags,
                 category: Category,
                 date: d,
-                time: t,
-                College:College
+                time: t
 
             }
             const data = await fetch("/api/user/create_post", {
@@ -361,37 +304,6 @@ const PostBox = () => {
                 })
         }
     }
-    const AddCollege = async () => {
-        if (CollegeName_new !== null && CollegeName_new !== '' && College_img !== null && College_img !== '') {
-            setLoadingCatadd(true)
-
-            const sendUM = {
-                title: CollegeName_new,
-                image: College_img,
-
-            }
-            const data = await fetch("/api/user/add_college", {
-                method: "POST",
-                headers: {
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify(sendUM)
-            }).then((a) => {
-                return a.json();
-            })
-                .then((parsed) => {
-                    setLoadingCatadd(false)
-                    if (parsed.ReqData.done) {
-                        Contextdata.ChangeAlertData(`College Added`, 'success');
-
-                        GetCollegeList()
-                        setCollegeName_new(null)
-                    } else {
-                        Contextdata.ChangeAlertData(`Something Went Wrong`, 'warning');
-                    }
-                })
-        }
-    }
 
 
 
@@ -415,27 +327,6 @@ const PostBox = () => {
                 setLoading(false)
             })
     }
-    const GetCollegeList = async () => {
-        setLoading(true)
-
-        const sendUM = {}
-        const data = await fetch("/api/user/college_list", {
-            method: "POST",
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(sendUM)
-        }).then((a) => {
-            return a.json();
-        })
-            .then((parsed) => {
-                if (parsed.ReqData.CollegeList) {
-                    console.log(CollegeList)
-                    setCollegeList(parsed.ReqData.CollegeList)
-                }
-                setLoading(false)
-            })
-    }
     const DeleteMediaItem = async (DeleteItem, index) => {
         console.log(DeleteItem, index);
 
@@ -451,21 +342,11 @@ const PostBox = () => {
 
 
 
-
     const handleFileUpload = (Filedata) => {
         setUploadedFiles([...uploadedFiles, Filedata]);
         console.log([...uploadedFiles, Filedata])
     };
-    const onImageUpload = (Filedata) => {
-        if (Filedata) {
-            console.log(Filedata.postData)
-            setCollege_img(Filedata.postData)
-        } else {
-            setCollege_img(null)
-        }
 
-
-    };
 
 
     const DeleteItem = async (e) => {
@@ -490,40 +371,6 @@ const PostBox = () => {
 
                         Contextdata.ChangeAlertData(`Category Deleted successfully`, 'success');
                         GetCatList()
-                    } else {
-                        alert('Something went wrong')
-                    }
-
-
-
-                })
-        }
-
-
-
-    };
-    const DeleteCollege = async (e) => {
-        let text = "Do you really want to delete This College ?";
-        if (confirm(text) == true) {
-            const sendUM = {
-                slug: e.slug
-            }
-            const data = await fetch("/api/user/delete_college", {
-                method: "POST",
-                headers: {
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify(sendUM)
-            }).then((a) => {
-                return a.json();
-            })
-                .then((parsed) => {
-
-                    if (parsed.ReqData.done) {
-
-
-                        Contextdata.ChangeAlertData(`College Deleted successfully`, 'success');
-                        GetCollegeList()
                     } else {
                         alert('Something went wrong')
                     }
@@ -624,40 +471,6 @@ const PostBox = () => {
                                     <span>Category</span>
                                     <small>{CategoryText}</small>
 
-                                </div>
-
-                            </div>
-                        </div>
-                        <div className={Mstyles.CatboxPost}>
-                            <div className={Mstyles.PostAddonItem} >
-                                <div className={Mstyles.PostAddonItemA} onClick={handleOpenCollege('paper')}>
-                                    <Image
-                                        src={`${MediaFilesUrl}${MediaFilesFolder}/${Collegeimg}`}
-                                        alt="image"
-
-                                        placeholder='blur'
-                                        width={30}
-                                        height={30}
-                                        quality={100}
-                                        blurDataURL={blurredImageData}
-
-                                    />
-
-                                </div>
-                                <div className={Mstyles.CoolageTe}>
-                                    <div className={Mstyles.PostAddonItemB} onClick={handleOpenCollege('paper')}>
-                                        <span>Only College Mode
-
-                                            {ForCollege ? <span style={{ color: 'blue', fontSize: '10px' }}> ON</span> : <span style={{ color: 'red', fontSize: '10px' }}> OFF</span>}
-                                        </span>
-                                        <small>{CollegeText}</small>
-
-                                    </div>
-                                    <Switch
-                                        checked={ForCollege}
-                                        onChange={CollageSwitch}
-                                        inputProps={{ 'aria-label': 'controlled' }}
-                                    />
                                 </div>
 
                             </div>
@@ -813,7 +626,6 @@ const PostBox = () => {
                                                     />
                                                 </div>
                                             </div>
-
                                         </div>
 
                                     }
@@ -992,199 +804,10 @@ const PostBox = () => {
                                                                 onClick={AddCategory}
                                                                 endIcon={<FiChevronRight />}
                                                                 loading={LoadingCatadd}
-                                                                desabled={LoadingCatadd}
                                                                 loadingPosition="end"
                                                                 variant='contained'
                                                             >
                                                                 <span>Save Category</span>
-                                                            </LoadingButton>
-
-
-                                                        </div>
-
-                                                    </form>
-
-                                                </div>
-                                            }
-
-                                        </div>
-
-                                    }
-
-
-
-                                </div>
-                            </DialogContent>
-                            <DialogActions>
-                                <Button onClick={handleClose}>Cancel</Button>
-
-                            </DialogActions>
-                        </Dialog>
-                    </React.Fragment>
-                    <React.Fragment>
-
-                        <Dialog
-                            fullScreen={isMobile ? true : false}
-                            open={OpenCollege}
-                            onClose={handleClose}
-                            scroll={scroll}
-                            aria-labelledby="scroll-dialog-title"
-                            aria-describedby="scroll-dialog-description"
-                        >
-                            <DialogTitle id="scroll-dialog-title">Select Post Collage</DialogTitle>
-                            <DialogContent dividers={scroll === 'paper'}>
-                                <div>
-
-                                    <div className={Mstyles.Modalwidth}></div>
-                                    <div>
-
-                                        {Loading ?
-                                            <div>
-                                                <Skeleton variant="text" style={{ height: 20, width: '100%' }} />
-                                                <div style={{ height: '5px' }}></div>
-                                                <Skeleton variant="text" style={{ height: 20, width: '50%' }} />
-
-                                            </div> :
-                                            <div
-                                                className={Mstyles.SCatGrid}
-                                            >
-                                                {CollegeList.map((item, index) => {
-                                                    return <div >
-                                                        <div className={Mstyles.HomeCatGridItem}  >
-                                                            <div className={Mstyles.CoolegitemA} onClick={() => CatClick(item)} >
-
-                                                                <div className={Mstyles.Collageimg}>
-                                                                    <Image
-                                                                        src={`${MediaFilesUrl}${MediaFilesFolder}${item.image}`}
-                                                                        alt=""
-                                                                        fill
-                                                                        height={'100%'}
-                                                                        width={'100%'}
-                                                                        blurDataURL={blurredImageData}
-                                                                        placeholder='blur'
-                                                                        style={{ objectFit: "cover", borderRadius: '10px' }}
-                                                                    />
-                                                                </div>
-                                                                <div className={Mstyles.CollageText}>
-                                                                    <span>{item.title}</span>
-                                                                </div>
-
-
-                                                            </div>
-
-                                                            <div className={Mstyles.EditDeleteBox}>
-                                                                <div className={Mstyles.EditDeleteItem}>
-                                                                    <div className={Mstyles.EditDeleteItemA} >
-                                                                        <div className={Mstyles.EditDeleteItemA} >
-
-                                                                            <IconButton
-                                                                                onClick={() => handleCategoryClick(index)}
-                                                                                aria-label="toggle password visibility"
-                                                                                style={{ width: 35, height: 35, color: 'black' }}
-                                                                            >
-                                                                                {openCategoryIndex === index ? <LuX size={30} /> : <LuPencilLine size={40} />}
-                                                                            </IconButton>
-
-                                                                        </div>
-                                                                        <div className={Mstyles.EditDeleteItemB}>
-                                                                            <IconButton
-                                                                                onClick={() => DeleteCollege(item)}
-                                                                                aria-label="toggle password visibility"
-                                                                                style={{ width: 35, height: 35, color: 'black' }}
-                                                                            >
-                                                                                <LuTrash2 size={40} />
-                                                                            </IconButton>
-                                                                        </div>
-
-                                                                    </div>
-
-                                                                    <div className={Mstyles.EditDeleteItemB}>
-
-                                                                        <LoadingButton
-                                                                            fullWidth
-                                                                            size='small'
-                                                                            endIcon={<FiChevronRight />}
-                                                                            loading={false}
-                                                                            loadingPosition="end"
-                                                                            variant="outlined"
-                                                                            onClick={() => CollegeClick(item)}
-
-                                                                        >
-                                                                            <span>Select</span>
-                                                                        </LoadingButton>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-
-                                                            <EditCollegeForm
-                                                                isOpen={openCategoryIndex === index}
-                                                                item={item}
-
-                                                                GetCollegeList={GetCollegeList}
-                                                                handleClose={() => setOpenCollegeIndex(null)}
-                                                            />
-                                                        </div>
-
-                                                    </div>
-
-                                                }
-
-                                                )}
-                                            </div>
-
-                                        }
-
-
-
-                                    </div>
-
-                                    {!Loading &&
-
-                                        <div className={Mstyles.AddCatBoxMain}>
-                                            <LoadingButton
-                                                fullWidth
-                                                onClick={HandleAddCollegeBox}
-                                                startIcon={AddCollgebox ? <LuX /> : <LuPlus />}
-                                                loading={LoadingSubmitPost}
-                                                loadingPosition="end"
-                                                variant="text"
-
-                                            >
-                                                <span>{AddCollgebox ? 'Close' : 'Add New'}</span>
-                                            </LoadingButton>
-
-                                            {AddCollgebox &&
-                                                <div className={Mstyles.AddCatBox}>
-                                                    <form onSubmit={AddCollege} className={Mstyles.fadeinAnimation}>
-
-                                                        <div className={Mstyles.LoginBox_input}>
-                                                            <TextField
-                                                                required
-                                                                label="College Name"
-                                                                fullWidth
-                                                                value={CollegeName_new}
-                                                                onInput={e => setCollegeName_new(e.target.value)}
-
-                                                            />
-                                                        </div>
-                                                        <div style={{ height: '20px' }}></div>
-                                                        <div className={Mstyles.LoginBox_input}>
-                                                            <Uploadimg onImageUpload={onImageUpload} />
-                                                        </div>
-                                                        <div style={{ height: '20px' }}></div>
-                                                        <div className={Mstyles.Loginbtnbox}>
-                                                            <LoadingButton
-
-                                                                size='small'
-                                                                onClick={AddCollege}
-                                                                endIcon={<FiChevronRight />}
-                                                                loading={LoadingCatadd}
-                                                                desabled={LoadingCatadd}
-                                                                loadingPosition="end"
-                                                                variant='contained'
-                                                            >
-                                                                <span>Save College</span>
                                                             </LoadingButton>
 
 

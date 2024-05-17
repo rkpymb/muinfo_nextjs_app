@@ -12,17 +12,13 @@ export default function handler(req, res) {
                 Authorization: `Bearer ${token}`,
             };
             
-            axios.post(`${process.env.API_URL}user/create_post`, { 
+            axios.post(`${process.env.API_URL}user/delete_college`, { 
                 token: process.env.MYKEY,
-                PostText: req.body.PostText,
-                PostList: req.body.PostList,
-                tags: req.body.tags,
-                category: req.body.category,
-                date: req.body.date,
-                time: req.body.time,
-                College:req.body.College
-
+              
+                slug:req.body.slug,
             
+                
+              
             }, { headers }).then((response) => {
            
                 res.status(200).json({ ReqData:response.data })

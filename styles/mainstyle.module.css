@@ -291,6 +291,22 @@
   margin-top: 20px;
 }
 
+.CoolegitemA{
+  display: flex;
+  padding: 10px;
+  
+}
+.CollageText{
+  margin-left: 10px;
+}
+.CollageText span{
+  font-size: 14px;
+  font-weight: 600;
+}
+.Collageimg {
+  width:60px;
+  overflow: hidden;
+}
 .FileGridItemimg {
   width: 80px;
 
@@ -2989,12 +3005,14 @@
 
   display: flex;
   align-items: center;
+ 
 
 }
 
 .PostAddonItem {
   display: flex;
   align-items: center;
+  
   cursor: pointer;
   padding: 10px;
   border-radius: 10px;
@@ -3013,6 +3031,12 @@
   min-width: 600px;
 }
 
+.CoolageTe{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+
+}
 .PostAddonItemB {
 
   margin-left: 10px;

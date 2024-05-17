@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useContext,memo } from 'react';
-import Image from 'next/image'
+
 import CheckloginContext from '/context/auth/CheckloginContext'
 import Mstyles from '/styles/mainstyle.module.css'
 import IconButton from '@mui/material/IconButton';
 import { Router } from 'next/router';
 import { LuHome, LuArrowRight, LuBellDot, LuLayoutList, LuTrendingUp, LuStar, LuChevronRight, LuSettings, LuUserCog2, LuClipboardList, LuSparkles, LuLineChart, LuX, LuLogOut } from "react-icons/lu";
 import { MediaFilesUrl, MediaFilesFolder } from '/Data/config'
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import LoadingButton from '@mui/lab/LoadingButton';
+
 import Drawer from '@mui/material/Drawer';
 import ThemeSwitch from './ThemeSwitch'
 import Skeleton from '@mui/material/Skeleton';
@@ -35,46 +34,6 @@ const MainNavBar = () => {
     const HandleCloseMenu = async () => {
         setOpenMenu(false)
     }
-    const LogoutBtn = async () => {
-        const confirmLogout = confirm('Do you really want to log out?');
-        if (confirmLogout) {
-            // Send a request to the server-side route to log out the user
-            try {
-                const response = await fetch('/api/user/user_logout', {
-                    method: 'POST',
-                    credentials: 'include', // Include cookies in the request
-                });
-                
-                
-                if (response.ok) {
-                    // // Clear local storage
-                    removeCookie('jwt_token')
-                    localStorage.clear();
-                    
-                    // Notify the user of successful logout
-                    Contextdata.ChangeAlertData('Logout successfully', 'success');
-                    
-                    // Refresh the page
-                    window.location.reload();
-                } else {
-                    // Handle error
-                    console.error('Error logging out:', response.msg);
-                    Contextdata.ChangeAlertData('Logout failed. Please try again.', 'error');
-                }
-            } catch (error) {
-                // Handle fetch error
-                console.error('Error logging out:', error);
-                Contextdata.ChangeAlertData('Logout failed. Please try again.', 'error');
-            }
-        }
-    };
-    
-    
-    // Utility function to remove a cookie
-    const removeCookie = (name, path = '/') => {
-        document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=${path};`;
-    };
-
 
 
 
@@ -85,8 +44,8 @@ const MainNavBar = () => {
 
                 <Avatar
                     onClick={HandleOpenMenu}
-                    alt={Contextdata.UserData.name}
-                    src={`${MediaFilesUrl}${MediaFilesFolder}/${Contextdata.UserData.dp}`}
+                    alt={Contextdata.UserLogin && Contextdata.UserData.name}
+                    src={Contextdata.UserLogin && `${MediaFilesUrl}${MediaFilesFolder}/${Contextdata.UserData.dp}`}
                     sx={{ width: 35, height: 35 }}
                 />
                 <Drawer
@@ -103,14 +62,14 @@ const MainNavBar = () => {
                             <div className={Mstyles.Avatarbox}>
                                 <Avatar
                                     onClick={HandleOpenMenu}
-                                    alt={Contextdata.UserData.name}
-                                    src={`${MediaFilesUrl}${MediaFilesFolder}/${Contextdata.UserData.dp}`}
+                                    alt={Contextdata.UserLogin && Contextdata.UserData.name}
+                                    src={Contextdata.UserLogin && `${MediaFilesUrl}${MediaFilesFolder}/${Contextdata.UserData.dp}`}
                                     sx={{ width: 30, height: 30 }}
                                 />
                                 <div style={{ width: 10 }}></div>
                                 <div>
-                                    <div>  <span>{Contextdata.UserData.name}</span></div>
-                                    <div className={Mstyles.unametext}>  <small>@{Contextdata.UserData.username}</small></div>
+                                    <div>  <span>{Contextdata.UserLogin && Contextdata.UserData.name}</span></div>
+                                    <div className={Mstyles.unametext}>  <small>@{Contextdata.UserLogin && Contextdata.UserData.username}</small></div>
                                     <div style={{ height: 10 }}></div>
 
                                 </div>
@@ -253,7 +212,7 @@ const MainNavBar = () => {
                     </div>
 
                     <div className={Mstyles.VmenuFotter}>
-                        <div className={Mstyles.Mainbtn} onClick={LogoutBtn}>
+                        <div className={Mstyles.Mainbtn} onClick={Contextdata.LogoutUser}>
                             <div className={Mstyles.MainbtnA}>
                                 <LuLogOut size={16} />
                             </div>
