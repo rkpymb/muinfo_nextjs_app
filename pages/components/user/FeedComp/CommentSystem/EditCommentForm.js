@@ -51,6 +51,7 @@ const EditCommentForm = ({ initialText, onUpdate, onCancel, comment }) => {
             <LoadingButton
                 onClick={handleEditSubmit}
                 loading={loadingBtn}
+                desabled={loadingBtn}
                 loadingPosition="end"
                 variant="outlined"
                 size='small'

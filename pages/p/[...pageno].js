@@ -75,9 +75,6 @@ function Home({ PostData }) {
             </div>
           </Layout>
 
-
-
-
         }
       </div>
 
