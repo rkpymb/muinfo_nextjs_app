@@ -4,6 +4,88 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
 
+.CmtItemborder {
+  border: 1px dashed var(--border-color);
+
+  border-radius: 10px;
+}
+
+.CmtBoxFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+
+}
+
+.CmtBoxFooterA{
+  display: flex;
+  align-items: center;
+}
+.CmtReplaybox {
+  padding: 10px;
+
+}
+
+.CmtGrid {
+  margin: 0 auto;
+  display: grid;
+
+  gap: 0.8rem;
+  grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+}
+
+.CmtMainText {
+  font-size: 12px;
+  line-height: normal;
+  margin: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+ 
+
+
+}
+
+
+.CmtUserBox {
+  display: flex;
+  align-items: center;
+
+
+}
+
+.CmtNamebox span {
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.CmtDatebox span {
+  font-weight: 500;
+  font-size: 10px;
+}
+
+.CmtUserBoxB {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+
+
+}
+
+.CmtlistItem {
+  
+  padding: 10px;
+  margin-bottom: 15px;
+  
+  box-shadow: 0 2px 15px rgba(0, 0, 0, .05);
+  border-radius: 10px;
+}
+
+
+.CmtlistItemB {
+  margin-left: 10px;
+
+}
 
 .PinDeboxm {
   border-radius: 20px;
@@ -291,22 +373,26 @@
   margin-top: 20px;
 }
 
-.CoolegitemA{
+.CoolegitemA {
   display: flex;
   padding: 10px;
-  
+
 }
-.CollageText{
+
+.CollageText {
   margin-left: 10px;
 }
-.CollageText span{
+
+.CollageText span {
   font-size: 14px;
   font-weight: 600;
 }
+
 .Collageimg {
-  width:60px;
+  width: 60px;
   overflow: hidden;
 }
+
 .FileGridItemimg {
   width: 80px;
 
@@ -363,10 +449,15 @@
 
 }
 
+.EditcmtboxFooter {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
 .Cmtmainbox {
-  background-color: rgba(255, 255, 255, 0.92);
-  padding: 20px;
-  border-top: 1px solid var(--border-color);
+
+  
   margin-top: 20px;
 }
 
@@ -446,9 +537,11 @@
   font-weight: 600;
   cursor: pointer;
 }
+
 .PostCounterItem span:hover {
   text-decoration: underline;
 }
+
 .CategoriesAll {
   display: grid;
   gap: 0.8rem;
@@ -2894,27 +2987,6 @@
   display: none;
 }
 
-.CmtlistItem {
-  display: flex;
-  margin: 10px;
-  padding: 5px;
-
-}
-
-.CmtlistItemB {
-  margin-left: 10px;
-
-}
-
-
-.Cmttextbox {
-  font-size: 12px;
-  line-height: normal;
-  padding: 10px;
-  border-radius: 10px;
-  margin-top: 5px;
-  border: 1px solid var(--border-color);
-}
 
 
 .Maindevider {
@@ -2927,20 +2999,7 @@
   color: var(--border-color);
 }
 
-.CmttextboxUser span {
 
-  font-size: 12px;
-}
-
-.CmttextboxUser small {
-
-  font-size: 10px;
-}
-
-.CmttextboxUser {
-  display: flex;
-  align-items: center;
-}
 
 .SubcatContect {
   display: flex;
@@ -3005,14 +3064,14 @@
 
   display: flex;
   align-items: center;
- 
+
 
 }
 
 .PostAddonItem {
   display: flex;
   align-items: center;
-  
+
   cursor: pointer;
   padding: 10px;
   border-radius: 10px;
@@ -3031,12 +3090,13 @@
   min-width: 600px;
 }
 
-.CoolageTe{
+.CoolageTe {
   display: flex;
   width: 100%;
   justify-content: space-between;
 
 }
+
 .PostAddonItemB {
 
   margin-left: 10px;
@@ -5842,12 +5902,7 @@
 
   }
 
-  .CmttextboxUser {
-    flex-direction: column;
-    line-height: normal;
 
-    align-items: initial;
-  }
 
   .FAQGrid {
     display: grid;
@@ -6066,5 +6121,10 @@
 
   }
 
+  .Cmtmainbox {
 
+    padding: 10px;
+    
+  }
+  
 }

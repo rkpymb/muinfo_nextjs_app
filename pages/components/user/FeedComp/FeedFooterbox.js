@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import Mstyles from '/styles/mainstyle.module.css';
 import { MediaFilesUrl, FeedimgFolder, DomainURL } from '/Data/config';
 import IconButton from '@mui/material/IconButton';
-import PostCmtBox from './PostCmtBox';
+
 import Sharebtn from '../ShareBox/Sharebtn';
 import Badge from '@mui/material/Badge';
 import Image from 'next/image';
@@ -343,12 +343,7 @@ const FeedFooterbox = ({ PostData, ShowComments }) => {
                 </div>
             }
 
-            {ShowComments &&
-                <div>
-                    <PostCmtBox PostData={PostData.PostData} />
-                </div>
-
-            }
+           
 
         </div>
     );

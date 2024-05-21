@@ -94,10 +94,10 @@ const FeedlistMain = ({ bycat, PostData }) => {
 
 
     useEffect(() => {
-     
+
         if (PostData) {
             setPostID(PostData[0].PostData.PostID)
-            
+
             setFeedList(PostData)
             setIsLoading(false);
             setPage(1)
@@ -125,34 +125,41 @@ const FeedlistMain = ({ bycat, PostData }) => {
                     <CircularProgress size={25} color="success" />
                 </div>}
                 endMessage={
-                    <div style={{ textAlign: 'center', margin: 'auto', marginTop: '20px' }} >
-                        <b>Yay! You have seen it all 🎉</b>
+                    <div>
+                        {!ShowComments &&
+                            <div style={{ textAlign: 'center', margin: 'auto', marginTop: '20px' }} >
+                                <b>Yay! You have seen it all 🎉</b>
+                            </div>
+
+
+                        }
+
                     </div>
                 }
             >
 
                 <div className={Mstyles.FeedItemGrid}>
-                {FeedList.map((item, index) => {
-                    return <div key={index} className={Mstyles.FeedItem}>
-                        <div>
-                            <FeedTopbox PostData={item} />
+                    {FeedList.map((item, index) => {
+                        return <div key={index} className={Mstyles.FeedItem}>
+                            <div>
+                                <FeedTopbox PostData={item} />
 
-                            <FeedContentBox PostData={item} />
+                                <FeedContentBox PostData={item} />
+                            </div>
+                            <div>
+                                <FeedFooterbox PostData={item} ShowComments={ShowComments} />
+                            </div>
+
                         </div>
-                        <div>
-                            <FeedFooterbox PostData={item} ShowComments={ShowComments} />
-                        </div>
+                    }
 
-                    </div>
-                }
-
-                )}
+                    )}
                 </div>
 
-               
+
             </InfiniteScroll>
 
-            
+
 
         </div>
     )

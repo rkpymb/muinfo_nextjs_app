@@ -12,11 +12,11 @@ export default function handler(req, res) {
                 Authorization: `Bearer ${token}`,
             };
             
-            axios.post(`${process.env.API_URL}user/update_comment`, { 
+            axios.post(`${process.env.API_URL}user/add_cmt_replay`, { 
                 token: process.env.MYKEY,
-                Text: req.body.Text,
-                CmtData:req.body.CmtData,
-              
+                PostData: req.body.PostData,
+                ParentCmt: req.body.ParentCmt,
+                CmtText:req.body.CmtText,
                 
               
             }, { headers }).then((response) => {
