@@ -1,12 +1,14 @@
 import { useState, useEffect, useContext } from 'react';
 import Mstyles from '/styles/customstyle.module.css'
 import CheckloginContext from '/context/auth/CheckloginContext'
+import LoadingButton from '@mui/lab/LoadingButton';
 
 import Layout from '../components/Layout';
 import { useRouter, useParams } from 'next/router'
 import { MediaFilesUrl, MediaFilesFolder, FeedimgFolder } from '/Data/config';
 import Feedlist from '../components/user/FeedList'
 import Head from 'next/head'
+
 import Comments from '../components/user/FeedComp/CommentSystem/Comments';
 export async function getServerSideProps(context) {
   const PostID = context.query.pageno[0];
@@ -70,9 +72,28 @@ function Home({ PostData }) {
           <Layout>
             <Feedlist PostData={PostData} />
 
-            <div>
-              <Comments PostData={PostData[0].PostData} />
-            </div>
+            {Contextdata.UserLogin ?
+
+              <div>
+                <Comments PostData={PostData[0].PostData} />
+              </div> :
+              <div style={{marginTop:'20px'}}>
+
+                <LoadingButton
+                  onClick={() => router.push('/account/user_login')}
+                  loading={false}
+                  loadingPosition="end"
+                  variant="outlined"
+                  size='small'
+                  fullWidth
+                >
+                  Login to View Comments
+                </LoadingButton>
+              </div>
+
+            }
+
+
           </Layout>
 
         }

@@ -4,9 +4,11 @@ import CommentList from './CommentList';
 import CheckloginContext from '/context/auth/CheckloginContext';
 import Mstyles from '/styles/mainstyle.module.css';
 import io from 'socket.io-client';
-import {API_URL} from '/Data/config'
+import Skeleton from '@mui/material/Skeleton';
+import { API_URL } from '/Data/config'
 const Comments = ({ PostData }) => {
     const [comments, setComments] = useState([]);
+
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [activeCommentId, setActiveCommentId] = useState(null);
@@ -20,9 +22,18 @@ const Comments = ({ PostData }) => {
                 body: JSON.stringify({ PostData })
             });
             const data = await response.json();
-            setComments(data.ReqData.CmtAllList);
-            setLoading(false);
+
+            if (data.ReqData) {
+                setComments(data.ReqData.CmtAllList);
+                setLoading(false);
+            } else {
+                setComments([]);
+                setLoading(false);
+            }
+
         } catch (error) {
+            setLoading(false);
+            setComments([]);
             setError('Error fetching comments');
             console.error('Error fetching comments:', error);
         }
@@ -32,18 +43,6 @@ const Comments = ({ PostData }) => {
         getCommentsData();
     }, []);
 
-
-    // useEffect(() => {
-    //     const newSocket = io(`${API_URL}`); // Specify port 3001 here
-    //     setSocket(newSocket);
-
-    //     newSocket.on('newComment', (newComment) => {
-    //         console.log('Soket received new comment')
-    //         setComments(prevComments => [...prevComments, newComment]);
-    //     });
-
-    //     return () => newSocket.close();
-    // }, []);
 
 
     useEffect(() => {
@@ -141,7 +140,13 @@ const Comments = ({ PostData }) => {
         });
     };
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <div>
+
+
+        <Skeleton variant="text" width={'100%'} sx={{ fontSize: '1rem', }} />
+        <div style={{ height: '10px' }}></div>
+        <Skeleton variant="text" width={'50%'} sx={{ fontSize: '1rem' }} />
+    </div>;
     if (error) return <div>{error}</div>;
 
     return (
