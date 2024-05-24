@@ -14,7 +14,7 @@ const Comments = ({ PostData }) => {
     const [error, setError] = useState(null);
     const [activeCommentId, setActiveCommentId] = useState(null);
 
-    const [roomId, setRoomId] = useState(PostData.PostID || null);
+    const [roomId, setRoomId] = useState(null);
     const [socket, setSocket] = useState(null);
 
     useEffect(() => {
@@ -50,8 +50,7 @@ const Comments = ({ PostData }) => {
 
             newSocket.on('CommentDeleted', (data) => {
                 const cmtid = data.data.cmtid;
-                console.log(cmtid);
-
+               
                 setComments(prevComments => {
                     const removeCommentById = (comments, id) => {
                         return comments
@@ -68,7 +67,7 @@ const Comments = ({ PostData }) => {
 
             newSocket.on('CommentUpdated', (data) => {
                 const updatedComment = data.data.updatedData;
-                console.log(updatedComment);
+           
             
                 const UpdatedData = updatedComment.CmtData; 
                 const StatusText = updatedComment.StatusText; 
@@ -135,8 +134,8 @@ const Comments = ({ PostData }) => {
     }, [roomId, Contextdata.UserJwtToken]);
 
     useEffect(() => {
-        console.log(comments);
-    }, [comments]);
+        setRoomId(PostData.PostID)
+    }, [PostData]);
 
     const getCommentsData = async () => {
         if (comments.length > 0) {
@@ -199,8 +198,7 @@ const Comments = ({ PostData }) => {
                 const data = await response.json();
 
                 if (data && data.ReqData.done) {
-                    console.log('Reply added successfully:', data);
-
+                
                     const SoketData = data.ReqData.NewCmt;
                     SendSoketMsg(SoketData);
                 } else {
@@ -228,7 +226,7 @@ const Comments = ({ PostData }) => {
             });
             const data = await response.json();
             if (data.ReqData.DelData) {
-                console.log(data.ReqData);
+               
 
                 SendSoketMsgDelete(_id);
             } else {
