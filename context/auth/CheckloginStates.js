@@ -62,7 +62,8 @@ const CheckloginStates = (props) => {
       
           if (parsedFinal.ReqData.UserData) {
             setUserData(parsedFinal.ReqData.UserData)
-            setUserJwtToken(parsedFinal.ReqData.jwt_token)
+            setUserJwtToken(parsedFinal.jwt_token)
+           
             setUserLogin(true)
           } else {
             setUserLogin(false)

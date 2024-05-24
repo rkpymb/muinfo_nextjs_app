@@ -5,37 +5,164 @@ import CheckloginContext from '/context/auth/CheckloginContext';
 import Mstyles from '/styles/mainstyle.module.css';
 import io from 'socket.io-client';
 import Skeleton from '@mui/material/Skeleton';
-import { API_URL } from '/Data/config'
+import { API_URL } from '/Data/config';
+
 const Comments = ({ PostData }) => {
     const [comments, setComments] = useState([]);
-
+    const Contextdata = useContext(CheckloginContext);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [activeCommentId, setActiveCommentId] = useState(null);
+
+    const [roomId, setRoomId] = useState(PostData.PostID || null);
     const [socket, setSocket] = useState(null);
 
-    const getCommentsData = async () => {
-        try {
-            const response = await fetch("/api/user/post_cmt", {
-                method: "POST",
-                headers: { 'Content-type': 'application/json' },
-                body: JSON.stringify({ PostData })
+    useEffect(() => {
+        if (roomId && Contextdata.UserJwtToken) {
+            const newSocket = io(API_URL, {
+                auth: {
+                    token: Contextdata.UserJwtToken || null,
+                },
+                transports: ['websocket'],
             });
-            const data = await response.json();
 
-            if (data.ReqData) {
-                setComments(data.ReqData.CmtAllList);
+            newSocket.on('connect', () => {
+                console.log('Connected to server');
+            });
+
+            newSocket.on('disconnect', () => {
+                console.log('Disconnected from server');
+            });
+
+            newSocket.on('connect_error', (err) => {
+                console.error('Connection error:', err);
+            });
+
+            const joinRoom = () => {
+                if (roomId) {
+                    newSocket.emit('joinRoom', roomId);
+                }
+            };
+
+            joinRoom();
+
+            newSocket.on('userJoined', (data) => {});
+
+            newSocket.on('CommentDeleted', (data) => {
+                const cmtid = data.data.cmtid;
+                console.log(cmtid);
+
+                setComments(prevComments => {
+                    const removeCommentById = (comments, id) => {
+                        return comments
+                            .filter(comment => comment.CmtData._id !== id)
+                            .map(comment => ({
+                                ...comment,
+                                ChildCmt: removeCommentById(comment.ChildCmt, id)
+                            }));
+                    };
+
+                    return removeCommentById(prevComments, cmtid);
+                });
+            });
+
+            newSocket.on('CommentUpdated', (data) => {
+                const updatedComment = data.data.updatedData;
+                console.log(updatedComment);
+            
+                const UpdatedData = updatedComment.CmtData; 
+                const StatusText = updatedComment.StatusText; 
+            
+                setComments(prevComments => {
+                    return prevComments.map(comment => {
+                        if (comment.CmtData._id === updatedComment._id) {
+                            // Update only if the comment matches the given _id
+                            return {
+                                ...comment,
+                                CmtData: {
+                                    ...comment.CmtData,
+                                    CmtData: UpdatedData,
+                                    StatusText: StatusText // StatusText ko bhi update karein
+                                }
+                            };
+                        }
+                        return comment; // Return unchanged if _id doesn't match
+                    });
+                });
+            });
+            
+            
+            
+            
+            newSocket.on('NewComment', (data) => {
+                const newComment = data.data.SoketData[0];
+                if (newComment.CmtData.IsChild == null) {
+                    setComments((prevComments) => [newComment, ...prevComments]);
+                } else {
+                    setComments((prevComments) => {
+                        const updatedComments = prevComments.map(comment => {
+                            if (comment.CmtData.CmtID === newComment.CmtData.IsChild.ParentCmtID) {
+                                return {
+                                    ...comment,
+                                    ChildCmt: [newComment, ...comment.ChildCmt]
+                                };
+                            } else {
+                                return {
+                                    ...comment,
+                                    ChildCmt: comment.ChildCmt.map(child => {
+                                        if (child.CmtData.CmtID === newComment.CmtData.IsChild.ParentCmtID) {
+                                            return {
+                                                ...child,
+                                                ChildCmt: [newComment, ...child.ChildCmt]
+                                            };
+                                        }
+                                        return child;
+                                    })
+                                };
+                            }
+                        });
+                        return updatedComments;
+                    });
+                }
+            });
+
+            setSocket(newSocket);
+
+            return () => {
+                newSocket.disconnect();
+            };
+        }
+    }, [roomId, Contextdata.UserJwtToken]);
+
+    useEffect(() => {
+        console.log(comments);
+    }, [comments]);
+
+    const getCommentsData = async () => {
+        if (comments.length > 0) {
+            // Comments already loaded
+        } else {
+            try {
+                const response = await fetch("/api/user/post_cmt", {
+                    method: "POST",
+                    headers: { 'Content-type': 'application/json' },
+                    body: JSON.stringify({ PostData })
+                });
+                const data = await response.json();
+
+                if (data.ReqData) {
+                    setComments(data.ReqData.CmtAllList);
+                    setLoading(false);
+                } else {
+                    setComments([]);
+                    setLoading(false);
+                }
+            } catch (error) {
                 setLoading(false);
-            } else {
                 setComments([]);
-                setLoading(false);
+                setError('Error fetching comments');
+                console.error('Error fetching comments:', error);
             }
-
-        } catch (error) {
-            setLoading(false);
-            setComments([]);
-            setError('Error fetching comments');
-            console.error('Error fetching comments:', error);
         }
     };
 
@@ -43,33 +170,17 @@ const Comments = ({ PostData }) => {
         getCommentsData();
     }, []);
 
-
-
-    useEffect(() => {
-        const socket = io(`${API_URL}`) // Socket.io client ko connect karein
-
-        // Socket.io event listener set karein
-        socket.on('newComment', (newComment) => {
-            console.log('New comment received:', newComment);
-        });
-
-        // Clean up effect
-        return () => {
-            socket.disconnect(); // Socket.io client se disconnect karein
-        };
-    }, []);
-
-
-
     const OnUpdate = async (updatedData) => {
-        const _id = updatedData.CmtData._id;
-        console.log(updatedData)
-        getCommentsData();
-        if (updatedData.IsChild == null) {
-            console.log(comments.length)
-        } else {
+       
+        SendSoketMsgOnUpdatecmt(updatedData)
+      
+    };
 
-        }
+    const SendSoketMsg = (SoketData) => {
+        socket.emit('NewComment', { SoketData, roomId });
+    };
+    const SendSoketMsgOnUpdatecmt = (updatedData) => {
+        socket.emit('CommentUpdated', { updatedData, roomId });
     };
 
     const handleReply = async (parentCmtID, replyText) => {
@@ -80,8 +191,21 @@ const Comments = ({ PostData }) => {
                     headers: { 'Content-type': 'application/json' },
                     body: JSON.stringify({ CmtText: replyText, PostData, ParentCmt: { ParentCmtID: parentCmtID } })
                 });
-                await response.json();
-                getCommentsData();
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                if (data && data.ReqData.done) {
+                    console.log('Reply added successfully:', data);
+
+                    const SoketData = data.ReqData.NewCmt;
+                    SendSoketMsg(SoketData);
+                } else {
+                    console.error('Error adding reply:', data.message || 'Unknown error');
+                }
             } catch (error) {
                 console.error('Error adding reply:', error);
             }
@@ -90,8 +214,12 @@ const Comments = ({ PostData }) => {
         }
     };
 
+    const SendSoketMsgDelete = async (cmtid) => {
+        socket.emit('CommentDeleted', { cmtid, roomId });
+    };
+
     const handleDelete = async (deletedComment) => {
-        const _id = deletedComment.CmtData._id;
+        let _id = deletedComment.CmtData._id;
         try {
             const response = await fetch("/api/user/delete_cmt", {
                 method: "POST",
@@ -99,9 +227,10 @@ const Comments = ({ PostData }) => {
                 body: JSON.stringify({ _id })
             });
             const data = await response.json();
-            if (data.ReqData.done) {
-                const updatedComments = removeCommentAndChildren(comments, _id);
-                setComments(updatedComments);
+            if (data.ReqData.DelData) {
+                console.log(data.ReqData);
+
+                SendSoketMsgDelete(_id);
             } else {
                 console.error('Something went wrong while deleting the comment');
             }
@@ -110,55 +239,23 @@ const Comments = ({ PostData }) => {
         }
     };
 
-
-    const removeCommentAndChildren = (commentsArr, commentId) => {
-        return commentsArr.filter(comment => {
-            if (comment.CmtData._id === commentId) {
-                if (comment.ChildCmt.length > 0) {
-                    comment.ChildCmt = removeChildren(comment.ChildCmt, commentId);
-                }
-                return false;
-            } else {
-                if (comment.ChildCmt.length > 0) {
-                    comment.ChildCmt = removeCommentAndChildren(comment.ChildCmt, commentId);
-                }
-                return true;
-            }
-        });
-    };
-
-    const removeChildren = (childComments, commentId) => {
-        return childComments.filter(childComment => {
-            if (childComment.CmtData._id === commentId) {
-                return false;
-            } else {
-                if (childComment.ChildCmt.length > 0) {
-                    childComment.ChildCmt = removeChildren(childComment.ChildCmt, commentId);
-                }
-                return true;
-            }
-        });
-    };
-
-    if (loading) return <div>
-
-
-        <Skeleton variant="text" width={'100%'} sx={{ fontSize: '1rem', }} />
-        <div style={{ height: '10px' }}></div>
-        <Skeleton variant="text" width={'50%'} sx={{ fontSize: '1rem' }} />
-    </div>;
+    if (loading) return (
+        <div>
+            <Skeleton variant="text" width={'100%'} sx={{ fontSize: '1rem' }} />
+            <div style={{ height: '10px' }}></div>
+            <Skeleton variant="text" width={'50%'} sx={{ fontSize: '1rem' }} />
+        </div>
+    );
     if (error) return <div>{error}</div>;
 
     return (
         <div>
             <div className={Mstyles.Cmtmainbox}>
-                <CommentForm PostData={PostData} getCommentsData={getCommentsData} />
+                <CommentForm PostData={PostData} getCommentsData={getCommentsData} socket={socket} roomId={roomId} />
             </div>
             <div className={Mstyles.CmtLBox}>
                 <CommentList comments={comments} onReply={handleReply} onDelete={handleDelete} OnUpdate={OnUpdate} activeCommentId={activeCommentId} setActiveCommentId={setActiveCommentId} />
             </div>
-
-
         </div>
     );
 };

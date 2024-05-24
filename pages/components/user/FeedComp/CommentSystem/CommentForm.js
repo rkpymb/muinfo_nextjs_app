@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import Mstyles from '/styles/mainstyle.module.css';
 import CheckloginContext from '/context/auth/CheckloginContext';
 
-const CommentForm = ({ PostData, getCommentsData }) => {
+const CommentForm = ({ PostData, getCommentsData, socket, roomId }) => {
     const [CmtText, setCmtText] = useState('');
     const [LoadingSubmitBtn, setLoadingSubmitBtn] = useState(false);
     const Contextdata = useContext(CheckloginContext);
@@ -15,13 +15,20 @@ const CommentForm = ({ PostData, getCommentsData }) => {
         setCmtText(e.target.value);
     };
 
+    const SendSoketMsg = (SoketData) => {
+        if (CmtText.trim() !== '') {
+            socket.emit('NewComment', { SoketData, roomId });
+            setCmtText('');
+          }
+    };
+
     const AddCmt = async (e) => {
         e.preventDefault();
 
-        if (CmtText !== '') {
+        if (CmtText.trim() !== '') {
             setLoadingSubmitBtn(true);
             const sendUM = { CmtText, PostData };
-            
+
             const data = await fetch("/api/user/add_post_cmt", {
                 method: "POST",
                 headers: { 'Content-type': 'application/json' },
@@ -29,7 +36,9 @@ const CommentForm = ({ PostData, getCommentsData }) => {
             }).then((a) => a.json()).then((parsed) => {
                 setLoadingSubmitBtn(false);
                 if (parsed.ReqData.done) {
-                    getCommentsData();
+                    const SoketData = parsed.ReqData.NewCmt
+                    SendSoketMsg(SoketData)
+                   
                     setCmtText('');
                     Contextdata.ChangeAlertData('Comment Added 😍', 'success');
                 } else {
@@ -70,10 +79,10 @@ const CommentForm = ({ PostData, getCommentsData }) => {
                 </LoadingButton>
                 <div style={{ marginTop: 10 }}></div>
                 <small style={{ fontSize: '10px' }}>
-                    You agree to our 
-                    <span className={Mstyles.url} onClick={() => router.push('/TermsConditions')}>Terms & Conditions</span> 
-                    and 
-                    <span className={Mstyles.url} onClick={() => router.push('/PrivacyPolicy')}>Privacy Policy</span>
+                    You agree to our
+                    <span className={Mstyles.url} onClick={() => router.push('/terms_and_conditions')}> Terms & Conditions </span>
+                    <span> & </span>
+                    <span className={Mstyles.url} onClick={() => router.push('/privacy_policy')}> Privacy Policy</span>
                 </small>
                 <div style={{ marginTop: 20 }}></div>
             </div>

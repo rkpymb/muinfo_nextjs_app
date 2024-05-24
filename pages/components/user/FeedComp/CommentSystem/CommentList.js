@@ -3,7 +3,7 @@ import Comment from './Comment';
 
 const CommentList = ({ comments = [], onReply, onDelete, activeCommentId, setActiveCommentId, OnUpdate }) => {
     return (
-        <div>
+        <>
             {comments.map((comment) => (
                 <Comment
                     key={comment.CmtData?.CmtID} // Using optional chaining to avoid errors if CmtData is undefined
@@ -15,7 +15,7 @@ const CommentList = ({ comments = [], onReply, onDelete, activeCommentId, setAct
                     OnUpdate={OnUpdate}
                 />
             ))}
-        </div>
+        </>
     );
 };
 

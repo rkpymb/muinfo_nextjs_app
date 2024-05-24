@@ -18,6 +18,7 @@ const Comment = ({ comment = {}, onReply, onDelete, activeCommentId, setActiveCo
         setShowChildComments(!showChildComments);
     };
 
+
     const handleReply = () => {
         if (replyText.trim() !== '') {
             onReply(comment.CmtData?.CmtID, replyText);
@@ -69,17 +70,33 @@ const Comment = ({ comment = {}, onReply, onDelete, activeCommentId, setActiveCo
                     <Avatar
                         alt={comment.UserData?.name}
                         src={`${MediaFilesUrl}${MediaFilesFolder}/${comment.UserData?.dp}`}
-                        sx={{ width: 30, height: 30 }}
+                        sx={{ width: 35, height: 35 }}
                     />
                 </div>
                 <div className={Mstyles.CmtUserBoxB}>
                     <div className={Mstyles.CmtNamebox}>
                         <span>{comment.UserData?.name}</span>
                     </div>
-                    <div className={Mstyles.LineDevider}>●</div>
-                    <div className={Mstyles.CmtDatebox}>
-                        <span>{comment.formattedDate}</span>
+
+                    <div className={Mstyles.CmtUserBoxBFotter}>
+
+                        <div className={Mstyles.CmtDatebox}>
+                            <span>{comment.formattedDate}</span>
+                        </div>
+
+                        {comment.CmtData.StatusText == 'Edited' ?
+                            <div className={Mstyles.EditedTextms}>
+                                <div className={Mstyles.CmtDatebox}>
+                                    <span>({comment.CmtData.StatusText})</span>
+                                </div>
+                            </div> : null
+
+
+                        }
                     </div>
+
+
+
                 </div>
             </div>
             {showEditForm ? (
@@ -94,39 +111,86 @@ const Comment = ({ comment = {}, onReply, onDelete, activeCommentId, setActiveCo
                 />
             ) : (
                 <div>
-                    <div className={Mstyles.CmtMainText}>
-                        {comment.CmtData.CmtData.Text}
-                    </div>
+                    {comment.CmtData && comment.CmtData.CmtData && (
+                        <div className={Mstyles.CmtMainText}>
+                            {comment.CmtData.CmtData.Text}
+                        </div>
+                    )}
+
 
                     <div className={Mstyles.CmtBoxFooter}>
-                        {(Contextdata.UserData?.Role === 1 || (Contextdata.UserData?.Role === 2 && Contextdata.UserData.mobile === comment.CmtData?.UserData.mobile)) && (
-                            <div className={Mstyles.CmtBoxFooterA}>
-                                <div className={Mstyles.CmtBoxFooterItem}>
-                                    <LoadingButton
-                                        fullWidth
-                                        onClick={handleDelete}
-                                        loading={false}
-                                        loadingPosition="end"
-                                        size='small'
-                                        variant='text'
-                                    >
-                                        <span>Delete</span>
-                                    </LoadingButton>
+
+
+                        <div className={Mstyles.CmtBoxFooterAMain}>
+                            {Contextdata.UserData?.Role === 2 && Contextdata.UserData.mobile === comment.CmtData.UserData.mobile &&
+                                <div>
+                                    <div className={Mstyles.CmtBoxFooterA}>
+                                        <div className={Mstyles.CmtBoxFooterItem}>
+                                            <LoadingButton
+                                                fullWidth
+                                                onClick={handleDelete}
+                                                loading={false}
+                                                loadingPosition="end"
+                                                size='small'
+                                                variant='text'
+                                                className={Mstyles.CommentBtnsmall}
+                                            >
+                                                <span>Delete</span>
+                                            </LoadingButton>
+                                        </div>
+                                        <div className={Mstyles.CmtBoxFooterItem}>
+                                            <LoadingButton
+                                                fullWidth
+                                                onClick={handleEditClick}
+                                                loading={false}
+                                                loadingPosition="end"
+                                                size='small'
+                                                variant='text'
+                                                className={Mstyles.CommentBtnsmall}
+                                            >
+                                                <span>Edit</span>
+                                            </LoadingButton>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className={Mstyles.CmtBoxFooterItem}>
-                                    <LoadingButton
-                                        fullWidth
-                                        onClick={handleEditClick}
-                                        loading={false}
-                                        loadingPosition="end"
-                                        size='small'
-                                        variant='text'
-                                    >
-                                        <span>Edit</span>
-                                    </LoadingButton>
+                            }
+                            {Contextdata.UserData?.Role === 1 &&
+                                <div>
+                                    <div className={Mstyles.CmtBoxFooterA}>
+                                        <div className={Mstyles.CmtBoxFooterItem}>
+                                            <LoadingButton
+                                                fullWidth
+                                                onClick={handleDelete}
+                                                loading={false}
+                                                loadingPosition="end"
+                                                size='small'
+                                                variant='text'
+                                                className={Mstyles.CommentBtnsmall}
+                                            >
+                                                <span>Delete</span>
+                                            </LoadingButton>
+                                        </div>
+                                        {Contextdata.UserData.mobile === comment.CmtData.UserData.mobile &&
+                                            <div className={Mstyles.CmtBoxFooterItem}>
+                                                <LoadingButton
+                                                    fullWidth
+                                                    onClick={handleEditClick}
+                                                    loading={false}
+                                                    loadingPosition="end"
+                                                    size='small'
+                                                    variant='text'
+                                                    className={Mstyles.CommentBtnsmall}
+                                                >
+                                                    <span>Edit</span>
+                                                </LoadingButton>
+                                            </div>
+
+                                        }
+
+                                    </div>
                                 </div>
-                            </div>
-                        )}
+                            }
+                        </div>
 
                         <div className={Mstyles.CmtBoxFooterB}>
                             <div className={Mstyles.CmtBoxFooterItem}>
@@ -136,7 +200,8 @@ const Comment = ({ comment = {}, onReply, onDelete, activeCommentId, setActiveCo
                                     onClick={handleReplyClick}
                                     loading={false}
                                     loadingPosition="end"
-                                    variant='text'
+                                    variant='outlined'
+                                    className={Mstyles.CommentBtnsmall}
                                 >
                                     <span>{showReplyForm && isActive ? 'Cancel' : (comment.ChildCmt?.length > 0 ? `${comment.ChildCmt.length} Replies` : 'Reply')}</span>
                                 </LoadingButton>
@@ -175,7 +240,7 @@ const Comment = ({ comment = {}, onReply, onDelete, activeCommentId, setActiveCo
                 </div>
             )}
             {showChildComments && comment.ChildCmt?.length > 0 && (
-                <div>
+                <div className={Mstyles.fadeinAnimation}>
                     {comment.ChildCmt.map((childComment) => (
                         <Comment
                             key={childComment.CmtData?.CmtID}
@@ -185,6 +250,7 @@ const Comment = ({ comment = {}, onReply, onDelete, activeCommentId, setActiveCo
                             activeCommentId={activeCommentId}
                             setActiveCommentId={setActiveCommentId}
                             OnUpdate={OnUpdate}
+                         
                         />
                     ))}
                 </div>
