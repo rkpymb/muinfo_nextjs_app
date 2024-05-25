@@ -34,7 +34,7 @@ function Home() {
             <NavbarTitle Title={`Notifications`} />
             <div className={Mstyles.Fullbg}>
                 <div className={Mstyles.Container}>
-                    <div className={Mstyles.SecDevider}></div>
+                   
                     <div className={Mstyles.ContainerContent}>
                         <NotificationsList Type={1}/>
                     </div>

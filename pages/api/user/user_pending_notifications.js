@@ -12,10 +12,9 @@ export default function handler(req, res) {
                 Authorization: `Bearer ${token}`,
             };
             
-            axios.post(`${process.env.API_URL}user/notifications`, { 
+            axios.post(`${process.env.API_URL}user/user_pending_notifications`, { 
                 token: process.env.MYKEY,
-                page: req.body.page,
-                limit: req.body.limit,
+               
             }, { headers }).then((response) => {
            
                 res.status(200).json({ ReqData:response.data })

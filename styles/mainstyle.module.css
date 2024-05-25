@@ -620,16 +620,25 @@
   border-radius: 5px;
 
 }
+.NotiItemSeen {
+ 
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #f8f4f4;
+  opacity: 0.5;
+
+}
 
 .NotitextDate span {
   font-size: 10px;
-  font-weight: 600;
+  font-weight: 500;
   color: #23d5ab;
 
 }
 
 .Notitext span {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
 
 }
@@ -642,7 +651,7 @@
 
 .Notiimg {
 
-  width: 150px;
+  width: 30px;
 
 }
 
@@ -6044,14 +6053,14 @@
 
   .NotiItemTop {
     display: flex;
-    flex-direction: column;
+
     padding: 10px;
 
   }
 
   .Notiimg {
 
-    width: 100%;
+    width: 30px;
 
   }
 

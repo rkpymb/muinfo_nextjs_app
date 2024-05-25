@@ -7,6 +7,7 @@ const CheckloginStates = (props) => {
   const [UserData, setUserData] = useState({});
   const [UserLogin, setUserLogin] = useState(false);
   const [MainLoader, setMainLoader] = useState(true);
+  const [NotificationCount, setNotificationCount] = useState(0);
   const [AppMode, setAppMode] = useState(false);
   const [UserJwtToken, setUserJwtToken] = useState(null);
  
@@ -65,6 +66,7 @@ const CheckloginStates = (props) => {
             setUserJwtToken(parsedFinal.jwt_token)
            
             setUserLogin(true)
+            CheckNotifications()
           } else {
             setUserLogin(false)
 
@@ -75,6 +77,34 @@ const CheckloginStates = (props) => {
     } catch (error) {
       setUserLogin(false)
 
+
+    }
+  }
+
+  const CheckNotifications = async () => {
+    try {
+      const sendUM = { }
+      const data = await fetch("/api/user/user_pending_notifications", {
+        method: "POST",
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(sendUM)
+      }).then((a) => {
+        return a.json();
+      })
+        .then((parsedFinal) => {
+      
+          if (parsedFinal.ReqData) {
+            console.log(parsedFinal.ReqData)
+            setNotificationCount(parsedFinal.ReqData.allnoti || 0)
+          
+          } 
+          
+        })
+
+    } catch (error) {
+      console.log(error)
 
     }
   }
@@ -135,7 +165,7 @@ const removeCookie = (name, path = '/') => {
 
 
   return (
-    <CheckloginContext.Provider value={{UserJwtToken, UserData, UserLogin, ChangeAlertData, AlertData ,ChangeMainLoader,MainLoader,ChangeAppMode,AppMode,LogoutUser}}>
+    <CheckloginContext.Provider value={{UserJwtToken, UserData, UserLogin, ChangeAlertData, AlertData ,ChangeMainLoader,MainLoader,ChangeAppMode,AppMode,LogoutUser,NotificationCount,CheckNotifications}}>
       {props.children}
     </CheckloginContext.Provider>
   )

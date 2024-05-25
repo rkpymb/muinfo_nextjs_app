@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import Mstyles from '/styles/mainstyle.module.css'
 import InfiniteScroll from 'react-infinite-scroll-component';
+import CheckloginContext from '/context/auth/CheckloginContext'
 import CircularProgress from '@mui/material/CircularProgress';
 
 import { MediaFilesUrl, MediaFilesFolder } from '/Data/config'
@@ -9,6 +10,7 @@ import Image from 'next/image';
 const blurredImageData = 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88enTfwAJYwPNteQx0wAAAABJRU5ErkJggg==';
 import { useRouter, useParams } from 'next/router'
 const NotiListMain = () => {
+    const Contextdata = useContext(CheckloginContext)
     const router = useRouter()
     const [NotiList, setNotiList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -51,8 +53,6 @@ const NotiListMain = () => {
 
                 } else {
 
-
-
                     setNotiList(prevData => [...prevData, ...parsed.ReqData.DataList]);
                     setPage(page + 1)
 
@@ -66,6 +66,53 @@ const NotiListMain = () => {
 
             } else {
                 setHasMore(false);
+            }
+
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+
+        }
+    };
+
+    const NotiClick = async (ClickData) => {
+
+        const TragetUrl = ClickData.url
+        if (TragetUrl) {
+            window.open(`${TragetUrl}`, "_blank");
+        }
+
+    };
+    const notifications_read = async (Noti) => {
+        Contextdata.ChangeMainLoader(true)
+        const sendUM = {
+            id: Noti._id,
+        };
+
+        try {
+            const data = await fetch("/api/user/notifications_read", {
+                method: "POST",
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(sendUM)
+            });
+
+            if (!data.ok) {
+                throw new Error('Failed to fetch data');
+            }
+            const parsed = await data.json();
+
+            if (parsed.ReqData && parsed.ReqData.done) {
+              
+                Contextdata.ChangeMainLoader(false)
+                Contextdata.CheckNotifications()
+               
+                NotiClick(Noti)
+            } else {
+
+                Contextdata.ChangeMainLoader(false)
+
             }
 
 
@@ -92,19 +139,12 @@ const NotiListMain = () => {
 
     }, [router.query])
 
-    const NotiClick = async (ClickData) => {
-      
-        const TragetUrl = ClickData.url
-        if (TragetUrl) {
-            window.open(`${TragetUrl}`, "_blank");
-        }
 
-    };
 
 
     return (
         <div>
-           
+
 
             <InfiniteScroll
                 dataLength={NotiList.length}
@@ -122,14 +162,14 @@ const NotiListMain = () => {
             >
                 <div className={Mstyles.NotiGrid}>
                     {NotiList.map((item) => {
-                        return <div className={Mstyles.NotiItem} key={item._id}
-                        onClick={() => NotiClick(item.NotiItem)}
+                        return <div className={item.NotiItem.isActive ? Mstyles.NotiItem : Mstyles.NotiItemSeen} key={item._id}
+                            onClick={() => notifications_read(item.NotiItem)}
                         >
                             <div className={Mstyles.NotiItemTop}>
                                 <div className={Mstyles.NotiItemTopA}>
                                     <div className={Mstyles.Notiimg}>
                                         <Image
-                                            src={`${MediaFilesUrl}${MediaFilesFolder}/${item.NotiItem.img}`}
+                                            src={`${item.NotiItem.img}`}
                                             alt="image"
                                             layout="responsive"
                                             placeholder='blur'
@@ -137,23 +177,23 @@ const NotiListMain = () => {
                                             height={30}
                                             quality={100}
                                             blurDataURL={blurredImageData}
-                                            style={{ borderRadius:"5px", objectFit: "cover" }}
+                                            style={{ borderRadius: "5px", objectFit: "cover" }}
 
                                         />
                                     </div>
                                 </div>
                                 <div className={Mstyles.NotiItemTopB}>
-                                
-                                <div className={Mstyles.NotitextDate}>
+
+                                    <div className={Mstyles.NotitextDate}>
                                         <span>{item.formattedDate}</span>
-                                        
+
                                     </div>
                                     <div className={Mstyles.Notitext}>
-                                        <span>{item.NotiItem.title}</span>
-                                        <div style={{height:"5px"}}></div>
-                                        <small>{item.NotiItem.details}</small>
+                                        <small>{item.NotiItem.title}</small>
+                                        <div style={{ height: "5px" }}></div>
+                                        <span>{item.NotiItem.details}</span>
                                     </div>
-                                    
+
                                 </div>
 
 
