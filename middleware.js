@@ -56,7 +56,7 @@ async function checkUserAuthentication(request) {
 // Middleware function
 export async function middleware(request) {
 
-  const requiresAuthPaths = ['/feeds', '/user'];
+  const requiresAuthPaths = ['/feeds', '/user', '/group',];
 
   if (requiresAuthPaths.some(path => request.nextUrl.pathname.startsWith(path))) {
     const { response, isValid, redirect } = await checkUserAuthentication(request);

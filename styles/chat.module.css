@@ -1,3 +1,192 @@
+.msgTextarea {
+  width: 100%;
+  border: none;
+  outline: none;
+ 
+  max-height: 100px;
+  resize: none;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.UserAvatar{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.ChatWritebox {
+  display: flex;
+  align-items:flex-end;
+  justify-content: space-between;
+}
+.ChatWriteboxB{
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 100%;
+}
+
+.ChatboxFotter {
+  width: 100%;
+  margin: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  position: sticky;
+  bottom: 0;
+  z-index: 9999;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
+  background-color: white;
+  padding: 10px;
+}
+
+.Chatbox {
+  background-color: rgba(250, 235, 215, 0.736);
+  height: 100vh;
+  overflow: auto;
+}
+
+.OnlineText {
+  font-size: 10px;
+  font-weight: 600;
+  color: blueviolet;
+}
+
+.GroupTop {
+  display: flex;
+  padding: 10px;
+}
+
+.GroupTopB {
+  margin-left: 10px;
+}
+
+.GroupItemLogoSmall {
+  width: 50px;
+  background-color: white;
+  padding: 2px;
+
+}
+
+.GroupHeader {
+  width: 100%;
+  margin: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
+  background-color: white;
+}
+
+.GroupHeaderMain {
+  margin: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Fullbg {
+  min-height: 100vh;
+}
+
+.Container {
+  margin: 0 auto;
+  width: 100%;
+  background-color: white;
+}
+
+
+.ChatSection {
+  display: flex;
+
+}
+
+.ChatSectionA {
+  height: 100vh;
+  width: 30%;
+  position: sticky;
+  top: 0;
+  background-color: transparent;
+
+  overflow: auto;
+  border-right: 2px solid rgb(243, 237, 237);
+}
+
+/* Scrollbar styling */
+.ChatSectionA::-webkit-scrollbar {
+  width: 10px;
+}
+
+.ChatSectionA::-webkit-scrollbar-thumb {
+  background-color: rgb(243, 237, 237);
+  border-radius: 10px;
+  border: 2px solid rgb(243, 237, 237);
+  /* Optional: to add some space around the thumb */
+}
+
+.ChatSectionA::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(243, 237, 237);
+}
+
+.ChatSectionA::-webkit-scrollbar-track {
+  background-color: rgb(243, 237, 237);
+  border-radius: 10px;
+}
+
+/* For Firefox */
+.ChatSectionA {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(243, 237, 237);
+}
+
+
+
+.ChatSectionB {
+  width: 100%;
+
+
+}
+
+.craetegrpbtn {
+  padding: 10px;
+}
+
+.AsideTop {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: white;
+}
+
+.AsideTopLogo {
+  border-radius: 10px;
+  padding: 5px;
+
+
+  box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
+  width: 70px;
+
+}
+
+.AsideTopText {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.AsideTopText span {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.AsideTopText small {
+  font-weight: 600;
+  font-size: 10px;
+}
 
 .OnlyDesktop {
   display: block;
@@ -7,6 +196,144 @@
   display: none;
 }
 
+
+.ModalHeader {
+  width: 100%;
+  margin: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
+  background-color: white;
+}
+
+.formbtn {
+  width: 50%;
+  margin-top: 20px;
+
+
+}
+
+.inputItem {
+  margin-top: 20px;
+}
+
+.ModalHeaderMainAB span {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ModalHeaderMain {
+  width: 70%;
+  margin: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 5px;
+
+
+
+}
+
+.ModalContainer {
+  width: 60%;
+  margin: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 5px;
+  min-height: 100vh;
+}
+
+.ModalHeaderMainA {
+  display: flex;
+  align-items: center;
+}
+
+.ModalHeaderMainA {
+  width: 100%;
+  margin: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
+
+
+.GroupGrid {
+  margin: 0 auto;
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(minmax(99%, 1fr));
+}
+
+.GroupItemLogo {
+  width: 70px;
+  background-color: white;
+
+  padding: 5px;
+
+}
+
+.GroupItemFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.GrouCountItemB {
+  font-size: 10px;
+}
+
+.GroupItemFooterA {
+  width: 50%;
+}
+
+.GroupItemFooterB {
+  width: 50%;
+}
+
+.GrouCountItem {
+  display: flex;
+  align-items: center;
+}
+
+.GroupItemDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.GroupItemDetails span {
+  font-weight: 600;
+}
+
+.GroupItemTop {
+  display: flex;
+  padding: 10px;
+
+}
+
+.GroupItemTopB {
+  margin-left: 10px;
+}
+
+.GroupItem {
+  box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
+
+  margin: 5px;
+  border-radius: 10px;
+
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-between;
+  overflow: hidden;
+  position: relative;
+
+}
 
 
 /* mobile css */
@@ -24,5 +351,34 @@
   .OnlyMobile {
     display: block;
   }
+
+
+  .ModalHeaderMain {
+    width: 100%;
+    margin: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 5px;
+
+
+
+  }
+
+  .ModalContainer {
+    width: 100%;
+    margin: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 10px;
+    min-height: 100vh;
+  }
+
+  .formbtn {
+    width: 100%;
+    margin-top: 20px;
+
+
+  }
+
 
 }

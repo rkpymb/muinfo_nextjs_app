@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext,memo } from 'react';
+import React, { useState, useEffect, useContext, memo } from 'react';
 
 import CheckloginContext from '/context/auth/CheckloginContext'
 import Mstyles from '/styles/mainstyle.module.css'
 import IconButton from '@mui/material/IconButton';
 import { Router } from 'next/router';
-import { LuHome, LuArrowRight, LuBellDot, LuLayoutList, LuTrendingUp, LuStar, LuChevronRight, LuSettings, LuUserCog2, LuClipboardList, LuSparkles, LuLineChart, LuX, LuLogOut } from "react-icons/lu";
-import { MediaFilesUrl, MediaFilesFolder } from '/Data/config'
+import { LuHome, LuUsers, LuBellDot, LuLayoutList, LuTrendingUp, LuStar, LuChevronRight, LuSettings, LuUserCog2, LuClipboardList, LuSparkles, LuLineChart, LuX, LuLogOut } from "react-icons/lu";
+import { MediaFilesUrl, MediaFilesFolder,chat_website } from '/Data/config'
 
 import Drawer from '@mui/material/Drawer';
 import ThemeSwitch from './ThemeSwitch'
@@ -88,6 +88,26 @@ const MainNavBar = () => {
 
                         {/* <ThemeSwitch/> */}
 
+                        <div className={Mstyles.UmenuItemMain} onClick={() => router.push(`${chat_website}?token=${Contextdata.UserJwtToken}`)}>
+                            <div className={Mstyles.VmenuItem}>
+                                <div className={Mstyles.VmenuItemA}>
+
+                                    <div className={Mstyles.DbIcon}>
+                                        <LuUsers size={20} />
+
+                                    </div>
+
+                                </div>
+                                <div className={Mstyles.VmenuItemB}>
+                                    Groups
+                                </div>
+
+                            </div>
+                            <div className={Mstyles.VmenuItemMainB}>
+                                <LuChevronRight size={20} />
+
+                            </div>
+                        </div>
                         <div className={Mstyles.UmenuItemMain} onClick={() => router.push('/feeds')}>
                             <div className={Mstyles.VmenuItem}>
                                 <div className={Mstyles.VmenuItemA}>

@@ -1,6 +1,7 @@
 
 
 export const MediaFilesUrl = 'https://api.magadhuniversityinfo.com/';
+export const chat_website = 'https://groups.magadhuniversityinfo.com/';
 export const MediaFilesFolder = 'content/'
 export const FeedimgFolder = 'content'
 export const AdvtContentfolder = 'advt'
@@ -9,7 +10,7 @@ export const AppVersionCode = '2.0'
 export const GoogleMapsAPI = 'AIzaSyCd2G5EyfBZtKccEVM24VNGHRm3r_4cOa0'
 export const SvgLogo = 'https://api.magadhuniversityinfo.com/images/mu_logo.svg'
 
-// export const API_URL = 'https://api.magadhuniversityinfo.com/';
+
 export const API_URL = 'https://api.magadhuniversityinfo.com/';
 export const AppName = 'Magadh University Info';
 export const AppDesc = '';
