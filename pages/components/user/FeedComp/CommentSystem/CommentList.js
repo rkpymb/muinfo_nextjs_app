@@ -23,7 +23,10 @@ const CommentList = ({ comments, onDelete, ClickReply, ClickEditCmt, CloseEditCm
     };
 
     return (
-        <div className={Mstyles.CmtGrid}>
+        <div>
+            {comments &&
+            <div className={Mstyles.CmtGrid}>
+            
             {comments.map((item, index) => (
                 <div key={index} className={Mstyles.CmtItem}>
                     <div className={Mstyles.CmtItemMain}>
@@ -148,6 +151,10 @@ const CommentList = ({ comments, onDelete, ClickReply, ClickEditCmt, CloseEditCm
                     </div>
                 </div>
             ))}
+        </div>
+            
+            
+        }
         </div>
     );
 };
