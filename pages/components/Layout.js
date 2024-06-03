@@ -13,6 +13,8 @@ import MobileAppFooter from '../../src/components/Parts/Footers/MobileAppFooter'
 
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 
+
+
 const Layout = ({ children }) => {
     const Contextdata = useContext(CheckloginContext);
     const router = useRouter();
@@ -29,6 +31,7 @@ const Layout = ({ children }) => {
 
     return (
         <div>
+
             <MainNavBar />
 
             {isBrowser ?
@@ -72,8 +75,8 @@ const Layout = ({ children }) => {
 
             }
 
-<MobileAppFooter />
-           
+            <MobileAppFooter />
+
             <FloatingBtn />
         </div>
     );

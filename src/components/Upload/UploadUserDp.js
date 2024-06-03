@@ -14,7 +14,7 @@ import { FiImage, FiTrash } from "react-icons/fi";
 
 
 import LinearProgress from '@mui/material/LinearProgress';
-import { useRouter, useParams } from 'next/router'
+import { useRouter, useParams } from 'next/navigation'
 
 import {
     styled,

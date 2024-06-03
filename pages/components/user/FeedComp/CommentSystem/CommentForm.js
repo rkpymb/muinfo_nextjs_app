@@ -4,8 +4,13 @@ import { FiChevronRight } from 'react-icons/fi';
 import { useRouter } from 'next/router';
 import Mstyles from '/styles/mainstyle.module.css';
 import CheckloginContext from '/context/auth/CheckloginContext';
+import CircularProgress from '@mui/material/CircularProgress';
+import IconButton from '@mui/material/IconButton';
 
-const CommentForm = ({ PostData, getCommentsData, socket, roomId }) => {
+import TextField from '@mui/material/TextField';
+
+import { LuX } from "react-icons/lu";
+const CommentForm = ({ PostData, OpenReplay, ReplayForMsg, socket, roomId, CloseReplay,MainCmt }) => {
     const [CmtText, setCmtText] = useState('');
     const [LoadingSubmitBtn, setLoadingSubmitBtn] = useState(false);
     const Contextdata = useContext(CheckloginContext);
@@ -16,14 +21,20 @@ const CommentForm = ({ PostData, getCommentsData, socket, roomId }) => {
     };
 
     const SendSoketMsg = (SoketData) => {
-        if (CmtText.trim() !== '') {
-            socket.emit('NewComment', { SoketData, roomId });
-            setCmtText('');
-          }
+      
+        socket.emit('NewComment', { SoketData, roomId });
     };
 
     const AddCmt = async (e) => {
         e.preventDefault();
+        if (OpenReplay) {
+            SendCmtReplay()
+        } else {
+            SendCmt()
+        }
+    };
+    const SendCmt = async () => {
+       
 
         if (CmtText.trim() !== '') {
             setLoadingSubmitBtn(true);
@@ -38,54 +49,127 @@ const CommentForm = ({ PostData, getCommentsData, socket, roomId }) => {
                 if (parsed.ReqData.done) {
                     const SoketData = parsed.ReqData.NewCmt
                     SendSoketMsg(SoketData)
-                   
+
+                    
                     setCmtText('');
                     Contextdata.ChangeAlertData('Comment Added 😍', 'success');
                 } else {
                     Contextdata.ChangeAlertData('Something Went Wrong 😣', 'warning');
                 }
             });
-        } else {
-            Contextdata.ChangeAlertData(`Can't post Empty Comment 😣`, 'warning');
         }
     };
+    const SendCmtReplay = async () => {
+
+        if (CmtText.trim() !== '') {
+            setLoadingSubmitBtn(true);
+            try {
+                const response = await fetch("/api/user/add_cmt_replay", {
+                    method: "POST",
+                    headers: { 'Content-type': 'application/json' },
+                    body: JSON.stringify({ CmtText: CmtText, PostData, 
+                        ParentCmt: { 
+                            ParentCmtID: ReplayForMsg.CmtData.CmtID,
+                            MainCmt: MainCmt
+                        } 
+                    
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                if (data && data.ReqData.done) {
+                    setLoadingSubmitBtn(false);
+                    const SoketData = data.ReqData.NewCmt;
+                    SendSoketMsg(SoketData);
+                    setCmtText('');
+                    CloseReplay()
+                } else {
+                    console.error('Error adding reply:', data.message || 'Unknown error');
+                }
+            } catch (error) {
+                console.error('Error adding reply:', error);
+            }
+
+        }
+
+    };
+
+
 
     return (
-        <div>
-            <div className={Mstyles.PostBoxUserHeader}>
-                <span>Add Your <span className={Mstyles.RedColor}>Comment</span></span>
-                <small>Your Comment Will be Visible in Public</small>
-            </div>
-            <div className={Mstyles.PostBoxUserInput}>
-                <textarea
-                    placeholder="Write your comment here..."
-                    value={CmtText}
-                    autoFocus
-                    onChange={handleTextareaChange}
-                />
-            </div>
-            <div style={{ marginTop: 20 }}></div>
-            <div className={Mstyles.PostBoxFotter}>
-                <LoadingButton
-                    fullWidth
-                    onClick={AddCmt}
-                    endIcon={<FiChevronRight />}
-                    loading={LoadingSubmitBtn}
-                    loadingPosition="end"
-                    className={Mstyles.MainBtn}
-                    variant='outlined'
-                >
-                    <span>Post Comment</span>
-                </LoadingButton>
-                <div style={{ marginTop: 10 }}></div>
-                <small style={{ fontSize: '10px' }}>
-                    You agree to our
-                    <span className={Mstyles.url} onClick={() => router.push('/terms_and_conditions')}> Terms & Conditions </span>
-                    <span> & </span>
-                    <span className={Mstyles.url} onClick={() => router.push('/privacy_policy')}> Privacy Policy</span>
-                </small>
-                <div style={{ marginTop: 20 }}></div>
-            </div>
+        <div className={Mstyles.CommentForm}>
+            {OpenReplay &&
+
+
+                <div className={Mstyles.ReplayBox}>
+                    <div className={Mstyles.ReplayBoxTop}>
+                        <div className={Mstyles.ReplayBoxTopA}>
+                            <div>
+                                <span>Replying to </span> <span style={{ fontWeight: 700 }}> {ReplayForMsg && ReplayForMsg.UserData.name}</span>
+                            </div>
+
+                        </div>
+                        <div className={Mstyles.ReplayBoxTopB}>
+                            <IconButton
+                                style={{ width: 40, height: 40, }}
+                                onClick={CloseReplay}
+                            >
+                                <LuX />
+                            </IconButton>
+
+                        </div>
+                    </div>
+                    <div className={Mstyles.ReplayMsgFor}>
+                        {ReplayForMsg && ReplayForMsg.CmtData.CmtData.Text}
+                    </div>
+
+
+                </div>
+
+            }
+
+
+            <form onSubmit={AddCmt}>
+
+                <div className={Mstyles.CmtWritebox}>
+                    <TextField
+                        required
+                        placeholder='Write your comment here'
+                        fullWidth
+                        value={CmtText}
+
+                        onInput={e => setCmtText(e.target.value)}
+                        InputProps={{
+                            endAdornment: <IconButton
+
+                                onClick={AddCmt}
+
+                                pending={true}
+                                desabled={LoadingSubmitBtn}
+
+                            >
+                                {LoadingSubmitBtn ?
+
+                                    <div >
+                                        <CircularProgress color="secondary" size="1rem" />
+                                    </div> : <FiChevronRight />
+                                }
+
+
+                            </IconButton>
+                        }}
+
+                    />
+                </div>
+
+            </form>
+
+
         </div>
     );
 };

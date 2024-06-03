@@ -114,6 +114,8 @@ const Comment = ({ comment = {}, onReply, onDelete, activeCommentId, setActiveCo
                     {comment.CmtData && comment.CmtData.CmtData && (
                         <div className={Mstyles.CmtMainText}>
                             {comment.CmtData.CmtData.Text}
+
+                            <div className={Mstyles.CmtItemOverlay}></div>
                         </div>
                     )}
 

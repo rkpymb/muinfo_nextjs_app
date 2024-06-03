@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import CommentForm from './CommentForm';
+import EditCmtForm from './EditCmtForm';
 import CommentList from './CommentList';
 import CheckloginContext from '/context/auth/CheckloginContext';
 import Mstyles from '/styles/mainstyle.module.css';
@@ -9,6 +10,8 @@ import { API_URL } from '/Data/config';
 
 const Comments = ({ PostData }) => {
     const [comments, setComments] = useState([]);
+    const [OpenCmtEdit, setOpenCmtEdit] = useState(false);
+    const [EditCmt, setEditCmt] = useState(null);
     const Contextdata = useContext(CheckloginContext);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -16,6 +19,42 @@ const Comments = ({ PostData }) => {
 
     const [roomId, setRoomId] = useState(null);
     const [socket, setSocket] = useState(null);
+
+    const [ReplayForMsg, setReplayForMsg] = useState(null);
+    const [MainCmt, setMainCmt] = useState(null);
+    const [OpenReplay, setOpenReplay] = useState(false);
+
+
+    const ClickReply = (Msg, MainCmt) => {
+        setOpenCmtEdit(false)
+
+        setReplayForMsg(Msg);
+        setMainCmt(MainCmt);
+        setOpenReplay(true)
+
+    };
+    const ClickEditCmt = (Item) => {
+        setOpenReplay(false)
+        setEditCmt(Item);
+        setOpenCmtEdit(true)
+
+    };
+    const CloseEditCmt = (Item) => {
+       
+        setOpenCmtEdit(false)
+
+
+    };
+
+    const CloseReplay = () => {
+
+        setReplayForMsg(null);
+        setMainCmt(null);
+        setOpenReplay(false)
+
+    };
+
+
 
     useEffect(() => {
         if (roomId && Contextdata.UserJwtToken) {
@@ -27,11 +66,11 @@ const Comments = ({ PostData }) => {
             });
 
             newSocket.on('connect', () => {
-                console.log('Connected to server');
+
             });
 
             newSocket.on('disconnect', () => {
-                console.log('Disconnected from server');
+
             });
 
             newSocket.on('connect_error', (err) => {
@@ -46,82 +85,71 @@ const Comments = ({ PostData }) => {
 
             joinRoom();
 
-            newSocket.on('userJoined', (data) => {});
+            newSocket.on('userJoined', (data) => { });
 
             newSocket.on('CommentDeleted', (data) => {
                 const cmtid = data.data.cmtid;
-               
                 setComments(prevComments => {
-                    const removeCommentById = (comments, id) => {
-                        return comments
-                            .filter(comment => comment.CmtData._id !== id)
-                            .map(comment => ({
-                                ...comment,
-                                ChildCmt: removeCommentById(comment.ChildCmt, id)
-                            }));
+                    const deleteComment = (comments) => {
+                        return comments.reduce((result, comment) => {
+                            if (comment.CmtData._id !== cmtid) {
+                                if (comment.Replies) {
+                                    comment.Replies = deleteComment(comment.Replies);
+                                }
+                                result.push(comment);
+                            }
+                            return result;
+                        }, []);
                     };
-
-                    return removeCommentById(prevComments, cmtid);
+                    return deleteComment(prevComments);
                 });
             });
+
 
             newSocket.on('CommentUpdated', (data) => {
-                const updatedComment = data.data.updatedData;
-           
-            
-                const UpdatedData = updatedComment.CmtData; 
-                const StatusText = updatedComment.StatusText; 
-            
-                setComments(prevComments => {
-                    return prevComments.map(comment => {
-                        if (comment.CmtData._id === updatedComment._id) {
-                            // Update only if the comment matches the given _id
-                            return {
-                                ...comment,
-                                CmtData: {
-                                    ...comment.CmtData,
-                                    CmtData: UpdatedData,
-                                    StatusText: StatusText // StatusText ko bhi update karein
-                                }
-                            };
-                        }
-                        return comment; // Return unchanged if _id doesn't match
-                    });
+                const updatedComment = data.data.Data;
+                setComments((prevComments) => {
+                    const updateComment = (comments) => {
+                        return comments.map(comment => {
+                            if (comment.CmtData._id === updatedComment._id) {
+                                return {
+                                    ...comment,
+                                    CmtData: updatedComment
+                                };
+                            }
+                            if (comment.Replies) {
+                                return {
+                                    ...comment,
+                                    Replies: updateComment(comment.Replies)
+                                };
+                            }
+                            return comment;
+                        });
+                    };
+                    return updateComment(prevComments);
                 });
             });
-            
-            
-            
-            
+
+
+
             newSocket.on('NewComment', (data) => {
                 const newComment = data.data.SoketData[0];
                 if (newComment.CmtData.IsChild == null) {
                     setComments((prevComments) => [newComment, ...prevComments]);
                 } else {
+
                     setComments((prevComments) => {
-                        const updatedComments = prevComments.map(comment => {
-                            if (comment.CmtData.CmtID === newComment.CmtData.IsChild.ParentCmtID) {
-                                return {
-                                    ...comment,
-                                    ChildCmt: [newComment, ...comment.ChildCmt]
-                                };
-                            } else {
-                                return {
-                                    ...comment,
-                                    ChildCmt: comment.ChildCmt.map(child => {
-                                        if (child.CmtData.CmtID === newComment.CmtData.IsChild.ParentCmtID) {
-                                            return {
-                                                ...child,
-                                                ChildCmt: [newComment, ...child.ChildCmt]
-                                            };
-                                        }
-                                        return child;
-                                    })
-                                };
+                        const updatedComments = [...prevComments];
+                        const parentCommentIndex = updatedComments.findIndex(comment => comment.CmtData.CmtID === newComment.CmtData.IsChild.MainCmt);
+                        if (parentCommentIndex !== -1) {
+                            if (!updatedComments[parentCommentIndex].Replies) {
+                                updatedComments[parentCommentIndex].Replies = [];
                             }
-                        });
+                            updatedComments[parentCommentIndex].Replies.push(newComment);
+                        }
                         return updatedComments;
                     });
+
                 }
             });
 
@@ -150,6 +178,7 @@ const Comments = ({ PostData }) => {
                 const data = await response.json();
 
                 if (data.ReqData) {
+
                     setComments(data.ReqData.CmtAllList);
                     setLoading(false);
                 } else {
@@ -169,72 +198,40 @@ const Comments = ({ PostData }) => {
         getCommentsData();
     }, []);
 
-    const OnUpdate = async (updatedData) => {
-       
-        SendSoketMsgOnUpdatecmt(updatedData)
-      
-    };
 
-    const SendSoketMsg = (SoketData) => {
-        socket.emit('NewComment', { SoketData, roomId });
-    };
-    const SendSoketMsgOnUpdatecmt = (updatedData) => {
-        socket.emit('CommentUpdated', { updatedData, roomId });
-    };
 
-    const handleReply = async (parentCmtID, replyText) => {
-        if (replyText !== '') {
-            try {
-                const response = await fetch("/api/user/add_cmt_replay", {
-                    method: "POST",
-                    headers: { 'Content-type': 'application/json' },
-                    body: JSON.stringify({ CmtText: replyText, PostData, ParentCmt: { ParentCmtID: parentCmtID } })
-                });
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
 
-                const data = await response.json();
-
-                if (data && data.ReqData.done) {
-                
-                    const SoketData = data.ReqData.NewCmt;
-                    SendSoketMsg(SoketData);
-                } else {
-                    console.error('Error adding reply:', data.message || 'Unknown error');
-                }
-            } catch (error) {
-                console.error('Error adding reply:', error);
-            }
-        } else {
-            console.warn("Can't post an empty comment");
-        }
-    };
 
     const SendSoketMsgDelete = async (cmtid) => {
         socket.emit('CommentDeleted', { cmtid, roomId });
     };
 
+
     const handleDelete = async (deletedComment) => {
         let _id = deletedComment.CmtData._id;
-        try {
-            const response = await fetch("/api/user/delete_cmt", {
-                method: "POST",
-                headers: { 'Content-type': 'application/json' },
-                body: JSON.stringify({ _id })
-            });
-            const data = await response.json();
-            if (data.ReqData.DelData) {
-               
 
-                SendSoketMsgDelete(_id);
-            } else {
-                console.error('Something went wrong while deleting the comment');
+        const confirmDelete = window.confirm("Do you really want to delete this comment?");
+        if (confirmDelete) {
+            try {
+                const response = await fetch("/api/user/delete_cmt", {
+                    method: "POST",
+                    headers: { 'Content-type': 'application/json' },
+                    body: JSON.stringify({ _id })
+                });
+                const data = await response.json();
+                if (data.ReqData.DelData) {
+
+
+                    SendSoketMsgDelete(_id);
+                } else {
+                    console.error('Something went wrong while deleting the comment');
+                }
+            } catch (error) {
+                console.error('Error deleting comment:', error);
             }
-        } catch (error) {
-            console.error('Error deleting comment:', error);
         }
+
     };
 
     if (loading) return (
@@ -248,12 +245,25 @@ const Comments = ({ PostData }) => {
 
     return (
         <div>
-            <div className={Mstyles.Cmtmainbox}>
-                <CommentForm PostData={PostData} getCommentsData={getCommentsData} socket={socket} roomId={roomId} />
-            </div>
             <div className={Mstyles.CmtLBox}>
-                <CommentList comments={comments} onReply={handleReply} onDelete={handleDelete} OnUpdate={OnUpdate} activeCommentId={activeCommentId} setActiveCommentId={setActiveCommentId} />
+                <CommentList comments={comments} ClickReply={ClickReply} onDelete={handleDelete} CloseEditCmt={CloseEditCmt} ClickEditCmt={ClickEditCmt} OpenCmtEdit={OpenCmtEdit} />
+
             </div>
+
+            {!OpenCmtEdit ?
+                <CommentForm PostData={PostData} getCommentsData={getCommentsData} socket={socket} roomId={roomId} OpenReplay={OpenReplay} ReplayForMsg={ReplayForMsg} MainCmt={MainCmt} CloseReplay={CloseReplay} /> :
+                <EditCmtForm PostData={PostData} getCommentsData={getCommentsData} socket={socket} roomId={roomId} OpenReplay={OpenReplay} ReplayForMsg={ReplayForMsg} MainCmt={MainCmt} CloseReplay={CloseReplay} CloseEditCmt={CloseEditCmt} ClickEditCmt={ClickEditCmt} OpenCmtEdit={OpenCmtEdit} EditCmt={EditCmt} />
+
+
+            }
+
+
+            <small style={{ fontSize: '10px' }}>
+                You agree to our
+                <span className={Mstyles.url} onClick={() => router.push('/terms_and_conditions')}> Terms & Conditions </span>
+                <span> & </span>
+                <span className={Mstyles.url} onClick={() => router.push('/privacy_policy')}> Privacy Policy</span>
+            </small>
         </div>
     );
 };

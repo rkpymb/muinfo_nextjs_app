@@ -75,6 +75,7 @@ function Home({ PostData }) {
             {Contextdata.UserLogin ?
 
               <div>
+                <div style={{height:'15px'}}></div>
                 <Comments PostData={PostData[0].PostData} />
               </div> :
               <div style={{marginTop:'20px'}}>
