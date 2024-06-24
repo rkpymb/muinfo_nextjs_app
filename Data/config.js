@@ -1,7 +1,7 @@
 
 
 export const MediaFilesUrl = 'https://api.magadhuniversityinfo.com/';
-export const chat_website = 'http://groups.magadhuniversityinfo.com/';
+export const chat_website = 'http://localhost:3000/';
 export const MediaFilesFolder = 'content/'
 export const FeedimgFolder = 'content'
 export const AdvtContentfolder = 'advt'

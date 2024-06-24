@@ -4,7 +4,7 @@ import CheckloginContext from '/context/auth/CheckloginContext'
 import Mstyles from '/styles/mainstyle.module.css'
 import IconButton from '@mui/material/IconButton';
 import { Router } from 'next/router';
-import { LuHome, LuUsers, LuBellDot, LuLayoutList, LuTrendingUp, LuStar, LuChevronRight, LuSettings, LuUserCog2, LuClipboardList, LuSparkles, LuLineChart, LuX, LuLogOut } from "react-icons/lu";
+import { LuPencilLine, LuUsers, LuBellDot, LuLayoutList, LuTrendingUp, LuStar, LuChevronRight, LuSettings, LuUserCog2, LuClipboardList, LuSparkles, LuLineChart, LuX, LuLogOut } from "react-icons/lu";
 import { MediaFilesUrl, MediaFilesFolder,chat_website } from '/Data/config'
 
 import Drawer from '@mui/material/Drawer';
@@ -128,6 +128,29 @@ const MainNavBar = () => {
 
                             </div>
                         </div>
+                        {Contextdata.UserData && Contextdata.UserData.Role == 1 &&
+                        <div className={Mstyles.UmenuItemMain} onClick={() => router.push('/user/post/create_post')}>
+                        <div className={Mstyles.VmenuItem}>
+                            <div className={Mstyles.VmenuItemA}>
+
+                                <div className={Mstyles.DbIcon}>
+                                    <LuPencilLine size={20} />
+
+                                </div>
+
+                            </div>
+                            <div className={Mstyles.VmenuItemB}>
+                                Create Post
+                            </div>
+
+                        </div>
+                        <div className={Mstyles.VmenuItemMainB}>
+                            <LuChevronRight size={20} />
+
+                        </div>
+                    </div>
+                        }
+                        
                         <div className={Mstyles.UmenuItemMain} onClick={() => router.push('/user/notifications')}>
                             <div className={Mstyles.VmenuItem}>
                                 <div className={Mstyles.VmenuItemA}>

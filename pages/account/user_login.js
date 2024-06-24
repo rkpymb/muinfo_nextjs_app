@@ -12,8 +12,7 @@ import IconButton from '@mui/material/IconButton';
 
 import LoadingButton from '@mui/lab/LoadingButton';
 import { FiChevronRight, FiEdit } from 'react-icons/fi';
-import Alert from '@mui/material/Alert';
-import Stack from '@mui/material/Stack';
+
 import Image from 'next/image';
 
 import { SvgLogo } from '/Data/config'
@@ -40,6 +39,8 @@ function Overview() {
     const [mobilebox, setMobilebox] = useState(true);
     const [OtpBox, setOtpBox] = useState(false);
 
+    const { redirect } = router.query;
+
 
 
     const [PasswordShowtype, setPasswordShowtype] = useState('text');
@@ -55,7 +56,6 @@ function Overview() {
         }
 
     }
-
 
 
 
@@ -84,10 +84,18 @@ function Overview() {
                         if (parsedFinal.ReqData.LoginStatus == true) {
                             const newToken = parsedFinal.ReqData.token
                             const UserData = JSON.stringify(parsedFinal.ReqData.UserData)
-                            document.cookie = `jwt_token=${newToken}; expires=${new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000).toUTCString()}; path=/`;
-                            document.cookie = `user_data=${UserData}; expires=${new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000).toUTCString()}; path=/`;
+                            document.cookie = `jwt_token=${newToken}; expires=${new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000).toUTCString()}; path=/`;
+                            document.cookie = `user_data=${UserData}; expires=${new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000).toUTCString()}; path=/`;
                             Contextdata.ChangeAlertData(`${parsedFinal.ReqData.msg}`, 'success');
-                            router.push('/feeds')
+
+
+                            if (redirect) {
+                                console.log(redirect);
+                                router.push(`${redirect}?token=${newToken}`)
+
+                            }else{
+                                router.push('/feeds')
+                            }
 
 
                         } else {

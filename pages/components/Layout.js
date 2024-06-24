@@ -34,6 +34,7 @@ const Layout = ({ children }) => {
 
             <MainNavBar />
 
+
             {isBrowser ?
                 <div className={Mstyles.Fullbg}>
                     <div className={Mstyles.Container}>
@@ -60,6 +61,7 @@ const Layout = ({ children }) => {
                 </div> :
                 <div className={Mstyles.Fullbg}>
                     <div className={Mstyles.Container}>
+                   
                         <div className={Mstyles.OnlyDesktop}>
                             <div className={Mstyles.SecDevider}></div>
                         </div>
@@ -77,7 +79,7 @@ const Layout = ({ children }) => {
 
             <MobileAppFooter />
 
-            <FloatingBtn />
+          
         </div>
     );
 };

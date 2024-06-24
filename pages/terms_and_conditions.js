@@ -4,13 +4,8 @@ import CheckloginContext from '/context/auth/CheckloginContext'
 import Head from 'next/head';
 
 import MainNavBar from '../src/components/Parts/Navbar/MainNavBar'
-import UserSidemenu from '../src/components/Parts/UserSidemenu'
-import { AppDesc, AppName } from '/Data/config'
+
 import { useRouter, useParams } from 'next/router'
-import AddPost from './components/user/AddPost'
-import Feedlist from './components/user/FeedList'
-import Categories from './components/user/Categories'
-import HomeAsideAddLaptop from './components/Advt/HomeAsideAddLaptop'
 
 function Home() {
     const router = useRouter();
