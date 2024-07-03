@@ -51,10 +51,7 @@ const Layout = ({ children }) => {
                                 <div className={Mstyles.FooterDevider}></div>
                             </div>
                             <div className={Mstyles.FeedSectionC}>
-                                <HomeAsideAddLaptop />
-                                <div style={{ height: '15px' }}></div>
-                                <HomeAsideAddLaptop />
-                                <div className={Mstyles.SecDevider}></div>
+                               
                             </div>
                         </div>
                     </div>

@@ -49,6 +49,9 @@ function TokyoApp({ Component, pageProps }) {
         <meta property="og:site_name" content="Magadh University Info" />
       </Head>
 
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1977077051576195"
+     crossorigin="anonymous"></script>
+
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-Z0HYVSTLCL"
         strategy="afterInteractive"
