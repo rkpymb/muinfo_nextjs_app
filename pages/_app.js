@@ -47,10 +47,14 @@ function TokyoApp({ Component, pageProps }) {
         <link rel="icon" href="/logo/fevi.svg" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Magadh University Info" />
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1977077051576195"
+     crossorigin="anonymous"></script>
       </Head>
 
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1977077051576195"
-     crossorigin="anonymous"></script>
+    
+
+
+     
 
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-Z0HYVSTLCL"
